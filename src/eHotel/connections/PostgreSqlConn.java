@@ -1,8 +1,10 @@
 package eHotel.connections;
 
+import java.io.File;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import eHotel.entities.Room; 
 
@@ -19,11 +21,16 @@ public class  PostgreSqlConn{
 		public void getConn(){
 			
 			try {
+				File myObj = new File("dbCLILogin.txt");
+				Scanner sc = new Scanner(myObj);
+
+				String username = sc.nextLine();
+				String password = sc.nextLine();
 				
 				Class.forName("org.postgresql.Driver"); 
 								
-				db = DriverManager.getConnection("jdbc:postgresql://web0.site.uottawa.ca:15432/your database name",
-						"yourusername", "kkkkk");
+				db = DriverManager.getConnection("jdbc:postgresql://web0.site.uottawa.ca:15432/group_b07_g38",
+						username, password);
 															
 			}catch(Exception e) {
 				System.out.print("error catched");
