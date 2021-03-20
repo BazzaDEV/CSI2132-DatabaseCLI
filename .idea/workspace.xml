@@ -1,11 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="b0742315-b241-42f6-99ac-95acd9e9645e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/discord.xml" afterDir="false" />
+    <list default="true" id="6092d95c-42a9-47d6-a4ca-4e3390b990a2" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/connections/SQLDatabaseConnection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/connections/TestQuery.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/structs/Address.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/structs/Name.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/users/Admin.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/users/Customer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/users/Employee.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/users/Person.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/dbCLIlogin.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/CSI2132-DatabaseCLI.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/lib.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CSI2132-DatabaseCLI.iml" beforeDir="false" afterPath="$PROJECT_DIR$/CSI2132-DatabaseCLI.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/eHotel/connections/PostgreSqlConn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eHotel/connections/PostgreSqlConn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebContent/Customer.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebContent/Employee.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebContent/META-INF/MANIFEST.MF" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebContent/WEB-INF/lib/javax.servlet.jsp.jstl-1.2.5.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebContent/WEB-INF/lib/javax.servlet.jsp.jstl-api-1.2.2.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebContent/WEB-INF/lib/postgresql-42.2.5.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebContent/WEB-INF/web.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebContent/booking.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebContent/customer_login.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebContent/customer_register.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebContent/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebContent/login_failure.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebContent/login_success.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/eHotel/connections/PostgreSqlConn.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/eHotel/entities/Room.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/eHotel/entities/employee.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/eHotel/servlet/CustomerRegisterServlet.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/eHotel/servlet/CustomerloginServlet.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/eHotel/servlet/EmployeeloginServlet.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/eHotel/servlet/RoombookServlet.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eHotel/connections/PostgreSqlConn.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eHotel/entities/Room.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eHotel/entities/employee.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eHotel/servlet/CustomerRegisterServlet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eHotel/servlet/CustomerloginServlet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eHotel/servlet/EmployeeloginServlet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eHotel/servlet/RoombookServlet.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,12 +63,16 @@
   <component name="GithubDefaultAccount">
     <option name="defaultAccountId" value="70d890ad-ac4d-4ab9-9624-774663caccc7" />
   </component>
-  <component name="ProjectId" id="1pzN1XYhkgH8sbmYCPrNpdbx5rS" />
+  <component name="ProjectId" id="1q26owqkV2Qt4UjG5ML6DIkCZpG" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
@@ -31,31 +80,17 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="go.import.settings.migrated" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="show.migrate.to.gradle.popup" value="false" />
-  </component>
-  <component name="RunManager">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="b0742315-b241-42f6-99ac-95acd9e9645e" name="Default Changelist" comment="" />
-      <created>1616181743642</created>
+      <changelist id="6092d95c-42a9-47d6-a4ca-4e3390b990a2" name="Default Changelist" comment="" />
+      <created>1616265516953</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1616181743642</updated>
-      <workItem from="1616181744859" duration="645000" />
+      <updated>1616265516953</updated>
+      <workItem from="1616265519845" duration="156000" />
     </task>
     <servers />
   </component>
@@ -72,5 +107,8 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>
