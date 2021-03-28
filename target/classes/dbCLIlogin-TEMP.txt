@@ -1,0 +1,4 @@
+username
+password
+
+-- Make sure to change the file name; remove "-TEMP" from the end of the name.

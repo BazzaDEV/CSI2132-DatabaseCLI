@@ -23,4 +23,19 @@ public class Name {
     public String getLastName() {
         return lastName;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder strB = new StringBuilder();
+
+        strB.append(firstName).append(" ");
+
+        if (middleName!=null) {
+            strB.append(middleName).append(" ");
+        }
+
+        strB.append(lastName);
+
+        return strB.toString().trim();
+    }
 }

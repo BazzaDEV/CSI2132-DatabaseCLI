@@ -1,4 +1,4 @@
-package connections;
+package database;
 
 import java.io.File;
 import java.sql.*;
@@ -6,13 +6,23 @@ import java.util.Scanner;
 
 public class SQLDatabaseConnection {
 
+    private static final SQLDatabaseConnection instance = new SQLDatabaseConnection();
+
+    private SQLDatabaseConnection() {
+        load();
+    }
+
+    public static SQLDatabaseConnection getInstance() {
+        return instance;
+    }
+
     Connection db;
 
-    public void load() {
+    private void load() {
 
         try {
 
-            File myObj = new File("dbCLILogin.txt");
+            File myObj = new File("src/main/resources/dbCLIlogin.txt");
             Scanner sc = new Scanner(myObj);
 
             String username = sc.nextLine();

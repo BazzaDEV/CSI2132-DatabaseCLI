@@ -1,0 +1,108 @@
+package utils;
+
+import database.SQLDatabaseConnection;
+import structs.Address;
+import structs.Name;
+import users.Customer;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Scanner;
+
+public class Helper {
+    /**
+     * A helper method to eliminate the redundancy of typing "System.out.println()" every time
+     * a user wishes to print to the console.
+     *
+     * @param s the string to print to the console
+     */
+    public static void println(String s) {
+        System.out.println(s);
+    }
+
+    /**
+     * A helper method to eliminate the redundancy of typing "System.out.print()" every time
+     * a user wishes to print to the console.
+     * @param s the string to print to the console
+     */
+    public static void print(String s) {System.out.print(s);}
+
+    /**
+     * Returns a user's given input from a specified prompt.
+     *
+     * @param prompt a prompt for the user's input
+     * @return the user's provided input
+     */
+    public static String getInput(String prompt) {
+
+        Scanner sc = new Scanner(System.in);
+        println(prompt);
+
+        return sc.next();
+
+    }
+
+    /**
+     * Returns the Customer object associated with a given SIN number.
+     *
+     * @param sin the customer's SIN number
+     * @return the customer with the provided SIN number
+     */
+    public static Customer getCustomerFromSIN(String sin) {
+        SQLDatabaseConnection db = SQLDatabaseConnection.getInstance();
+
+        Customer c = null;
+
+        try {
+            ResultSet rs = db.executeQuery("SELECT * " +
+                    "FROM Customer " +
+                    "WHERE sin_number = " + sin);
+
+            if (!rs.next()) {
+                return null;
+            } else {
+
+                do {
+
+                    int sin_number = rs.getInt(1);
+
+                    // Name
+                    String first_name = rs.getString(2);
+                    String middle_name = rs.getString(3);
+                    String last_name = rs.getString(4);
+
+                    Name name = new Name(first_name, middle_name, last_name);
+
+                    // Address
+                    int street_number = rs.getInt(5);
+                    String street_name = rs.getString(6);
+                    int apt_number = rs.getInt(7);
+                    String city = rs.getString(8);
+                    String state_name = rs.getString(9);
+                    String zip = rs.getString(10);
+
+                    Address address = new Address(street_number, street_name, apt_number, city, state_name, zip);
+
+                    // Date of registration
+                    String date_of_registration = rs.getString(11);
+
+                    Date registrationDate = new SimpleDateFormat("yyyy-MM-dd").parse(date_of_registration);
+
+                    // Create Customer object
+                    c = new Customer(sin_number, name, address, registrationDate);
+
+                } while (rs.next());
+            }
+
+
+        } catch (SQLException | ParseException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return c;
+    }
+
+}
