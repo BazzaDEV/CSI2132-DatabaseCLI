@@ -39,7 +39,7 @@ public class Helper {
     public static String getInput(String prompt) {
 
         Scanner sc = new Scanner(System.in);
-        println(prompt);
+        print(prompt);
 
         return sc.next();
 
@@ -103,6 +103,46 @@ public class Helper {
         }
 
         return c;
+    }
+
+    /**
+     * Checks if a string is equal to (ignoring case) any member of
+     * a provided string array of options.
+     *
+     * Eliminates redundancy with chained OR checks with String.equalsIgnoreCase().
+     *
+     * @param toCheck the string to be validated against the validOptions
+     * @param validOptions the string array containing the valid options for toCheck
+     * @return
+     */
+    public static boolean multiCheck(String toCheck, String[] validOptions) {
+
+        for (String option : validOptions) {
+
+            if (toCheck.equalsIgnoreCase(option)) {
+                return true;
+            }
+
+        }
+
+        return false;
+
+    }
+
+    /**
+     * NOTE: This method is from Android's TextUtils class.
+     *
+     * Returns whether the given CharSequence contains only digits.
+     */
+    public static boolean isDigitsOnly(CharSequence str) {
+        final int len = str.length();
+        for (int cp, i = 0; i < len; i += Character.charCount(cp)) {
+            cp = Character.codePointAt(str, i);
+            if (!Character.isDigit(cp)) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }

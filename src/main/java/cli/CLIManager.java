@@ -1,5 +1,6 @@
 package cli;
 
+import cli.login.LoginMenu;
 import database.SQLDatabaseConnection;
 import users.User;
 
@@ -46,6 +47,14 @@ public class CLIManager {
 
     public void setUser(User newUser) {
         user = newUser;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public Date getCurrentDate() {
+        return currentDate;
     }
 
     public SQLDatabaseConnection getDB() {

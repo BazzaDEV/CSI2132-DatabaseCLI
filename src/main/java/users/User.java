@@ -14,4 +14,16 @@ public abstract class User {
         this.name = name;
         this.address = address;
     }
+
+    public int getSinNumber() {
+        return sinNumber;
+    }
+
+    public Name getName() {
+        return name;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
 }
