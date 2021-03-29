@@ -20,5 +20,8 @@ public class CustomerMainMenu extends Menu {
                         "\n" + Vars.DIVIDER_EQUALS);
         Helper.println("\nWelcome back, " + c.getName().getFirstName() + "!");
 
+        Helper.println("\nCustomer info:\n\n" +
+                c.toString());
+
     }
 }

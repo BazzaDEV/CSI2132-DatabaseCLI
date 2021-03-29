@@ -148,19 +148,17 @@ public class Helper {
 
                     Address address = new Address(street_number, street_name, apt_number, city, state_name, zip);
 
-                    // Date of registration
-                    String date_of_registration = rs.getString(11);
-
-                    Date registrationDate = new SimpleDateFormat("yyyy-MM-dd").parse(date_of_registration);
+                    int salary = rs.getInt(11);
+                    String role = rs.getString(12);
 
                     // Create Customer object
-                    e = new Employee(sin_number, name, address);
+                    e = new Employee(sin_number, name, address, salary, role);
 
                 } while (rs.next());
             }
 
 
-        } catch (SQLException | ParseException throwables) {
+        } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
 

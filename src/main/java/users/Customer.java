@@ -19,10 +19,8 @@ public class Customer extends User {
     public String toString() {
         StringBuilder strB = new StringBuilder();
 
-        strB.append(sinNumber).append("\n")
-                .append(name).append("\n")
-                .append(address).append("\n")
-                .append(new SimpleDateFormat("MMMMMMMM dd yyyy").format(registrationDate));
+        strB.append(super.toString()).append("\n")
+                .append("Registration Date: ").append(new SimpleDateFormat("MMMMMMMM dd yyyy").format(registrationDate));
 
         return strB.toString().trim();
     }

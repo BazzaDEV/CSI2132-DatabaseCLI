@@ -113,7 +113,7 @@ public class LoginMenu extends Menu {
 
         Employee e = null;
 
-        Helper.println("Hey Employee! Enter your SIN number to access the employee portal.");
+        Helper.println("\nHey Employee! Enter your SIN number to access the employee portal.");
 
         boolean FLAG = false;
 
@@ -130,8 +130,10 @@ public class LoginMenu extends Menu {
                     cliManager.loadMenu(new EmployeeMainMenu());
 
                 } else { // Employee does not exist
-                    Helper.println("Sorry, there is no employee with this SIN number." +
-                            "\nTry again.");
+                    FLAG = false;
+
+                    Helper.println("\nSorry, there is no employee with this SIN number." +
+                            "\nTry again.\n");
 
                     }
 
