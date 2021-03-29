@@ -5,19 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6092d95c-42a9-47d6-a4ca-4e3390b990a2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/cli/customer/CustomerMainMenu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cli/login/CustomerSignupMenu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/utils/Vars.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cli/CLIManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cli/CLIManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cli/LoginMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cli/login/LoginMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/users/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/users/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/utils/Helper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/Helper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cli/CLIManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cli/CLIManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cli/LoginMenu.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/users/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/users/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/utils/Helper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/utils/Helper.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,7 +56,7 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="discord-application" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RunManager">
@@ -110,7 +98,7 @@
       <workItem from="1616380506338" duration="239000" />
       <workItem from="1616585013855" duration="76000" />
       <workItem from="1616941114895" duration="326000" />
-      <workItem from="1616941712706" duration="21046000" />
+      <workItem from="1616941712706" duration="23453000" />
     </task>
     <servers />
   </component>
