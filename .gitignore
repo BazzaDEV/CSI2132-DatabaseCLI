@@ -1,4 +1,3 @@
-
 CSI2132-DatabaseCLI.iml
-src/main/resources/dbCLIlogin.txt
 target/*
+dbCLIlogin.txt
