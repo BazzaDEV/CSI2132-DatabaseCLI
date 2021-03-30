@@ -1,11 +1,13 @@
 package cli.login;
 
 import cli.Menu;
+import cli.admin.AdminMainMenu;
 import cli.customer.CustomerMainMenu;
 import cli.employee.EmployeeMainMenu;
 import users.Customer;
 import users.Employee;
 import utils.Helper;
+import utils.Vars;
 
 public class LoginMenu extends Menu {
 
@@ -38,7 +40,7 @@ public class LoginMenu extends Menu {
                     lookupEmployeeSIN();
 
                 } else if (userType.equalsIgnoreCase("A")) { // Admin login
-
+                    loginAdmin();
 
                 }
 
@@ -140,6 +142,31 @@ public class LoginMenu extends Menu {
             } else { // Invalid entry
 
                 Helper.println("\nInvalid entry - make sure you only enter digits & your SIN number is exactly 8 digits.");
+            }
+
+        }
+
+    }
+
+    private void loginAdmin() {
+
+        Helper.println("\nHey there, Admin!" +
+                "\nPlease enter the database password to continue.");
+
+        boolean FLAG = false;
+
+        while (!FLAG) {
+
+            String pass = Helper.getInput("\nPassword: ");
+
+            if (pass.equals(Vars.DATABASE_PASSWORD)) { // Correct password
+                FLAG = true;
+                cliManager.loadMenu(new AdminMainMenu());
+
+            } else { // Incorrect password
+
+                Helper.println("Incorrect password - try again.");
+
             }
 
         }
