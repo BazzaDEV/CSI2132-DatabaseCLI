@@ -37,7 +37,7 @@ public class LoginMenu extends Menu {
 
                 } else if (userType.equalsIgnoreCase("A")) { // Admin login
 
-
+                	askAdmin();
                 }
 
             }
@@ -106,4 +106,37 @@ public class LoginMenu extends Menu {
 
         }
     }
+    
+    
+    private void askAdmin() {
+    	System.out.println("Welcome Database Administrator.");
+    	
+    	boolean FLAG = false;
+    	while (!FLAG) {
+    		String choice1 = Helper.getInput("\nWhat SQL query would you like to write?" + "\n insert" + "\n delete" + "\n update");
+    		
+    		if (Helper.multiCheck(choice1,new String[] {"insert","delete","update"})) { // answer is valid input
+                FLAG = true;
+                
+              switch(choice1) {
+              case "insert":
+            	  Helper.adminInsert();
+            	  break;
+              case "delete":
+            	  //Helper.adminDelete();
+            	  break;
+              case "update":
+            	  //Helper.adminUpdate();
+            	  break;
+              }
+              
+    		
+    	}
+    	
+    	
+    }
+    
+    }
+    
+    
 }

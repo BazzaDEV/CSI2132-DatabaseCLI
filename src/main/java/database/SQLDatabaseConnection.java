@@ -44,5 +44,12 @@ public class SQLDatabaseConnection {
         return st.executeQuery(query);
     }
 
+	public void executeUpdate(String query) throws SQLException {
+		Statement st = db.createStatement();
+        st.executeUpdate(query);
+	}
+
+	
+
 
 }
