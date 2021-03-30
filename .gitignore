@@ -3,3 +3,4 @@ target/*
 .idea/*
 dbCLIlogin.txt
 .settings/*
+.DS_Store
