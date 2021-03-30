@@ -3,8 +3,6 @@ package users;
 import structs.Address;
 import structs.Name;
 
-import java.text.SimpleDateFormat;
-
 public abstract class User {
 
     protected int sinNumber;

@@ -5,14 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6092d95c-42a9-47d6-a4ca-4e3390b990a2" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/cli/customer/CustomerMainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cli/customer/CustomerMainMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cli/employee/EmployeeMainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cli/employee/EmployeeMainMenu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/cli/login/LoginMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cli/login/LoginMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/users/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/users/Customer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/users/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/users/Employee.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/users/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/users/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/utils/Helper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/Helper.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +60,7 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RunManager">
@@ -104,7 +101,11 @@
       <workItem from="1616585013855" duration="76000" />
       <workItem from="1616941114895" duration="326000" />
       <workItem from="1616941712706" duration="28835000" />
-      <workItem from="1616984772894" duration="5126000" />
+      <workItem from="1616984772894" duration="5538000" />
+      <workItem from="1617117317810" duration="69000" />
+      <workItem from="1617117572262" duration="3657000" />
+      <workItem from="1617121757095" duration="1366000" />
+      <workItem from="1617129001403" duration="3698000" />
     </task>
     <task id="LOCAL-00001" summary="Updated .gitignore to include target directory">
       <created>1616990069148</created>
@@ -113,7 +114,28 @@
       <option name="project" value="LOCAL" />
       <updated>1616990069149</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Finished Employee login process">
+      <created>1616991928808</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1616991928808</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Added jansi for color support in console">
+      <created>1617120456854</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1617120456854</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Finished Admin login process">
+      <created>1617123006215</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1617123006215</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -134,6 +156,9 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Updated .gitignore to include target directory" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated .gitignore to include target directory" />
+    <MESSAGE value="Finished Employee login process" />
+    <MESSAGE value="Added jansi for color support in console" />
+    <MESSAGE value="Finished Admin login process" />
+    <option name="LAST_COMMIT_MESSAGE" value="Finished Admin login process" />
   </component>
 </project>

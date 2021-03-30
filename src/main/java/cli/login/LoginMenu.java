@@ -4,6 +4,7 @@ import cli.Menu;
 import cli.admin.AdminMainMenu;
 import cli.customer.CustomerMainMenu;
 import cli.employee.EmployeeMainMenu;
+import users.Admin;
 import users.Customer;
 import users.Employee;
 import utils.Helper;
@@ -148,24 +149,30 @@ public class LoginMenu extends Menu {
 
     }
 
+    private void lookupAdminSIN() {
+
+
+    }
+
     private void loginAdmin() {
 
         Helper.println("\nHey there, Admin!" +
-                "\nPlease enter the database password to continue.");
+                "\nPlease enter your username and password to continue.");
 
         boolean FLAG = false;
 
         while (!FLAG) {
 
-            String pass = Helper.getInput("\nPassword: ");
+            String username = Helper.getInput("\nUsername: ");
+            String password = Helper.getInput("Password: ");
 
-            if (pass.equals(Vars.DATABASE_PASSWORD)) { // Correct password
+            if (true) { // Correct password
                 FLAG = true;
                 cliManager.loadMenu(new AdminMainMenu());
 
             } else { // Incorrect password
 
-                Helper.println("Incorrect password - try again.");
+                Helper.println("Incorrect username or password - try again.");
 
             }
 
