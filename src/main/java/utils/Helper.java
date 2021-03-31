@@ -44,6 +44,25 @@ public class Helper {
         return sc.nextLine().trim();
 
     }
+    
+    public static boolean ask(String prompt) {
+
+        Scanner sc = new Scanner(System.in);
+        print(prompt + "\n");
+        System.out.println("(yes / no) \n");
+
+       String answer = sc.nextLine().trim();
+       
+       Helper.multiCheck(answer, new String[] {"yes","no"});
+       
+       if(answer.equals("yes")) {
+    	   return false;
+    	   }
+       else {
+    	   return true;
+       }
+
+    }
 
     /**
      * Returns the Customer object associated with a given SIN number.

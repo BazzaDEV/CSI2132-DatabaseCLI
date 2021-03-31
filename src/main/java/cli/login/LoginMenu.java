@@ -165,7 +165,7 @@ public class LoginMenu extends Menu {
 
             String username = Helper.getInput("\nUsername: ");
             
-            Helper.println(username);
+            //Helper.println(username);
             
             String password = Helper.getInput("Password: ");
 
