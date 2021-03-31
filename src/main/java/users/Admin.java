@@ -21,16 +21,15 @@ public class Admin extends Employee {
      */
     public static void adminInsert() {
     	SQLDatabaseConnection db = SQLDatabaseConnection.getInstance();
-    	String tableName = Helper.getInput("\nWhat table do you want to insert data into?" 
-    			+ "\n Customer" + "\n employee" + "\n hotel" + "\n hotelroom");
-    	if(Helper.multiCheck(tableName,new String[] {"1","2","3","4"})){
-    		if(tableName.equals("customer")) {
-    			String data = Helper.getInput("What is" +tableName+ " data:");
+    	String tableName = Helper.getInput("\nWhat table do you want to insert data into?\n");
+    	if(Helper.multiCheck(tableName, new String[] {"hotel","worksfor","employee","supervises","hotelphonenum",
+    			"brandchain","hotelroom","hotelroomamenities","customer"})){
 
-    			System.out.println(data);
-    			//11111125,'John','Middle','Smith',27,'Streethere',5,'Paris','France','123456','2021-10-05','6131111125'
+    		String data = Helper.getInput("What is" +tableName+ " data to insert:");
+    		System.out.println(data);
+    		//11111125,'John','Middle','Smith',27,'Streethere',5,'Paris','France','123456','2021-10-05','6131111125'
 
-    			/*
+    		/*
           		String sin = Helper.getInput("Sin:");
           		String fName = Helper.getInput("fist name:");
           		String mName = Helper.getInput("middle name:");
@@ -41,32 +40,33 @@ public class Admin extends Employee {
           		String state = Helper.getInput("Sin:");
           		String zip = Helper.getInput("Sin:");
           		String date = Helper.getInput("Sin:");
-    			 */
+    		 */
 
+    		try {
+    			db.executeUpdate("Insert into"+tableName +"values(" 
+    					+ data + ")" );       
+    			
+    			System.out.println("Insert on"+tableName+"complete.");
+
+    			/*
     			try {
-    				db.executeUpdate("Insert into"+tableName +"values(" 
-    						+ data + ")" );       
-    				System.out.println("Insert of"+tableName+"complete.");
-
-    				try {
-    					ResultSet rs = db.executeQuery("SELECT * " +
-    							"FROM"+tableName );
-    					if (!rs.next()) {
-    						return;
-    					} else {
-    						do {                   
-    							System.out.println(rs.getInt(1));                          	                           
-    						} while (rs.next());
-    					}
-    				} catch (SQLException e2) {
-    					e2.printStackTrace();
-    				}              
-    			} catch (SQLException e) {
-    				e.printStackTrace();
-    			}
+    				ResultSet rs = db.executeQuery("SELECT * " +
+    						"FROM"+tableName );
+    				if (!rs.next()) {
+    					return;
+    				} else {
+    					do {                   
+    						//System.out.println();                          	                           
+    					} while (rs.next());
+    				}
+    			} catch (SQLException e2) {
+    				e2.printStackTrace();
+    			}  */            
+    			
+    		} catch (SQLException e) {
+    			e.printStackTrace();
     		}
     	}
-
     }
 
     /**
@@ -75,16 +75,19 @@ public class Admin extends Employee {
     public static void adminDelete() {
     	SQLDatabaseConnection db = SQLDatabaseConnection.getInstance();
 
-    	String tableName = Helper.getInput("\nWhat table do you want to delete data from?" 
-    			+ "\n customer" + "\n employee" + "\n hotel" + "\n hotelroom");
-    	if(Helper.multiCheck(tableName,new String[] {"customer","employee","hotel","hotelroom"})){
+    	String tableName = Helper.getInput("\nWhat table do you want to delete data from?");
+    	if(Helper.multiCheck(tableName,new String[] {"hotel","worksfor","employee","supervises","hotelphonenum",
+    			"brandchain","hotelroom","hotelroomamenities","customer"})){
 
-    		String condition1 = Helper.getInput("What is condition (do not put spaces):"+"\n WHERE (condition?) \n");
+    		String condition1 = Helper.getInput("What is condition:"+"\n WHERE (condition?) \n");
+    		
     		try {
-    			db.executeUpdate("delete from" +tableName.trim() +"where" 
-    					+ condition1.trim() );       
+    			db.executeUpdate("delete from" +tableName +"where" 
+    					+ condition1 );       
+    			
     			System.out.println("Delete on" + tableName+ "complete.");
 
+    			/*
     			try {
     				ResultSet rs = db.executeQuery("SELECT * " +
     						"FROM"+ tableName );
@@ -99,6 +102,7 @@ public class Admin extends Employee {
     			} catch (SQLException e2) {
     				e2.printStackTrace();
     			}              
+    			*/
     		} catch (SQLException e) {
     			e.printStackTrace();
     		}
@@ -111,34 +115,32 @@ public class Admin extends Employee {
     public static void adminUpdate() {
     	SQLDatabaseConnection db = SQLDatabaseConnection.getInstance();
 
-    	String tableName = Helper.getInput("\nWhat table do you want to Update data for?" 
-    			+ "\n customer" + "\n employee" + "\n hotel" + "\n hotelroom");
-    	if(Helper.multiCheck(tableName,new String[] {"customer","employee","hotel","hotelroom"})){
+    	String tableName = Helper.getInput("\nWhat table do you want to Update data for?");
+    	if(Helper.multiCheck(tableName,new String[] {"hotel","worksfor","employee","supervises","hotelphonenum",
+    			"brandchain","hotelroom","hotelroomamenities","customer"})){
 
     		String choice = Helper.getInput("\n What Update query would you like to execute?\n 1) UPDATE tableName SET Condition1 WHERE condition2;\n"
     				+"2) UPDATE tableName SET condition1;\n");
     		if(Helper.multiCheck(choice, new String[] {"1","2"})) {
-
+    			
     			try {
     				if(choice.equals("1")) {
-    					String condition1 = Helper.getInput("What is condition1 (do not put spaces):\n");
-    					String condition2 = Helper.getInput("What is condition2 (do not put spaces):\n");
-    					db.executeUpdate("update" +tableName.trim() 
+    					String condition1 = Helper.getInput("\nWhat is condition1:\n");
+    					String condition2 = Helper.getInput("\nWhat is condition2:\n");
+    					db.executeUpdate("update" +tableName
     					+"set" + condition1 
     					+ "where"+condition2);       		
     					//Helper.print(condition1+condition2);
     				}
     				else {
-    					if(choice.equals("1")) {
-    						String condition3 = Helper.getInput("What is condition1 (do not put spaces):\n");
-    						db.executeUpdate("update" +tableName.trim() 
-    						+"set" + condition3 
-    								);   			
-    						//Helper.print(condition3);
-    					}
+    					String condition3 = Helper.getInput("\nWhat is condition1 (do not put spaces):\n");
+    					db.executeUpdate("update" +tableName
+    							+"set" + condition3 
+    							);   			
+    					//Helper.print(condition3);
     				}
     				System.out.println("Update on" + tableName+ "complete.");
-    				try {
+    				/*try {
     					ResultSet rs = db.executeQuery("SELECT * " +
     							"FROM"+ tableName );       
     					if (!rs.next()) {
@@ -151,31 +153,11 @@ public class Admin extends Employee {
 
     				} catch (SQLException e2) {
     					e2.printStackTrace();
-    				}            
+    				}  */          
     			} catch (SQLException e) {
     				e.printStackTrace();
     			}
     		}
     	}
     }
-
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 }

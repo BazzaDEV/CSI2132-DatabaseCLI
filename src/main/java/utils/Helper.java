@@ -41,7 +41,7 @@ public class Helper {
         Scanner sc = new Scanner(System.in);
         print(prompt);
 
-        return sc.next().trim();
+        return sc.nextLine().trim();
 
     }
 
