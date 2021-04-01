@@ -2,22 +2,33 @@ package cli.admin;
 
 import cli.Menu;
 import org.apache.commons.lang3.StringUtils;
+import users.Admin;
+import users.User;
+import users.User;
 import utils.Helper;
 import utils.Vars;
 import users.Admin;
 
 public class AdminMainMenu extends Menu {
 
-	
-	
-	@Override
+    private Admin a;
+
+
+    @Override
 	public void start() {
-		Helper.println("\n" + Vars.DIVIDER_EQUALS +
+        User u = cliManager.getUser();
+
+        if (u instanceof Admin) {
+            a = (Admin) u;
+        }
+
+        Helper.println("\n" + Vars.DIVIDER_EQUALS +
 				"\n" + StringUtils.center("Database Admin - Main Menu", Vars.DIVIDER_EQUALS.length()) +
 				"\n" + Vars.DIVIDER_EQUALS);
-		System.out.println("\n Welcome Database Administrator.");
+        Helper.println("\nWelcome back, " + a.getName().getFirstName() + "!");
 
-		//ask what query to write
+
+        //ask what query to write
 		boolean FLAG = false;
 		while (!FLAG) {
 			String choice1 = Helper.getInput("\nWhat SQL query would you like to write?" + "\n insert" + "\n delete" + "\n update" + "\n exit \n");
@@ -36,9 +47,9 @@ public class AdminMainMenu extends Menu {
 						boolean flag2=false;
 						while(!flag2) {
 							//get table name
-							tableName = Helper.getInput("\nWhat table do you want to insert data into?\n"); 
+							tableName = Helper.getInput("\nWhat table do you want to insert data into?\n");
 							if(Helper.multiCheck(tableName, Admin.getTables())) {
-							System.out.println(Helper.getCols(tableName, Admin.getTables(), Admin.getCols()));		
+							System.out.println(Helper.getCols(tableName, Admin.getTables(), Admin.getCols()));
 							flag2 = Helper.ask("Is this the correct table? " + tableName);
 							}
 						}
@@ -48,17 +59,17 @@ public class AdminMainMenu extends Menu {
 						while(!flag1) { //no incorrect
 							data = Helper.getInput("What is " +tableName+ " data to insert:\n"); //table
 							System.out.println("Data to insert: "+data); //information
-							flag1 = Helper.ask("Is this the correct data to insert into "+tableName+" ?"); 
+							flag1 = Helper.ask("Is this the correct data to insert into "+tableName+" ?");
 							if(!flag1) {
 								System.out.println("Data was not inserted.");
 							}
 						}
-						
+
 						//11111125,'John','Middle','Smith',27,'Streethere',5,'Paris','France','123456','2021-10-05','6131111125'
 						//calls function that insert query to db
 						Admin.adminInsert(tableName, data);
 						FLAG2 = Helper.ask("Do you want to write another insert query?");
-					}		
+					}
 				}
 				//delete query
 				else if(choice1.equalsIgnoreCase("delete")) {
@@ -85,11 +96,11 @@ public class AdminMainMenu extends Menu {
 							if(!flag1) {
 								System.out.println("Data was not deleted.");
 							}
-						}	
+						}
 						//calls admin function for delete query from db
 						Admin.adminDelete(tableName,condition1);
 						FLAG3 = Helper.ask("Do you want to write another delete query?");
-					}	
+					}
 				}
 				//update query
 				else if(choice1.equalsIgnoreCase("update")) {
@@ -99,7 +110,7 @@ public class AdminMainMenu extends Menu {
 
 						boolean flag3=false;
 						while(!flag3) {
-							tableName = Helper.getInput("\nWhat table do you want to Update data for? \n");			
+							tableName = Helper.getInput("\nWhat table do you want to Update data for? \n");
 							if(Helper.multiCheck(tableName, Admin.getTables())) {
 							System.out.println(Helper.getCols(tableName, Admin.getTables(), Admin.getCols()));
 							flag3 = Helper.ask("Is this the correct table? " + tableName);
