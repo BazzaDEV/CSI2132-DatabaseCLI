@@ -13,27 +13,26 @@ public class Admin {
     public static final String ROLE_NAME = "Database Administrator";
     
     private static String[]tables = new String[]{"hotel","worksfor","employee","supervises","hotelphonenum",
-			"brandchain","hotelroom","hotelroomamenities","customer"};
+			"brandchain","hotelroom","hotelroomamenities","customer","hotelbrand",
+			"hotelbrandemail","hotelbrandphonenum","booksfor","cancreate","payment",
+			"booking","transformsinto","renting"};
 
     public Admin() {
     }
 
     /**
-     * Insert 
+     * Insert Query
+     * @param tableName
+     * @param data
      */
-    public static void adminInsert() {
+    public static void adminInsert(String tableName, String data) {
     	SQLDatabaseConnection db = SQLDatabaseConnection.getInstance();
-    	String tableName = Helper.getInput("\nWhat table do you want to insert data into?\n");
-    	if(Helper.multiCheck(tableName, tables)){
-    		String data = Helper.getInput("What is " +tableName+ " data to insert:\n");
-    		System.out.println(data);
-    		//11111125,'John','Middle','Smith',27,'Streethere',5,'Paris','France','123456','2021-10-05','6131111125'
-    		try {
-    			db.executeUpdate("Insert into "+tableName +" values(" 
-    					+ data + ")" );       
-    			System.out.println("Insert on "+tableName+" complete.");
-
-    			try {
+    	try {
+    		//update query on database
+    		db.executeUpdate("Insert into "+tableName +" values(" 
+    				+ data + ")" );       
+    		System.out.println("Insert of "+data+"\n into "+tableName+" complete.");
+    		/*
     				ResultSet rs = db.executeQuery("SELECT * " +
     						"FROM "+tableName );
     						ResultSetMetaData rsMetaData = rs.getMetaData(); 
@@ -46,129 +45,132 @@ public class Admin {
     							}
     							System.out.println();
     						}                       	                           
-    				
-    			} catch (SQLException e2) {
-    				e2.printStackTrace();
-    			}              
-    		} catch (SQLException e) {
-    			e.printStackTrace();
-    		}
+    		 */
+    	} catch (SQLException e) {
+    		e.printStackTrace();
     	}
     }
 
     /**
-     * Delete
+     * Delete Query
+     * @param tableName
+     * @param condition1
      */
-    public static void adminDelete() {
+    public static void adminDelete(String tableName, String condition1) {
     	SQLDatabaseConnection db = SQLDatabaseConnection.getInstance();
+    	try {
+    		//delete query on database
+    		db.executeUpdate("delete from " +tableName +" where " 
+    				+ condition1 );       
+    		System.out.println("Delete on " + tableName+ " complete.");
 
-    	String tableName = Helper.getInput("\nWhat table do you want to delete data from?");
-    	if(Helper.multiCheck(tableName,tables)){
-
-    		String condition1 = Helper.getInput("What is condition: "+"\n WHERE (condition?) \n");
-    		
-    		try {
-    			db.executeUpdate("delete from " +tableName +" where " 
-    					+ condition1 );       
-    			
-    			System.out.println("Delete on " + tableName+ " complete.");
-
-    			try {
-    				ResultSet rs = db.executeQuery("SELECT * " +
-    						"FROM "+tableName );
-    						ResultSetMetaData rsMetaData = rs.getMetaData(); 
-    						int numberOfColumns = rsMetaData.getColumnCount(); 
-    						System.out.println(numberOfColumns);
-    						while (rs.next()) 
-    						{ 	
-    							for(int i=1;i<=numberOfColumns;i++) {
-    								System.out.print(rs.getString(i) +"\t");
-    							}
-    							System.out.println();
-    						}                       	                           
-    				
-    			} catch (SQLException e2) {
-    				e2.printStackTrace();
-    			}      
-    		   	
-    		} catch (SQLException e) {
-    			e.printStackTrace();
-    		}
+    		/*
+    		ResultSet rs = db.executeQuery("SELECT * " +
+    				"FROM "+tableName );
+    		ResultSetMetaData rsMetaData = rs.getMetaData(); 
+    		int numberOfColumns = rsMetaData.getColumnCount(); 
+    		System.out.println(numberOfColumns);
+    		while (rs.next()) 
+    		{ 	
+    			for(int i=1;i<=numberOfColumns;i++) {
+    				System.out.print(rs.getString(i) +"\t");
+    			}
+    			System.out.println();
+    		}                      
+    		*/ 	                           
+    	} catch (SQLException e) {
+    		e.printStackTrace();
     	}
     }
 
     /**
-     * Update
+     * Update Query
+     * @param tableName
+     * @param choice
      */
-    public static void adminUpdate() {
+    public static void adminUpdate(String tableName, String choice) {
     	SQLDatabaseConnection db = SQLDatabaseConnection.getInstance();
 
-    	String tableName = Helper.getInput("\nWhat table do you want to Update data for?");
-    	if(Helper.multiCheck(tableName,tables)){
+    	if(choice.equals("1")) {
+    		System.out.println("UPDATE "+tableName
+    				+ "\n SET condition1"
+    				+ "\n WHERE condition2");
+    		String condition1="";
+    		String condition2="";
+    		boolean flag1=false;
+    		while(!flag1) {			
+    			//get the db administrator to input the query conditions
+    			condition1 = Helper.getInput("\nWhat is condition1:\n");
+    			condition2 = Helper.getInput("\nWhat is condition2:\n");	
+    			System.out.println("UPDATE "+tableName
+    					+ "\n SET "+ condition1 
+    					+ "\n WHERE "+ condition2);
+    			flag1=Helper.ask("Is this the correct update query?");
+    		}
 
-    		String choice = Helper.getInput("\n What Update query would you like to execute?\n 1) UPDATE tableName SET Condition1 WHERE condition2;\n"
-    				+"2) UPDATE tableName SET condition1;\n");
-    		if(Helper.multiCheck(choice, new String[] {"1","2"})) {
-    			
-    			try {
-    				if(choice.equals("1")) {
-    					String condition1 = Helper.getInput("\nWhat is condition1:\n");
-    					String condition2 = Helper.getInput("\nWhat is condition2:\n");
-    					db.executeUpdate("update " +tableName
+    		try {	
+    			//update query on database
+    			db.executeUpdate("update " +tableName
     					+" set " + condition1 
     					+ " where "+condition2);       		
-    					//Helper.print(condition1+condition2);
-    					System.out.println("Update on " + tableName+ " complete.");
-    					
-    					try {
-            				ResultSet rs = db.executeQuery("SELECT * " +
-            						"FROM "+tableName +" where "+ condition2 );
-            						ResultSetMetaData rsMetaData = rs.getMetaData(); 
-            						int numberOfColumns = rsMetaData.getColumnCount(); 
-            						System.out.println(numberOfColumns);
-            						while (rs.next()) 
-            						{ 	
-            							for(int i=1;i<=numberOfColumns;i++) {
-            								System.out.print(rs.getString(i) +"\t");
-            							}
-            							System.out.println();
-            						}                       	                           
-            				
-            			} catch (SQLException e3) {
-            				e3.printStackTrace();
-            			}      
-    					
+    			System.out.println("Update on " + tableName+ " complete.");
+    		
+    			//select tuples from table that were updated using condition
+    			ResultSet rs = db.executeQuery("SELECT * " +
+    					"FROM "+tableName +" where "+ condition2 );
+    			//get number of columns from table
+    			ResultSetMetaData rsMetaData = rs.getMetaData(); 
+    			int numberOfColumns = rsMetaData.getColumnCount(); 
+    			System.out.println(numberOfColumns);
+    			//print all information from table tuples
+    			while (rs.next()) 
+    			{ 	
+    				for(int i=1;i<=numberOfColumns;i++) {
+    					System.out.print(rs.getString(i) +"\t");
     				}
-    				else {
-    					String condition3 = Helper.getInput("\nWhat is condition1 (do not put spaces):\n");
-    					db.executeUpdate("update " +tableName
-    							+" set " + condition3 
-    							);   			
-    					//Helper.print(condition3);
-    					System.out.println("Update on " + tableName+ " complete.");
-    					
-    					try {
-            				ResultSet rs = db.executeQuery("SELECT * " +
-            						"FROM "+tableName +" where "+ condition3 );
-            						ResultSetMetaData rsMetaData = rs.getMetaData(); 
-            						int numberOfColumns = rsMetaData.getColumnCount(); 
-            						System.out.println(numberOfColumns);
-            						while (rs.next()) 
-            						{ 	
-            							for(int i=1;i<=numberOfColumns;i++) {
-            								System.out.print(rs.getString(i) +"\t");
-            							}
-            							System.out.println();
-            						}                       	                           
-            				
-            			} catch (SQLException e2) {
-            				e2.printStackTrace();
-            			}      
-    					
+    				System.out.println();
+    			}                       	                           
+    		} catch (SQLException e3) {
+    			e3.printStackTrace();
+    		}      
+    	}
+    	else { // choice = 2
+    		System.out.println("UPDATE "+tableName
+    				+ "\n SET condition1");
+    		String condition3="";
+    		boolean flag2=false;
+    		while(!flag2) {		
+    			//get input from db administrator for condition
+    			condition3 = Helper.getInput("\nWhat is condition1: \n");		
+    			System.out.println("UPDATE "+tableName
+    					+ "\n SET "+ condition3);
+    			flag2=Helper.ask("Is this the correct update query?");
+    		}
+
+    		try {
+    			//update query on db
+    			db.executeUpdate("update " +tableName
+    					+" set " + condition3 );   			
+    			System.out.println("Update on " + tableName+ " complete.");
+    			
+    			//select tuples that were updated
+    			ResultSet rs = db.executeQuery("SELECT * " +
+    					"FROM "+tableName +" where "+ condition3 );
+    			
+    			//get number of columns in table
+    			ResultSetMetaData rsMetaData = rs.getMetaData(); 
+    			int numberOfColumns = rsMetaData.getColumnCount(); 
+    			System.out.println(numberOfColumns);
+    			//print data from table tuples that were updated
+    			while (rs.next()) 
+    			{ 	
+    				for(int i=1;i<=numberOfColumns;i++) {
+    					System.out.print(rs.getString(i) +"\t");
     				}
-    			} catch (SQLException e) {
-    				e.printStackTrace();
-    			}
+    				System.out.println();
+    			}                       	                           
+    		}catch (SQLException e) {
+    			e.printStackTrace();
     		}
     	}
     }

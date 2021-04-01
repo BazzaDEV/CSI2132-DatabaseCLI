@@ -45,23 +45,26 @@ public class Helper {
 
     }
     
+    /**
+     * Asks the user a prompt with yes or no answer
+     * Returns true for user input of "yes"
+     * Returns false for user input of "no"
+     * @param prompt with yes or no answer
+     * @return
+     */
     public static boolean ask(String prompt) {
-
-        Scanner sc = new Scanner(System.in);
-        print(prompt + "\n");
-        System.out.println("(yes / no) \n");
-
-       String answer = sc.nextLine().trim();
-       
-       Helper.multiCheck(answer, new String[] {"yes","no"});
-       
-       if(answer.equals("yes")) {
-    	   return false;
-    	   }
-       else {
-    	   return true;
-       }
-
+    	Scanner sc = new Scanner(System.in);
+    	print("\n"+prompt + "\n");
+    	System.out.println("(yes / no) \n");
+    	String answer = sc.nextLine().trim();
+    	Helper.multiCheck(answer, new String[] {"yes","no"});
+    	sc.close();
+    	if(answer.equals("yes")) {
+    		return true;
+    	}
+    	else {
+    		return false;
+    	}
     }
 
     /**
