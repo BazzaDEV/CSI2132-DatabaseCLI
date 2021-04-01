@@ -2,7 +2,9 @@ package cli.employee;
 
 import cli.Menu;
 import org.apache.commons.lang3.StringUtils;
+import users.Admin;
 import users.Employee;
+import users.User;
 import utils.Helper;
 import utils.Vars;
 
@@ -13,7 +15,11 @@ public class EmployeeMainMenu extends Menu {
     @Override
     public void start() {
 
-        e = (Employee) cliManager.getUser();
+        User u = cliManager.getUser();
+
+        if (u instanceof Employee) {
+            e = (Employee) u;
+        }
 
         Helper.println("\n" + Vars.DIVIDER_EQUALS +
                 "\n" + StringUtils.center("Employee Main Menu", Vars.DIVIDER_EQUALS.length()) +
