@@ -130,7 +130,7 @@ public class Customer extends User {
         return false;
     }
     
-    /*public static void bookRooms(Integer hotel_ID, Integer room_number, String VAR_ROOM_CAPACITY, Integer VAR_NUM_OCCUPANTS, String VAR_START_DATE, String VAR_END_DATE) {
+    public static void bookRooms(Integer hotel_ID, Integer room_number, String VAR_ROOM_CAPACITY, Integer VAR_NUM_OCCUPANTS, String VAR_START_DATE, String VAR_END_DATE) {
     	
     	SQLDatabaseConnection db = SQLDatabaseConnection.getInstance();
 
@@ -141,7 +141,10 @@ public class Customer extends User {
             		+ " VALUES(default, 'scheduled', '" +VAR_ROOM_CAPACITY+ "', '"+ VAR_NUM_OCCUPANTS+ "', '" +VAR_START_DATE+ "', '" +VAR_END_DATE+ "');");
             
         	//need this select statement to get the booking ID we just inserted
-        	ResultSet b_ID = db.executeQuery("SELECT max(booking_ID) as b_ID FROM Booking");
+        	ResultSet rs = db.executeQuery("SELECT max(booking_ID) as b_ID FROM Booking");
+        	rs.next();
+            String b_ID = rs.getString(1);
+            System.out.println("Hotel ID: " + hotel_ID);
         	//Now insert into BooksFor
             db.executeUpdate(" Insert into BooksFor(booking_ID, room_number, hotel_ID)"
             		+ " values(" +b_ID+ ", "+ room_number+ ", " +hotel_ID+ ")");
@@ -154,7 +157,7 @@ public class Customer extends User {
             throwables.printStackTrace();
         }
     	
-    }*/
+    }
     
     
 }

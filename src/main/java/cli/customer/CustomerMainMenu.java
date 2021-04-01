@@ -236,7 +236,7 @@ public class CustomerMainMenu extends Menu {
         	int room_number=Integer.parseInt(number); 
         	
         	//booking room
-        	//Customer.bookRooms(hotel_ID, room_number, VAR_ROOM_CAPACITY, VAR_NUM_OCCUPANTS, VAR_START_DATE, VAR_END_DATE);
+        	Customer.bookRooms(hotel_ID, room_number, VAR_ROOM_CAPACITY, VAR_NUM_OCCUPANTS, VAR_START_DATE, VAR_END_DATE);
 
         }
 
