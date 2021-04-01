@@ -26,4 +26,12 @@ public class Employee extends User {
 
         return strB.toString().trim();
     }
+
+    public int getSalary() {
+        return salary;
+    }
+
+    public String getRole() {
+        return role;
+    }
 }
