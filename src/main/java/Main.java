@@ -9,6 +9,14 @@ public class Main {
 //        Helper.print(Paths.get(".").toAbsolutePath().normalize().toString());
 
         CLIManager cliManager = CLIManager.getInstance();
-        cliManager.startCLI();
+
+        if (args.length == 0) {
+            cliManager.startCLI();
+
+        } else if (args.length == 2) {
+            cliManager.startCLI(args[0], args[1]);
+        }
+
+
     }
 }
