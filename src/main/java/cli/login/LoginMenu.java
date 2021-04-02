@@ -20,14 +20,15 @@ public class LoginMenu extends Menu {
     @Override
     public void start() {
 
-        Helper.println("Welcome!");
+        Helper.println("\nWelcome!");
 
         boolean FLAG = false;
 
         while (!FLAG) {
 
             String[] userTypeOptions = new String[] {"C", "E", "A"};
-            String userType = Helper.getInput("Are you a (C)ustomer, (E)mployee, or Database (A)dministrator?\n");
+            String userType = Helper.getInput("Are you a (C)ustomer, (E)mployee, or Database (A)dministrator?" +
+                    "\n>> ");
 
             if (Helper.multiCheck(userType, userTypeOptions)) { // userType is valid
 
@@ -77,7 +78,8 @@ public class LoginMenu extends Menu {
                     while (!FLAG2) {
                         String input = Helper.getInput("\nWould you like to: " +
                                 "\n(1) Create a new customer account" +
-                                "\n(2) Try again");
+                                "\n(2) Try again" +
+                                "\n>> ");
 
                         if (Helper.multiCheck(input, new String[]{"1", "2"})) { // result is valid
 
@@ -87,7 +89,7 @@ public class LoginMenu extends Menu {
                                 cliManager.loadMenu(new CustomerSignupMenu());
 
                             } else if (input.equalsIgnoreCase("2")) { // Try again
-                                continue;
+                                FLAG = false;
 
                             }
                         }
