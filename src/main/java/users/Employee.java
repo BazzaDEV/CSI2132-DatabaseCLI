@@ -5,6 +5,8 @@ import org.apache.commons.lang3.StringUtils;
 import structs.Address;
 import structs.Name;
 import structs.Pair;
+import structs.booking.Booking;
+import structs.hotel.HotelRoom;
 import utils.Helper;
 import utils.Vars;
 
@@ -146,6 +148,32 @@ public class Employee extends User {
         }
 
         return false;
+    }
+
+    public boolean checkInCustomer(Booking b) {
+
+        SQLDatabaseConnection db = SQLDatabaseConnection.getInstance();
+
+        HotelRoom hotelRoom = new HotelRoom(b);
+
+        try {
+
+            db.executeQuery(
+                    "INSERT INTO Renting(renting_id, status, balance) VALUES (DEFAULT, ‘active’, " + hotelRoom.getPrice() + ");"
+            );
+
+            db.executeQuery("INSERT INTO TransformsInto(booking_ID, renting_ID) VALUES (" + b.getBookingID() + ", r_ID)" +
+                    " SELECT MAX(renting_ID) as r_ID" +
+                    " FROM Renting;"
+            );
+
+            return true;
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return false;
+        }
+
     }
 
 }
