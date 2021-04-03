@@ -33,22 +33,21 @@ public class AdminMainMenu extends Menu {
 
 			if (Helper.multiCheck(choice1,new String[] {"insert","delete","update"})) { // answer is valid input
 
-				switch(choice1) {
 				//insert query
-				case "insert":
+				if(choice1.equalsIgnoreCase("insert")) {
 					boolean FLAG2 = true;
 					while(FLAG2) { //yes write
 						String tableName="";
-						
+
 						boolean flag2=false;
 						while(!flag2) {
-						do { //get table name
-							tableName = Helper.getInput("\nWhat table do you want to insert data into?\n"); // try to get column names/ format of column names - print cusomter attribute names
-						}while(!Helper.multiCheck(tableName, Admin.getTables()));
-						System.out.println(Helper.getCols(tableName, Admin.getTables(), Admin.getCols()));		
-						flag2 = Helper.ask("Is this the correct table? " + tableName);
+							do { //get table name
+								tableName = Helper.getInput("\nWhat table do you want to insert data into?\n"); // try to get column names/ format of column names - print cusomter attribute names
+							}while(!Helper.multiCheck(tableName, Admin.getTables()));
+							System.out.println(Helper.getCols(tableName, Admin.getTables(), Admin.getCols()));		
+							flag2 = Helper.ask("Is this the correct table? " + tableName);
 						}
-						
+
 						String data="";
 						boolean flag1=false;
 						while(!flag1) { //no incorrect
@@ -64,21 +63,21 @@ public class AdminMainMenu extends Menu {
 						Admin.adminInsert(tableName, data);
 						FLAG2 = Helper.ask("Do you want to write another insert query?");
 					}		
-					break;
-					//delete query
-				case "delete":
+				}
+				//delete query
+				else if(choice1.equalsIgnoreCase("delete")) {
 					boolean FLAG3 = true;
 					while(FLAG3) {	//yes write
 						String tableName="";
 						boolean flag4=false;
 						while(!flag4) {
-						do {
-							tableName = Helper.getInput("\nWhat table do you want to delete data from?\n");
-						}while(!Helper.multiCheck(tableName, Admin.getTables()));
-						System.out.println(Helper.getCols(tableName, Admin.getTables(), Admin.getCols()));
-						flag4 = Helper.ask("Is this the correct table? " + tableName);
+							do {
+								tableName = Helper.getInput("\nWhat table do you want to delete data from?\n");
+							}while(!Helper.multiCheck(tableName, Admin.getTables()));
+							System.out.println(Helper.getCols(tableName, Admin.getTables(), Admin.getCols()));
+							flag4 = Helper.ask("Is this the correct table? " + tableName);
 						}
-						
+
 						String condition1="";
 						boolean flag1=false;
 						while(!flag1) { //no incorrect
@@ -93,22 +92,22 @@ public class AdminMainMenu extends Menu {
 						Admin.adminDelete(tableName,condition1);
 						FLAG3 = Helper.ask("Do you want to write another delete query?");
 					}	
-					break;
-					//update query
-				case "update":
+				}
+				//update query
+				else if(choice1.equalsIgnoreCase("update")) {
 					boolean FLAG4 = true;
 					while(FLAG4) { //yes write
 						String tableName="";
-						
+
 						boolean flag3=false;
 						while(!flag3) {
 							do {
-							tableName = Helper.getInput("\nWhat table do you want to Update data for?");			
+								tableName = Helper.getInput("\nWhat table do you want to Update data for?");			
 							}while(!Helper.multiCheck(tableName, Admin.getTables()));
 							System.out.println(Helper.getCols(tableName, Admin.getTables(), Admin.getCols()));
 							flag3 = Helper.ask("Is this the correct table? " + tableName);
 						}
-						
+
 						String choice="";
 						boolean flag1=false;
 						while(!flag1) { // no incorrect
@@ -122,7 +121,6 @@ public class AdminMainMenu extends Menu {
 							Admin.adminUpdate(tableName,choice);
 							FLAG4 = Helper.ask("Do you want to write another update query?");
 						}	
-						break;
 					}
 				}
 			}
