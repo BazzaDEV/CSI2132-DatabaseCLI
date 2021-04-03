@@ -1,5 +1,7 @@
 package structs.booking;
 
+import utils.Vars;
+
 import java.util.Date;
 
 public class Booking {
@@ -18,5 +20,18 @@ public class Booking {
         this.numOccupants = numOccupants;
         this.startDate = startDate;
         this.endDate = endDate;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder strB = new StringBuilder();
+
+        strB.append("Booking ID: ").append(bookingID)
+            .append("\nStatus: ").append(status)
+            .append("\nRoom Type: ").append(roomType)
+            .append("\nNumber of Occupants: ").append(numOccupants)
+            .append("\nDuration: ").append(Vars.DATE_FORMAT.format(startDate)).append(" -> ").append(Vars.DATE_FORMAT.format(endDate));
+
+        return strB.toString().trim();
     }
 }
