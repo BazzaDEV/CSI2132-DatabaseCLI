@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import database.SQLDatabaseConnection;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import database.SQLDatabaseConnection;
@@ -33,7 +34,7 @@ public class Customer extends User {
     }
     
     
-    public static boolean getRooms(String VAR_START_DATE, String VAR_END_DATE, String VAR_CITY, String VAR_STATE, float VAR_MIN_PRICE, float VAR_MAX_PRICE, String VAR_VIEW, String VAR_ROOM_CAPACITY, String VAR_IS_EXTENDABLE, String VAR_AMENITIES) {
+    public static boolean getRooms(String VAR_START_DATE, String VAR_END_DATE, String VAR_CITY, String VAR_STATE, float VAR_MIN_PRICE, float VAR_MAX_PRICE, String VAR_VIEW, String VAR_ROOM_CAPACITY, String VAR_IS_EXTENDABLE, String VAR_AMENITIES, ArrayList<String> rooms, ArrayList<String> hotels) {
         SQLDatabaseConnection db = SQLDatabaseConnection.getInstance();
 
         //execute the sql SELECT statement
@@ -75,9 +76,13 @@ public class Customer extends User {
                 	//hotel room ID
                     String hotel_ID = rs.getString("hotel_ID");
                     System.out.println("Hotel ID: " + hotel_ID);
+                    //int h = Integer.parseInt(hotel_ID);
+                    hotels.add(hotel_ID);
                     
                     String room_number = rs.getString("room_number");
                     System.out.println("Room Number: " + room_number +"\n");
+                    //int r = Integer.parseInt(room_number);
+                    rooms.add(room_number);
                   
                     //user selected info
                     System.out.println("Selected criteria");
@@ -144,7 +149,8 @@ public class Customer extends User {
         	ResultSet rs = db.executeQuery("SELECT max(booking_ID) as b_ID FROM Booking");
         	rs.next();
             String b_ID = rs.getString(1);
-            System.out.println("Hotel ID: " + hotel_ID);
+            //System.out.println("Hotel ID: " + hotel_ID);
+
         	//Now insert into BooksFor
             db.executeUpdate(" Insert into BooksFor(booking_ID, room_number, hotel_ID)"
             		+ " values(" +b_ID+ ", "+ room_number+ ", " +hotel_ID+ ")");
@@ -161,3 +167,4 @@ public class Customer extends User {
     
     
 }
+

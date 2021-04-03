@@ -5,6 +5,7 @@ import cli.Menu;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import org.apache.commons.lang3.StringUtils;
@@ -32,6 +33,8 @@ public class CustomerMainMenu extends Menu {
     private String number;
     private Integer hotel_ID;
     private Integer room_number;
+    private ArrayList<String> rooms;
+    private ArrayList<String> hotels;
 
     @Override
     public void start() {
@@ -206,10 +209,14 @@ public class CustomerMainMenu extends Menu {
             }
         }
         
+        rooms = new ArrayList<>();
+        hotels = new ArrayList<>();
         //displaying available hotel rooms
         System.out.println("These are the available hotel rooms: \n");
-        boolean result = Customer.getRooms(VAR_START_DATE, VAR_END_DATE, VAR_CITY, VAR_STATE, VAR_MIN_PRICE, VAR_MAX_PRICE, VAR_VIEW, VAR_ROOM_CAPACITY, VAR_IS_EXTENDABLE, VAR_AMENITIES);
-    
+        boolean result = Customer.getRooms(VAR_START_DATE, VAR_END_DATE, VAR_CITY, VAR_STATE, VAR_MIN_PRICE, VAR_MAX_PRICE, VAR_VIEW, VAR_ROOM_CAPACITY, VAR_IS_EXTENDABLE, VAR_AMENITIES, rooms, hotels);
+
+        
+        
         if (result == false) {
         	Helper.println("If you wish to book a hotel room please restart the process. Otherwise we wish you a great day!");
         } else {
@@ -222,7 +229,8 @@ public class CustomerMainMenu extends Menu {
                 ID = Helper.getInput("Hotel ID: \n");
                 number  = Helper.getInput("Room Number: \n");
 
-                if (min.matches("[0-9]+") && max.matches("[0-9]+")) { 
+                
+                if (hotels.contains(ID)&& rooms.contains(number)) { 
                 	
                     Flag = true;
 
