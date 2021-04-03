@@ -8,12 +8,7 @@ import users.Admin;
 
 public class AdminMainMenu extends Menu {
 
-	//make another array of column names
-	//match to tables array
-	//get index from array
 	
-	//create backup of db 
-	//test the admin queries
 	
 	@Override
 	public void start() {
@@ -41,7 +36,7 @@ public class AdminMainMenu extends Menu {
 						boolean flag2=false;
 						while(!flag2) {
 							//get table name
-							tableName = Helper.getInput("\nWhat table do you want to insert data into?\n"); // try to get column names/ format of column names - print cusomter attribute names
+							tableName = Helper.getInput("\nWhat table do you want to insert data into?\n"); 
 							if(Helper.multiCheck(tableName, Admin.getTables())) {
 							System.out.println(Helper.getCols(tableName, Admin.getTables(), Admin.getCols()));		
 							flag2 = Helper.ask("Is this the correct table? " + tableName);
@@ -53,7 +48,7 @@ public class AdminMainMenu extends Menu {
 						while(!flag1) { //no incorrect
 							data = Helper.getInput("What is " +tableName+ " data to insert:\n"); //table
 							System.out.println("Data to insert: "+data); //information
-							flag1 = Helper.ask("Is this the correct data to insert into "+tableName+" ?"); //make message for when data not inserted
+							flag1 = Helper.ask("Is this the correct data to insert into "+tableName+" ?"); 
 							if(!flag1) {
 								System.out.println("Data was not inserted.");
 							}
