@@ -6,3 +6,5 @@ dbCLIlogin.txt
 .DS_Store
 /target/
 /bin/
+.classpath
+.project
