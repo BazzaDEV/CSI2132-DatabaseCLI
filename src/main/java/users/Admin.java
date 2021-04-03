@@ -12,12 +12,12 @@ public class Admin {
 
     public static final String ROLE_NAME = "Database Administrator";
     
-    private static String[]tables = new String[]{"hotel","worksfor","employee","supervises","hotelphonenum",
-			"brandchain","hotelroom","hotelroomamenities","customer","hotelbrand",
-			"hotelbrandemail","hotelbrandphonenum","booksfor","cancreate","payment",
-			"booking","transformsinto","renting"};
+    private static String[]tables = new String[]{"hotelbrand", "hotelbrandphonenum", "hotelbrandemail", 
+    		"brandchain", "hotel", "hotelphonenum", "worksfor", "employee", "supervises", 
+    		"hotelroom", "hotelroomamenities", "booksfor", "customer", 
+    		"cancreate", "booking", "transformsinto", "payment", "renting"};
 
-    static String[]cols = new String[] {
+    private static String[]cols = new String[] {
 			"brand_ID, street_number, 'street_name', apt_number, 'city', 'state', zip, num_hotels", //hotelbrand
 			"brand_ID, phone_number(10)", //hotelbrandphonenum
 			"brand_ID, 'email_address'", //hotelbrandemail
@@ -123,7 +123,7 @@ public class Admin {
     	if(choice.equals("1")) {
     		System.out.println("UPDATE "+tableName
     				+ "\n SET condition1"
-    				+ "\n WHERE condition2");
+    				+ "\n WHERE condition2 ;");
     		String condition1="";
     		String condition2="";
     		boolean flag1=false;
@@ -133,7 +133,7 @@ public class Admin {
     			condition2 = Helper.getInput("\nWhat is condition2:\n");	
     			System.out.println("UPDATE "+tableName
     					+ "\n SET "+ condition1 
-    					+ "\n WHERE "+ condition2);
+    					+ "\n WHERE "+ condition2 +";");
     			flag1=Helper.ask("Is this the correct update query?");
     			if(!flag1) {
 					System.out.println("Update Query was not executed.");
@@ -168,14 +168,14 @@ public class Admin {
     	}
     	else { // choice = 2
     		System.out.println("UPDATE "+tableName
-    				+ "\n SET condition1");
+    				+ "\n SET condition1 ;");
     		String condition3="";
     		boolean flag2=false;
     		while(!flag2) {		
     			//get input from db administrator for condition
     			condition3 = Helper.getInput("\nWhat is condition1: \n");		
     			System.out.println("UPDATE "+tableName
-    					+ "\n SET "+ condition3);
+    					+ "\n SET "+ condition3 + ";");
     			flag2=Helper.ask("Is this the correct update query?");
     			if(!flag2) {
 					System.out.println("Update Query was not executed.");
