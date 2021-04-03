@@ -106,6 +106,9 @@ public class Admin {
     					+ "\n SET "+ condition1 
     					+ "\n WHERE "+ condition2);
     			flag1=Helper.ask("Is this the correct update query?");
+    			if(!flag1) {
+					System.out.println("Update Query was not executed.");
+				}
     		}
 
     		try {	
@@ -121,7 +124,7 @@ public class Admin {
     			//get number of columns from table
     			ResultSetMetaData rsMetaData = rs.getMetaData(); 
     			int numberOfColumns = rsMetaData.getColumnCount(); 
-    			System.out.println(numberOfColumns);
+    			//System.out.println(numberOfColumns);
     			//print all information from table tuples
     			while (rs.next()) 
     			{ 	
@@ -145,6 +148,9 @@ public class Admin {
     			System.out.println("UPDATE "+tableName
     					+ "\n SET "+ condition3);
     			flag2=Helper.ask("Is this the correct update query?");
+    			if(!flag2) {
+					System.out.println("Update Query was not executed.");
+				}
     		}
 
     		try {
@@ -160,7 +166,7 @@ public class Admin {
     			//get number of columns in table
     			ResultSetMetaData rsMetaData = rs.getMetaData(); 
     			int numberOfColumns = rsMetaData.getColumnCount(); 
-    			System.out.println(numberOfColumns);
+    			//System.out.println(numberOfColumns);
     			//print data from table tuples that were updated
     			while (rs.next()) 
     			{ 	
