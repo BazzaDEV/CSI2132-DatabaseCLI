@@ -225,6 +225,7 @@ public class CustomerMainMenu extends Menu {
         
         if (result == false) {
         	Helper.println("If you wish to book a hotel room please restart the process. Otherwise we wish you a great day!");
+        	cliManager.prevMenu();
         } else {
             //user chooose room for booking
             boolean Flag = false;
