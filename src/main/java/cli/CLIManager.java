@@ -67,6 +67,15 @@ public class CLIManager {
         menuStack.peek().start();
     }
 
+    public void popMenu() {
+        menuStack.pop();
+    }
+
+    public void popAndLoadMenu(Menu menu) {
+        popMenu();
+        loadMenu(menu);
+    }
+
     public void prevMenu() {
         menuStack.pop();
         menuStack.peek().start();
