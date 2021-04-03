@@ -38,14 +38,14 @@ public class AdminMainMenu extends Menu {
 					boolean FLAG2 = true;
 					while(FLAG2) { //yes write
 						String tableName="";
-
 						boolean flag2=false;
 						while(!flag2) {
-							do { //get table name
-								tableName = Helper.getInput("\nWhat table do you want to insert data into?\n"); // try to get column names/ format of column names - print cusomter attribute names
-							}while(!Helper.multiCheck(tableName, Admin.getTables()));
+							//get table name
+							tableName = Helper.getInput("\nWhat table do you want to insert data into?\n"); // try to get column names/ format of column names - print cusomter attribute names
+							if(Helper.multiCheck(tableName, Admin.getTables())) {
 							System.out.println(Helper.getCols(tableName, Admin.getTables(), Admin.getCols()));		
 							flag2 = Helper.ask("Is this the correct table? " + tableName);
+							}
 						}
 
 						String data="";
@@ -58,6 +58,7 @@ public class AdminMainMenu extends Menu {
 								System.out.println("Data was not inserted.");
 							}
 						}
+						
 						//11111125,'John','Middle','Smith',27,'Streethere',5,'Paris','France','123456','2021-10-05','6131111125'
 						//calls function that insert query to db
 						Admin.adminInsert(tableName, data);
@@ -71,11 +72,11 @@ public class AdminMainMenu extends Menu {
 						String tableName="";
 						boolean flag4=false;
 						while(!flag4) {
-							do {
-								tableName = Helper.getInput("\nWhat table do you want to delete data from?\n");
-							}while(!Helper.multiCheck(tableName, Admin.getTables()));
+							tableName = Helper.getInput("\nWhat table do you want to delete data from?\n");
+							if(Helper.multiCheck(tableName, Admin.getTables())) {
 							System.out.println(Helper.getCols(tableName, Admin.getTables(), Admin.getCols()));
 							flag4 = Helper.ask("Is this the correct table? " + tableName);
+							}
 						}
 
 						String condition1="";
@@ -101,11 +102,11 @@ public class AdminMainMenu extends Menu {
 
 						boolean flag3=false;
 						while(!flag3) {
-							do {
-								tableName = Helper.getInput("\nWhat table do you want to Update data for?");			
-							}while(!Helper.multiCheck(tableName, Admin.getTables()));
+							tableName = Helper.getInput("\nWhat table do you want to Update data for?");			
+							if(Helper.multiCheck(tableName, Admin.getTables())) {
 							System.out.println(Helper.getCols(tableName, Admin.getTables(), Admin.getCols()));
 							flag3 = Helper.ask("Is this the correct table? " + tableName);
+							}
 						}
 
 						String choice="";
