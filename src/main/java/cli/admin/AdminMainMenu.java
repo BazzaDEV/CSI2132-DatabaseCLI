@@ -82,7 +82,9 @@ public class AdminMainMenu extends Menu {
 						String condition1="";
 						boolean flag1=false;
 						while(!flag1) { //no incorrect
-							condition1 = Helper.getInput("What is condition: "+"\n WHERE (condition?) \n"); //condition
+							condition1 = Helper.getInput("What is condition: "
+									+ "\n DELETE FROM "+tableName
+									+ "\n WHERE condition ;\n"); //condition
 							System.out.println("DELETE FROM "+tableName+"\n WHERE "+condition1 + ";");
 							flag1 = Helper.ask("Is this the correct delete query ?");
 							if(!flag1) {
@@ -102,7 +104,7 @@ public class AdminMainMenu extends Menu {
 
 						boolean flag3=false;
 						while(!flag3) {
-							tableName = Helper.getInput("\nWhat table do you want to Update data for?");			
+							tableName = Helper.getInput("\nWhat table do you want to Update data for? \n");			
 							if(Helper.multiCheck(tableName, Admin.getTables())) {
 							System.out.println(Helper.getCols(tableName, Admin.getTables(), Admin.getCols()));
 							flag3 = Helper.ask("Is this the correct table? " + tableName);
@@ -112,16 +114,16 @@ public class AdminMainMenu extends Menu {
 						String choice="";
 						boolean flag1=false;
 						while(!flag1) { // no incorrect
-							choice = Helper.getInput("\n What Update query would you like to execute?\n "
+							choice = Helper.getInput("\nWhat Update query would you like to execute? (1 or 2)\n "
 									+ "1) UPDATE tableName SET Condition1 WHERE condition2;\n"
 									+ "2) UPDATE tableName SET condition1;\n");
 							if(Helper.multiCheck(choice, new String[] {"1","2"})) {
 								flag1 = Helper.ask("Is this the correct update query to use? \n"+"#"+choice);
 							}
+						}
 							//call admin function execute update query based on choice
 							Admin.adminUpdate(tableName,choice);
 							FLAG4 = Helper.ask("Do you want to write another update query?");
-						}	
 					}
 				}
 			}
