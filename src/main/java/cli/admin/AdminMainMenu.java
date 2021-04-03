@@ -12,7 +12,8 @@ import users.Admin;
 public class AdminMainMenu extends Menu {
 
     private Admin a;
-
+    
+    //sin number: 11111125
 
     @Override
 	public void start() {
@@ -48,8 +49,8 @@ public class AdminMainMenu extends Menu {
 						while(!flag2) {
 							//get table name
 							tableName = Helper.getInput("\nWhat table do you want to insert data into?\n");
-							if(Helper.multiCheck(tableName, Admin.getTables())) {
-							System.out.println(Helper.getCols(tableName, Admin.getTables(), Admin.getCols()));
+							if(Helper.multiCheck(tableName, a.getTables())) {
+							System.out.println(Helper.getCols(tableName, a.getTables(), a.getCols()));
 							flag2 = Helper.ask("Is this the correct table? " + tableName);
 							}
 						}
@@ -67,7 +68,7 @@ public class AdminMainMenu extends Menu {
 
 						//11111125,'John','Middle','Smith',27,'Streethere',5,'Paris','France','123456','2021-10-05','6131111125'
 						//calls function that insert query to db
-						Admin.adminInsert(tableName, data);
+						a.adminInsert(tableName, data);
 						FLAG2 = Helper.ask("Do you want to write another insert query?");
 					}
 				}
@@ -79,8 +80,8 @@ public class AdminMainMenu extends Menu {
 						boolean flag4=false;
 						while(!flag4) {
 							tableName = Helper.getInput("\nWhat table do you want to delete data from?\n");
-							if(Helper.multiCheck(tableName, Admin.getTables())) {
-							System.out.println(Helper.getCols(tableName, Admin.getTables(), Admin.getCols()));
+							if(Helper.multiCheck(tableName, a.getTables())) {
+							System.out.println(Helper.getCols(tableName, a.getTables(), a.getCols()));
 							flag4 = Helper.ask("Is this the correct table? " + tableName);
 							}
 						}
@@ -98,7 +99,7 @@ public class AdminMainMenu extends Menu {
 							}
 						}
 						//calls admin function for delete query from db
-						Admin.adminDelete(tableName,condition1);
+						a.adminDelete(tableName,condition1);
 						FLAG3 = Helper.ask("Do you want to write another delete query?");
 					}
 				}
@@ -111,8 +112,8 @@ public class AdminMainMenu extends Menu {
 						boolean flag3=false;
 						while(!flag3) {
 							tableName = Helper.getInput("\nWhat table do you want to Update data for? \n");
-							if(Helper.multiCheck(tableName, Admin.getTables())) {
-							System.out.println(Helper.getCols(tableName, Admin.getTables(), Admin.getCols()));
+							if(Helper.multiCheck(tableName, a.getTables())) {
+							System.out.println(Helper.getCols(tableName, a.getTables(), a.getCols()));
 							flag3 = Helper.ask("Is this the correct table? " + tableName);
 							}
 						}
@@ -128,7 +129,7 @@ public class AdminMainMenu extends Menu {
 							}
 						}
 							//call admin function execute update query based on choice
-							Admin.adminUpdate(tableName,choice);
+							a.adminUpdate(tableName,choice);
 							FLAG4 = Helper.ask("Do you want to write another update query?");
 					}
 				}

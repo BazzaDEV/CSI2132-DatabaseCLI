@@ -74,7 +74,7 @@ public class Helper {
     	String answer = sc.nextLine().trim();
     	Helper.multiCheck(answer, new String[] {"yes","no"});
     	//sc.close();
-    	if(answer.equals("yes")) {
+    	if(answer.equalsIgnoreCase("yes")) {
     		return true;
     	}
     	else {

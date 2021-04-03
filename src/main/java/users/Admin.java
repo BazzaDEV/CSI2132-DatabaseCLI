@@ -12,12 +12,14 @@ public class Admin extends Employee {
 
     public static final String ROLE_NAME = "DB Administrator";
 
-    private static String[]tables = new String[]{"hotelbrand", "hotelbrandphonenum", "hotelbrandemail",
+    //database table names
+    private String[]tables = new String[]{"hotelbrand", "hotelbrandphonenum", "hotelbrandemail",
     		"brandchain", "hotel", "hotelphonenum", "worksfor", "employee", "supervises",
     		"hotelroom", "hotelroomamenities", "booksfor", "customer",
     		"cancreate", "booking", "transformsinto", "payment", "renting"};
 
-    private static String[]cols = new String[] {
+    //strings for table attribute names for insert format
+    private String[]cols = new String[] {
 			"brand_ID, street_number, 'street_name', apt_number, 'city', 'state', zip, num_hotels", //hotelbrand
 			"brand_ID, phone_number(10)", //hotelbrandphonenum
 			"brand_ID, 'email_address'", //hotelbrandemail
@@ -46,11 +48,19 @@ public class Admin extends Employee {
         super(e.sinNumber, e.name, e.address, e.getSalary(), ROLE_NAME);
     }
 
-    public static String[] getTables() {
+    /**
+     * Getter for table names array
+     * @return
+     */
+    public String[] getTables() {
     	return tables;
     }
 
-    public static String[] getCols() {
+    /**
+     * Getter for attibute names array
+     * @return
+     */
+    public String[] getCols() {
     	return cols;
     }
 
@@ -59,7 +69,7 @@ public class Admin extends Employee {
      * @param tableName
      * @param data
      */
-    public static void adminInsert(String tableName, String data) {
+    public void adminInsert(String tableName, String data) {
     	SQLDatabaseConnection db = SQLDatabaseConnection.getInstance();
     	try {
     		//update query on database
@@ -81,7 +91,8 @@ public class Admin extends Employee {
     						}
     		 */
     	} catch (SQLException e) {
-    		e.printStackTrace();
+    		//e.printStackTrace();
+    		System.out.println("Could not execute Insert Query.");
     	}
     }
 
@@ -90,7 +101,7 @@ public class Admin extends Employee {
      * @param tableName
      * @param condition1
      */
-    public static void adminDelete(String tableName, String condition1) {
+    public void adminDelete(String tableName, String condition1) {
     	SQLDatabaseConnection db = SQLDatabaseConnection.getInstance();
     	try {
     		//delete query on database
@@ -113,7 +124,8 @@ public class Admin extends Employee {
     		}
     		*/
     	} catch (SQLException e) {
-    		e.printStackTrace();
+    		//e.printStackTrace();
+    		System.out.println("Could not execute Delete Query.");
     	}
     }
 
@@ -122,7 +134,7 @@ public class Admin extends Employee {
      * @param tableName
      * @param choice
      */
-    public static void adminUpdate(String tableName, String choice) {
+    public void adminUpdate(String tableName, String choice) {
     	SQLDatabaseConnection db = SQLDatabaseConnection.getInstance();
 
     	if(choice.equals("1")) {
@@ -168,7 +180,8 @@ public class Admin extends Employee {
     				System.out.println();
     			}
     		} catch (SQLException e3) {
-    			e3.printStackTrace();
+    			//e3.printStackTrace();
+    			System.out.println("Could not execute Update Query.");
     		}
     	}
     	else { // choice = 2
@@ -210,7 +223,8 @@ public class Admin extends Employee {
     				System.out.println();
     			}
     		}catch (SQLException e) {
-    			e.printStackTrace();
+    			//e.printStackTrace();
+    			System.out.println("Could not execute Update Query.");
     		}
     	}
     }
