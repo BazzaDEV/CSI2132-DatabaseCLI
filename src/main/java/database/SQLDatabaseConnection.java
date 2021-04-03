@@ -48,4 +48,5 @@ public class SQLDatabaseConnection {
 		Statement st = db.createStatement();
         st.executeUpdate(query);
 	}
+
 }

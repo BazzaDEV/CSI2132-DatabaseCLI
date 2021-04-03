@@ -150,6 +150,7 @@ public class Customer extends User {
         	rs.next();
             String b_ID = rs.getString(1);
             //System.out.println("Hotel ID: " + hotel_ID);
+
         	//Now insert into BooksFor
             db.executeUpdate(" Insert into BooksFor(booking_ID, room_number, hotel_ID)"
             		+ " values(" +b_ID+ ", "+ room_number+ ", " +hotel_ID+ ")");
