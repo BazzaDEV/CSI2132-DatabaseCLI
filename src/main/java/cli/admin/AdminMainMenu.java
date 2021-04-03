@@ -8,36 +8,9 @@ import users.Admin;
 
 public class AdminMainMenu extends Menu {
 
-	static String[]tables = new String[]{
-			"hotelbrand","hotelbrandphonenum", "hotelbrandemail",
-			"brandchain","hotel","hotelphonenum",
-			"worksfor", "employee", "supervises", "hotelroom", "hotelroomamenities", "booksfor",
-			"customer", "cancreate", "booking", "transformsinto", "payment", "renting"};
-	
 	//make another array of column names
 	//match to tables array
 	//get index from array
-	
-	static String[]cols = new String[] {
-			"brand_ID, street_number, 'street_name', apt_number, 'city', 'state', zip, num_hotels", //hotelbrand
-			"brand_ID, phone_number(10)", //hotelbrandphonenum
-			"brand_ID, 'email_address'", //hotelbrandemail
-			"hotel_ID, brand_ID", //brandchain
-			"hotel_ID, star_category, number_of_rooms, 'street_number_street_name', 'city', 'state', 'zip(6)','email_address'", //hotel
-			"hotel_ID, phone_number", //hotelphonenum
-			"sin_number, hotel_ID", //worksfor
-			"sin_number, 'first_name', 'middle_name', 'last_name', street_number, 'street_name',apt_number, 'city', 'state', 'zip', salary, 'role'", //employee
-			"manager_ID, supervisee_ID", //supervises
-			"hotel_ID, room_number, price, 'room_capacity', 'view', 'is_extendable', 'room_status'", //hotelroom
-			"hotel_ID, room_number, 'amenity'", //hotelroomamenities
-			"booking_ID, room_number, hotel_ID", //booksfor
-			"sin_number, 'first_name', 'middle_name', 'last_name', 'street_number', 'street_name',apt_number, 'city', 'state', 'zip', 'date_of_registration YYYY-MM-DD'", //customer
-			"booking_ID, sin_number", //cancreate
-			"default (booking_ID), 'status', 'room_type', num_occupants, 'start_date YYYY-MM-DD', 'end_date YYYY-MM-DD'", //booking
-			"booking_ID, renting_ID", //transformsinto
-			"renting_ID, default (transaction_ID) , 'due_date YYYY-MM-DD', amount, 'received_on YYYY-MM-DD'", //payment
-			"default (renting_ID), 'status', balance" //renting		
-	};
 	
 	//create backup of db 
 	//test the admin queries
@@ -66,12 +39,16 @@ public class AdminMainMenu extends Menu {
 					boolean FLAG2 = true;
 					while(FLAG2) { //yes write
 						String tableName="";
+						
+						boolean flag2=false;
+						while(!flag2) {
 						do { //get table name
 							tableName = Helper.getInput("\nWhat table do you want to insert data into?\n"); // try to get column names/ format of column names - print cusomter attribute names
-						}while(!Helper.multiCheck(tableName, tables));
+						}while(!Helper.multiCheck(tableName, Admin.getTables()));
+						System.out.println(Helper.getCols(tableName, Admin.getTables(), Admin.getCols()));		
+						flag2 = Helper.ask("Is this the correct table? " + tableName);
+						}
 						
-						System.out.println(Helper.getCols(tableName, tables, cols));
-
 						String data="";
 						boolean flag1=false;
 						while(!flag1) { //no incorrect
@@ -93,10 +70,15 @@ public class AdminMainMenu extends Menu {
 					boolean FLAG3 = true;
 					while(FLAG3) {	//yes write
 						String tableName="";
+						boolean flag4=false;
+						while(!flag4) {
 						do {
 							tableName = Helper.getInput("\nWhat table do you want to delete data from?\n");
-						}while(!Helper.multiCheck(tableName, tables));
-
+						}while(!Helper.multiCheck(tableName, Admin.getTables()));
+						System.out.println(Helper.getCols(tableName, Admin.getTables(), Admin.getCols()));
+						flag4 = Helper.ask("Is this the correct table? " + tableName);
+						}
+						
 						String condition1="";
 						boolean flag1=false;
 						while(!flag1) { //no incorrect
@@ -117,10 +99,16 @@ public class AdminMainMenu extends Menu {
 					boolean FLAG4 = true;
 					while(FLAG4) { //yes write
 						String tableName="";
-						do {
-							tableName = Helper.getInput("\nWhat table do you want to Update data for?");
-						}while(!Helper.multiCheck(tableName, tables));
-
+						
+						boolean flag3=false;
+						while(!flag3) {
+							do {
+							tableName = Helper.getInput("\nWhat table do you want to Update data for?");			
+							}while(!Helper.multiCheck(tableName, Admin.getTables()));
+							System.out.println(Helper.getCols(tableName, Admin.getTables(), Admin.getCols()));
+							flag3 = Helper.ask("Is this the correct table? " + tableName);
+						}
+						
 						String choice="";
 						boolean flag1=false;
 						while(!flag1) { // no incorrect

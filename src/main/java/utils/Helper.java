@@ -46,6 +46,7 @@ public class Helper {
     }
     
     /**
+     * DB Administrator
      * Asks the user a prompt with yes or no answer
      * Returns true for user input of "yes"
      * Returns false for user input of "no"
@@ -211,7 +212,16 @@ public class Helper {
 
     }
     
-    
+    /**
+     * DB Administrator 
+     * Finds the the string of attribute/column names 
+     * for the table with the same index using the two arrays
+     * 
+     * @param tablename
+     * @param tables
+     * @param cols
+     * @return
+     */
     public static String getCols(String tablename, String[]tables, String[]cols) {
     	int index=0;
     	for(int i=0; i<tables.length; i++) {

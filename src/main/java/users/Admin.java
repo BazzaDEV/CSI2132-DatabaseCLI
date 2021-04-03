@@ -17,9 +17,38 @@ public class Admin {
 			"hotelbrandemail","hotelbrandphonenum","booksfor","cancreate","payment",
 			"booking","transformsinto","renting"};
 
+    static String[]cols = new String[] {
+			"brand_ID, street_number, 'street_name', apt_number, 'city', 'state', zip, num_hotels", //hotelbrand
+			"brand_ID, phone_number(10)", //hotelbrandphonenum
+			"brand_ID, 'email_address'", //hotelbrandemail
+			"hotel_ID, brand_ID", //brandchain
+			"hotel_ID, star_category, number_of_rooms, 'street_number_street_name', 'city', 'state', 'zip(6)','email_address'", //hotel
+			"hotel_ID, phone_number", //hotelphonenum
+			"sin_number, hotel_ID", //worksfor
+			"sin_number, 'first_name', 'middle_name', 'last_name', street_number, 'street_name',apt_number, 'city', 'state', 'zip', salary, 'role'", //employee
+			"manager_ID, supervisee_ID", //supervises
+			"hotel_ID, room_number, price, 'room_capacity', 'view', 'is_extendable', 'room_status'", //hotelroom
+			"hotel_ID, room_number, 'amenity'", //hotelroomamenities
+			"booking_ID, room_number, hotel_ID", //booksfor
+			"sin_number, 'first_name', 'middle_name', 'last_name', 'street_number', 'street_name',apt_number, 'city', 'state', 'zip', 'date_of_registration YYYY-MM-DD'", //customer
+			"booking_ID, sin_number", //cancreate
+			"default (booking_ID), 'status', 'room_type', num_occupants, 'start_date YYYY-MM-DD', 'end_date YYYY-MM-DD'", //booking
+			"booking_ID, renting_ID", //transformsinto
+			"renting_ID, default (transaction_ID) , 'due_date YYYY-MM-DD', amount, 'received_on YYYY-MM-DD'", //payment
+			"default (renting_ID), 'status', balance" //renting		
+	};
+	
     public Admin() {
     }
 
+    public static String[] getTables() {
+    	return tables;
+    }
+    
+    public static String[] getCols() {
+    	return cols;
+    }
+    
     /**
      * Insert Query
      * @param tableName
