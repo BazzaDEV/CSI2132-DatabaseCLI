@@ -1,7 +1,11 @@
 package structs.booking;
 
+import database.SQLDatabaseConnection;
+import structs.hotel.HotelRoom;
 import utils.Vars;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 
 public class Booking {
@@ -33,5 +37,33 @@ public class Booking {
             .append("\nDuration: ").append(Vars.DATE_FORMAT.format(startDate)).append(" -> ").append(Vars.DATE_FORMAT.format(endDate));
 
         return strB.toString().trim();
+    }
+
+    public int getBookingID() {
+        return bookingID;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public String getRoomType() {
+        return roomType;
+    }
+
+    public int getNumOccupants() {
+        return numOccupants;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public HotelRoom getHotelRoom() {
+        return new HotelRoom(this);
     }
 }
