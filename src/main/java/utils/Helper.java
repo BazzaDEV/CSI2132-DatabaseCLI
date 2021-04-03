@@ -41,8 +41,31 @@ public class Helper {
         Scanner sc = new Scanner(System.in);
         print(prompt);
 
-        return sc.next().trim();
+        return sc.nextLine().trim();
 
+    }
+    
+    /**
+     * DB Administrator
+     * Asks the user a prompt with yes or no answer
+     * Returns true for user input of "yes"
+     * Returns false for user input of "no"
+     * @param prompt with yes or no answer
+     * @return
+     */
+    public static boolean ask(String prompt) {
+    	Scanner sc = new Scanner(System.in);
+    	print(prompt + "\n");
+    	System.out.println("(yes / no)");
+    	String answer = sc.nextLine().trim();
+    	Helper.multiCheck(answer, new String[] {"yes","no"});
+    	//sc.close();
+    	if(answer.equals("yes")) {
+    		return true;
+    	}
+    	else {
+    		return false;
+    	}
     }
 
     /**
@@ -188,6 +211,28 @@ public class Helper {
         return false;
 
     }
+    
+    /**
+     * DB Administrator 
+     * Finds the the string of attribute/column names 
+     * for the table with the same index using the two arrays
+     * 
+     * @param tablename
+     * @param tables
+     * @param cols
+     * @return
+     */
+    public static String getCols(String tablename, String[]tables, String[]cols) {
+    	int index=0;
+    	for(int i=0; i<tables.length; i++) {
+    		if(tablename.equalsIgnoreCase(tables[i])){
+    			index=i;
+    		}
+    	}
+    	return cols[index];
+    }
+    
+    
 
     /**
      * NOTE: This method is from Android's TextUtils class.

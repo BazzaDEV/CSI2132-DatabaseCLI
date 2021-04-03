@@ -163,8 +163,11 @@ public class LoginMenu extends Menu {
 
         while (!FLAG) {
 
-            String username = Helper.getInput("\nUsername: ");
-            String password = Helper.getInput("Password: ");
+           // String username = Helper.getInput("\nUsername: ");
+            
+            //Helper.println(username);
+            
+          //  String password = Helper.getInput("Password: ");
 
             if (true) { // Correct password
                 FLAG = true;
