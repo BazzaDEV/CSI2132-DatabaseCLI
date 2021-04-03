@@ -22,6 +22,12 @@ public class LoginMenu extends Menu {
     @Override
     public void start() {
 
+        Date todaysDate = cliManager.getCurrentDate();
+
+        if (todaysDate != null) {
+            Helper.println("Today's date has been set to: " + Vars.DATE_FORMAT.format(todaysDate));
+        }
+
         Helper.println("\nWelcome!");
 
         boolean FLAG = false;
