@@ -36,6 +36,7 @@ public class Customer extends User {
     public List<Booking> getBookings(Date todaysDate) {
 
         SQLDatabaseConnection db = SQLDatabaseConnection.getInstance();
+        List<Booking> bookingsList = new ArrayList<>();
 
         String tDate = Vars.DATE_FORMAT.format(todaysDate);
 
@@ -47,10 +48,8 @@ public class Customer extends User {
                     " AND B.start_date = " + "'" + tDate + "'");
 
             if (!rs.next()) { // Query has no results
-                return null;
-
+                return bookingsList;
             } else {
-                List<Booking> bookingsList = new ArrayList<>();
 
                 do {
                     int bookingID = rs.getInt("booking_ID");
@@ -65,13 +64,12 @@ public class Customer extends User {
                     bookingsList.add(new Booking(bookingID, status, roomType, numOccupants, startDate, endDate));
 
                 } while(rs.next());
-
-                return bookingsList;
             }
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-            return null;
         }
+
+        return bookingsList;
     }
 }

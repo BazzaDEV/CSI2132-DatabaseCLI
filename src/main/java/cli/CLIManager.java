@@ -95,6 +95,7 @@ public class CLIManager {
 
             try {
                 currentDate = Vars.DATE_FORMAT.parse(todaysDate);
+                Helper.println("\nToday's date has been set to: " + Vars.DATE_FORMAT.format(currentDate));
 
             } catch (ParseException ignored) {
                 Helper.println("[ERROR] Invalid date in CLI arguments.");
