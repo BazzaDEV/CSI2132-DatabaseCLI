@@ -49,5 +49,4 @@ public class SQLDatabaseConnection {
         st.executeUpdate(query);
 	}
 
-
 }
