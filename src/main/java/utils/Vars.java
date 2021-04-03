@@ -1,11 +1,14 @@
 package utils;
 
+import java.text.SimpleDateFormat;
+
 public class Vars {
     public static final String DATABASE_PASSWORD = "admin";
 
     public static final String DIVIDER_EQUALS = "=========================================";
     public static final String DIVIDER_DASH = "---------------------------------";
 
+    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
     public static final String DATE_REGEX = "\\d{4}-\\d{2}-\\d{2}";
 
     public static final String[] VIEW_OPTIONS = new String[]{"sea", "mountain"};

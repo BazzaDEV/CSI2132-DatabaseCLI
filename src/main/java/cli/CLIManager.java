@@ -10,7 +10,10 @@ import users.Customer;
 import users.Employee;
 import users.User;
 import utils.Helper;
+import utils.Vars;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Stack;
 
@@ -38,7 +41,13 @@ public class CLIManager {
         loadMenu(loginMenu);
     }
 
-    public void startCLI(String userType, String sinNumber) {
+    public void startCLI(String todaysDate) {
+        setCurrentDate(todaysDate);
+        startCLI();
+    }
+
+    public void startCLI(String todaysDate, String userType, String sinNumber) {
+        setCurrentDate(todaysDate);
         menuStack.add(new LoginMenu());
 
         if (userType.equalsIgnoreCase("C")) { // Customer login
@@ -79,6 +88,23 @@ public class CLIManager {
     public void prevMenu() {
         menuStack.pop();
         menuStack.peek().start();
+    }
+
+    public void setCurrentDate(String todaysDate) {
+        if (todaysDate.matches(Vars.DATE_REGEX)) {
+
+            try {
+                currentDate = Vars.DATE_FORMAT.parse(todaysDate);
+
+            } catch (ParseException ignored) {
+                Helper.println("[ERROR] Invalid date in CLI arguments.");
+                System.exit(1);
+            }
+
+        } else {
+            Helper.println("[ERROR] Invalid date in CLI arguments.");
+            System.exit(1);
+        }
     }
 
     public void setCurrentDate(Date newDate) {
