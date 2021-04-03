@@ -38,6 +38,12 @@ public class Helper {
         System.out.flush();
     }
 
+    public static void newLine(int lines) {
+        for (int i=1; i <= lines; i++) {
+            print("\n");
+        }
+    }
+
     /**
      * Returns a user's given input from a specified prompt.
      *
