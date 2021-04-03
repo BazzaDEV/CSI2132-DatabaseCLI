@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import org.apache.commons.lang3.StringUtils;
+import users.Admin;
 import users.Customer;
+import users.User;
 import utils.Helper;
 import utils.Vars;
 
@@ -39,7 +41,11 @@ public class CustomerMainMenu extends Menu {
     @Override
     public void start() {
 
-        c = (Customer) cliManager.getUser();
+        User u = cliManager.getUser();
+
+        if (u instanceof Customer) {
+            c = (Customer) u;
+        }
 
         Helper.println("\n" + Vars.DIVIDER_EQUALS +
                         "\n" + StringUtils.center("Customer Main Menu", Vars.DIVIDER_EQUALS.length()) +

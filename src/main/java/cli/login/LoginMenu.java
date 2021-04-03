@@ -10,6 +10,8 @@ import users.Employee;
 import utils.Helper;
 import utils.Vars;
 
+import java.util.Date;
+
 public class LoginMenu extends Menu {
 
 
@@ -20,14 +22,15 @@ public class LoginMenu extends Menu {
     @Override
     public void start() {
 
-        Helper.println("Welcome!");
+        Helper.println("\nWelcome!");
 
         boolean FLAG = false;
 
         while (!FLAG) {
 
             String[] userTypeOptions = new String[] {"C", "E", "A"};
-            String userType = Helper.getInput("Are you a (C)ustomer, (E)mployee, or Database (A)dministrator?\n");
+            String userType = Helper.getInput("Are you a (C)ustomer, (E)mployee, or Database (A)dministrator?" +
+                    "\n>> ");
 
             if (Helper.multiCheck(userType, userTypeOptions)) { // userType is valid
 
@@ -41,7 +44,7 @@ public class LoginMenu extends Menu {
                     lookupEmployeeSIN();
 
                 } else if (userType.equalsIgnoreCase("A")) { // Admin login
-                    loginAdmin();
+                    lookupAdminSIN();
 
                 }
 
@@ -77,7 +80,8 @@ public class LoginMenu extends Menu {
                     while (!FLAG2) {
                         String input = Helper.getInput("\nWould you like to: " +
                                 "\n(1) Create a new customer account" +
-                                "\n(2) Try again");
+                                "\n(2) Try again" +
+                                "\n>> ");
 
                         if (Helper.multiCheck(input, new String[]{"1", "2"})) { // result is valid
 
@@ -87,7 +91,7 @@ public class LoginMenu extends Menu {
                                 cliManager.loadMenu(new CustomerSignupMenu());
 
                             } else if (input.equalsIgnoreCase("2")) { // Try again
-                                continue;
+                                FLAG = false;
 
                             }
                         }
@@ -151,36 +155,40 @@ public class LoginMenu extends Menu {
 
     private void lookupAdminSIN() {
 
+        Admin a = null;
+        Employee e = null;
 
-    }
-
-    private void loginAdmin() {
-
-        Helper.println("\nHey there, Admin!" +
-                "\nPlease enter your username and password to continue.");
+        Helper.println("\nHey Admin! Enter your SIN number to access the admin portal.");
 
         boolean FLAG = false;
 
         while (!FLAG) {
 
-           // String username = Helper.getInput("\nUsername: ");
-            
-            //Helper.println(username);
-            
-          //  String password = Helper.getInput("Password: ");
+            String sinNumber = Helper.getInput("SIN number: ");
 
-            if (true) { // Correct password
+            if (Helper.isValidSIN(sinNumber)) { // Input is valid
                 FLAG = true;
-                cliManager.loadMenu(new AdminMainMenu());
+                e = Helper.getEmployeeFromSIN(sinNumber);
 
-            } else { // Incorrect password
+                if (e != null && e.getRole().equalsIgnoreCase(Admin.ROLE_NAME)) { // Employee exists
+                    a = new Admin(e);
+                    cliManager.setUser(a);
+                    cliManager.loadMenu(new AdminMainMenu());
 
-                Helper.println("Incorrect username or password - try again.");
+                } else { // Admin does not exist
+                    FLAG = false;
 
+                    Helper.println("\nSorry, there is no admin with this SIN number." +
+                            "\nTry again.\n");
+
+                }
+
+            } else { // Invalid entry
+
+                Helper.println("\nInvalid entry - make sure you only enter digits & your SIN number is exactly 8 digits.");
             }
 
         }
-
     }
 
 
