@@ -7,6 +7,8 @@ public class Vars {
 
     public static final String DIVIDER_EQUALS = "=========================================";
     public static final String DIVIDER_DASH = "---------------------------------";
+    public static final String DIVIDER_DASH_LONG = "---------------------------------------------";
+
 
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
     public static final String DATE_REGEX = "\\d{4}-\\d{2}-\\d{2}";
