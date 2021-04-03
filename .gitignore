@@ -4,3 +4,4 @@ target/*
 dbCLIlogin.txt
 .settings/*
 .DS_Store
+/target/
