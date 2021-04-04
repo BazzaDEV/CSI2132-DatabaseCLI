@@ -6,11 +6,11 @@
        ![image](https://user-images.githubusercontent.com/60792590/113496898-3d713280-94cc-11eb-86b4-d8cace4e4dcf.png)
 
 
-#### Sample input for Admin:
+### Sample input for Admin:
 Admin SIN: 11111125
 
 
-#### Sample input for Customer:
+### Sample input for Customer:
 - Customer SIN: 11111111 -> 11111115, 11111201 -> 11111203
 - What day would you like to check in: 2021-04-01
 - What day would you like to check out: 2021-04-02
@@ -23,5 +23,5 @@ Admin SIN: 11111125
 - Would you like an extendable room: y
 - Are you looking for air conditioning(AC), television(TV) or a (fridge): AC
 
-#### Sample input for Employee:
+### Sample input for Employee:
 Employee SIN:11111116 -> 11111120, 11111301
