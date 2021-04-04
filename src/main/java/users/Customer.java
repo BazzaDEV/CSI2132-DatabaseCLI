@@ -38,6 +38,10 @@ public class Customer extends User {
 
         return strB.toString().trim();
     }
+    
+    public Integer getSin() {
+        return sinNumber;
+    }
 
     
     
@@ -57,7 +61,7 @@ public class Customer extends User {
             		+ " AND (HR.hotel_ID, HR.room_number) = (BF.hotel_ID, BF.room_number)"
             		+ " AND BF.booking_ID = B.booking_ID)"
             		//main select statement
-            		+ " SELECT H.hotel_ID, HR.room_number, HR.price, HR.room_capacity, HR.view, HR.is_extendable, HA.amenity, H.star_category, H.city, H.state_name, H.zip, H.email_address"
+            		+ " SELECT DISTINCT H.hotel_ID, HR.room_number, HR.price, HR.room_capacity, HR.view, HR.is_extendable, HA.amenity, H.star_category, H.city, H.state_name, H.zip, H.email_address"
             		+ " FROM Hotel as H, HotelRoom as HR, BooksFor as BF, Booking as B, HotelRoomAmenities as HA"
             		+ " WHERE (H.city, H.state_name) = ('"+ VAR_CITY +"', '" +VAR_STATE+ "')"
             		+ " AND H.hotel_ID = HR.hotel_ID"
@@ -144,7 +148,7 @@ public class Customer extends User {
         return false;
     }
 
-    public static void bookRooms(Integer hotel_ID, Integer room_number, String VAR_ROOM_CAPACITY, Integer VAR_NUM_OCCUPANTS, String VAR_START_DATE, String VAR_END_DATE) {
+    public static void bookRooms(Integer hotel_ID, Integer room_number, String VAR_ROOM_CAPACITY, Integer VAR_NUM_OCCUPANTS, String VAR_START_DATE, String VAR_END_DATE, int sin) {
 
     	SQLDatabaseConnection db = SQLDatabaseConnection.getInstance();
 
@@ -164,6 +168,13 @@ public class Customer extends User {
             db.executeUpdate(" Insert into BooksFor(booking_ID, room_number, hotel_ID)"
             		+ " values(" +b_ID+ ", "+ room_number+ ", " +hotel_ID+ ")");
 
+            //Insert into CanCreate
+            db.executeUpdate(" Insert into CanCreate(booking_ID, sin_number)"
+            		+ " values(" +b_ID+ ", "+sin+ ")");
+            
+            // Updates HotelRoom status when booking is created  
+            db.executeUpdate(" Update HotelRoom SET room_status = 'scheduled'"
+            		+ " WHERE hotel_ID = "+hotel_ID+" AND room_number = "+room_number+";");            
 
 
         	Helper.println("The booking has been successfully created!");
