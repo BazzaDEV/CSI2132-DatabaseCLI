@@ -329,15 +329,4 @@ public class Helper {
         System.out.print(cString.toString());
     }
 
-    public static Date toDate(String date) {
-
-        try {
-            return Vars.DATE_FORMAT.parse(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        return null;
-    }
-
 }

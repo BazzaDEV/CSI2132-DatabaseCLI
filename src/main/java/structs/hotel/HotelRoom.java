@@ -11,7 +11,7 @@ public class HotelRoom {
     private int roomNumber;
     private int hotelID;
     private double price;
-    private String roomCapacity;
+    private int roomCapacity;
     private String view;
     private boolean isExtendable;
     private String roomStatus;
@@ -36,7 +36,7 @@ public class HotelRoom {
                     this.roomNumber = rs.getInt("room_number");
                     this.hotelID = rs.getInt("hotel_ID");
                     this.price = rs.getDouble("price");
-                    this.roomCapacity = rs.getString("room_capacity");
+                    this.roomCapacity = rs.getInt("room_capacity");
                     this.view = rs.getString("view");
                     this.isExtendable = rs.getBoolean("is_extendable");
                     this.roomStatus = rs.getString("room_status");
@@ -48,41 +48,6 @@ public class HotelRoom {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-    }
-
-    public HotelRoom(int hotelID, int roomNumber) {
-
-        SQLDatabaseConnection db = SQLDatabaseConnection.getInstance();
-
-        try {
-            ResultSet rs = db.executeQuery(
-                    "SELECT DISTINCT *" +
-                            " FROM HotelRoom" +
-                            " WHERE hotel_ID = " + hotelID +
-                            " AND room_number = " + roomNumber
-            );
-
-            if (!rs.next()) { // ResultSet is empty
-
-            } else {
-
-                do {
-                    this.roomNumber = rs.getInt("room_number");
-                    this.hotelID = rs.getInt("hotel_ID");
-                    this.price = rs.getDouble("price");
-                    this.roomCapacity = rs.getString("room_capacity");
-                    this.view = rs.getString("view");
-                    this.isExtendable = rs.getBoolean("is_extendable");
-                    this.roomStatus = rs.getString("room_status");
-
-                } while (rs.next());
-            }
-
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-
     }
 
     /************************
@@ -101,7 +66,7 @@ public class HotelRoom {
         return price;
     }
 
-    public String getRoomCapacity() {
+    public int getRoomCapacity() {
         return roomCapacity;
     }
 
