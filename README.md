@@ -8,6 +8,10 @@
 
 ### Sample input for Admin:
 Admin SIN: 11111125
+- Insert into Customer values(11111400,'John','Middle','Smith',27,'Streethere',5,'Paris','France','123456','2021-10-05','6131111125');
+- Update customer Set first_name=Matt’ Where sin_number=11111400;
+- Delete from Customer Where sin_number=11111400;
+
 
 
 ### Sample input for Customer:
