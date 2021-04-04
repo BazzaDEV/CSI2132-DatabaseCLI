@@ -15,7 +15,8 @@ Admin SIN: 11111125
 
 
 ### Sample input for Customer:
-- Customer SIN: 11111111 -> 11111115, 11111201 -> 11111203
+Customer SIN: 11111111 -> 11111115, 11111201 -> 11111203
+- SIN: 11111111
 - What day would you like to check in: 2021-04-01
 - What day would you like to check out: 2021-04-02
 - City: Philadelphia 
@@ -29,3 +30,12 @@ Admin SIN: 11111125
 
 ### Sample input for Employee:
 Employee SIN:11111116 -> 11111120, 11111301
+- SIN: 11111116
+- Start date (YYYY-MM-DD): 2030-06-03
+- End date (YYYY-MM-DD): 2030-06-04
+- Minimum price: 1
+- Maximum price: 1000
+- Which view would you like: 1
+- Which room size would you like: 1
+- Would you like an extendable room: N
+- Which hotel room amenity would you like: 1
