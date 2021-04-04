@@ -249,9 +249,10 @@ public class CustomerMainMenu extends Menu {
             //need to convert to integer
         	int hotel_ID=Integer.parseInt(ID);  
         	int room_number=Integer.parseInt(number); 
+        	int sin = c.getSin();
         	
         	//booking room
-        	Customer.bookRooms(hotel_ID, room_number, VAR_ROOM_CAPACITY, VAR_NUM_OCCUPANTS, VAR_START_DATE, VAR_END_DATE);
+        	Customer.bookRooms(hotel_ID, room_number, VAR_ROOM_CAPACITY, VAR_NUM_OCCUPANTS, VAR_START_DATE, VAR_END_DATE, sin);
 
         }
 

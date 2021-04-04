@@ -38,6 +38,10 @@ public class Customer extends User {
 
         return strB.toString().trim();
     }
+    
+    public Integer getSin() {
+        return sinNumber;
+    }
 
     
     
@@ -144,7 +148,7 @@ public class Customer extends User {
         return false;
     }
 
-    public static void bookRooms(Integer hotel_ID, Integer room_number, String VAR_ROOM_CAPACITY, Integer VAR_NUM_OCCUPANTS, String VAR_START_DATE, String VAR_END_DATE) {
+    public static void bookRooms(Integer hotel_ID, Integer room_number, String VAR_ROOM_CAPACITY, Integer VAR_NUM_OCCUPANTS, String VAR_START_DATE, String VAR_END_DATE, int sin) {
 
     	SQLDatabaseConnection db = SQLDatabaseConnection.getInstance();
 
@@ -164,7 +168,9 @@ public class Customer extends User {
             db.executeUpdate(" Insert into BooksFor(booking_ID, room_number, hotel_ID)"
             		+ " values(" +b_ID+ ", "+ room_number+ ", " +hotel_ID+ ")");
 
-
+            //Insert into CanCreate
+            db.executeUpdate(" Insert into CanCreate(booking_ID, sin_number)"
+            		+ " values(" +b_ID+ ", "+sin+ ")");
 
         	Helper.println("The booking has been successfully created!");
 
