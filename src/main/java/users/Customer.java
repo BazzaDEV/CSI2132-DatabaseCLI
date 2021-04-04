@@ -172,7 +172,7 @@ public class Customer extends User {
             db.executeUpdate(" Insert into CanCreate(booking_ID, sin_number)"
             		+ " values(" +b_ID+ ", "+sin+ ")");
             
-            //Insert into CanCreate
+            // Updates HotelRoom status when booking is created  
             db.executeUpdate(" Update HotelRoom SET room_status = 'scheduled'"
             		+ " WHERE hotel_ID = "+hotel_ID+" AND room_number = "+room_number+";");            
 
