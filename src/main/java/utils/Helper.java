@@ -72,9 +72,9 @@ public class Helper {
     	print(prompt + "\n");
     	System.out.println("(yes / no)");
     	String answer = sc.nextLine().trim();
-    	//Helper.multiCheck(answer, new String[] {"yes","no"});
+    	Helper.multiCheck(answer, new String[] {"yes","no"});
     	//sc.close();
-    	if(answer.equalsIgnoreCase("yes")) {
+    	if(answer.equals("yes")) {
     		return true;
     	}
     	else {
