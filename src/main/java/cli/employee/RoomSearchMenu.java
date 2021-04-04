@@ -11,10 +11,24 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class RoomSearchMenu extends Menu {
 
+    private String startDate = null, endDate = null;
+    private String city = null, state = null;
+    private Double minPrice = 0.0, maxPrice = 0.0;
+    private String view = null;
+    private String roomCapacity = null;
+    private Boolean isExtendable = false;
+    private String amenity = null;
+
     private ArrayList<Pair<Integer, Integer>> roomResults;
+    private String toggle;
+
+    public RoomSearchMenu(String toggle) {
+        this.toggle = toggle;
+    }
 
     @Override
     public void start() {
@@ -22,19 +36,136 @@ public class RoomSearchMenu extends Menu {
         roomResults = new ArrayList<>();
 
         Helper.println("\n" + Vars.DIVIDER_EQUALS +
-                "\n" + StringUtils.center("Employee >> View Room Availability", Vars.DIVIDER_EQUALS.length()) +
+                "\n" + StringUtils.center("Employee >> Room Search", Vars.DIVIDER_EQUALS.length()) +
                 "\n" + Vars.DIVIDER_EQUALS);
 
+        if (toggle.equalsIgnoreCase("E")) {
+            search();
+        } else if (toggle.equalsIgnoreCase("C")) {
+            searchAndRent();
+        }
+
+    }
+
+    private void search() {
         // Start and end date
+        selectStartEndDate();
 
-        String startDate = null, endDate = null;
-        String city = null, state = null;
-        double minPrice = 0, maxPrice = 0;
-        String view = null;
-        String roomCapacity = null;
-        boolean isExtendable = false;
-        String amenity = null;
+        // City and state
+        selectCityState();
 
+        // Min and max price
+        selectPriceRange();
+
+        // View options (sea or mountain)
+        selectView();
+
+        // Room capacity (single, double)
+        selectRoomCapacity();
+
+        // Extendable room
+        selectIsExtendable();
+
+        // Amenities
+        selectAmenities();
+
+        // Print search results
+        printSearchResults();
+
+        boolean FLAG8 = false;
+        while (!FLAG8) {
+
+            String res = Helper.getInput("\nWould you like to:" +
+                    "\n(1) Run another search" +
+                    "\n(2) Return to main menu" +
+                    "\n>> ");
+
+            if (Helper.isValid(res, 2)) {
+                FLAG8 = true;
+
+                if (res.equalsIgnoreCase("1")) { // Run another search
+                    cliManager.popAndLoadMenu(new RoomSearchMenu("E"));
+
+                } else if (res.equalsIgnoreCase("2")) { // Go back to main menu
+                    cliManager.prevMenu();
+                }
+
+            } else { // Invalid entry
+                Helper.println("\nInvalid entry - try again.");
+
+            }
+
+        }
+    }
+
+    private void searchAndRent() {
+        boolean FLAG10 = false;
+        while (!FLAG10) {
+            // Start and end date
+            Date todaysDate = cliManager.getCurrentDate();
+            boolean F = false;
+            while (!F) {
+                selectStartEndDate();
+                String tDate = Vars.DATE_FORMAT.format(todaysDate);
+                if (!startDate.equalsIgnoreCase(tDate)) {
+                    Helper.println("\nSelect today's date (" + tDate + ") as the start date.");
+                } else {
+                    F = true;
+                }
+            }
+
+            // Min and max price
+            selectPriceRange();
+
+            // View options (sea or mountain)
+            selectView();
+
+            // Room capacity (single, double)
+            selectRoomCapacity();
+
+            // Extendable room
+            selectIsExtendable();
+
+            // Amenities
+            selectAmenities();
+
+            // Print search results
+            printSearchResults();
+
+            boolean FLAG8 = false;
+            while (!FLAG8) {
+
+                String res = Helper.getInput("\nWould you like to:" +
+                        "\n(1) Book a room" +
+                        "\n(2) Search again" +
+                        "\n>> ");
+
+                if (Helper.isValid(res, 2)) {
+                    FLAG8 = true;
+
+                    if (res.equalsIgnoreCase("1")) { // Book a room
+                        FLAG10 = true;
+                        cliManager.popMenu();
+
+                    } else if (res.equalsIgnoreCase("2")) { // Search again
+
+                    }
+
+                } else { // Invalid entry
+                    Helper.println("\nInvalid entry - try again.");
+
+                }
+
+            }
+        }
+
+    }
+
+    /**************************************
+                SELECT METHODS
+    **************************************/
+
+    private void selectStartEndDate() {
         boolean FLAG = false;
         while (!FLAG) {
 
@@ -75,25 +206,27 @@ public class RoomSearchMenu extends Menu {
             }
 
         }
+    }
 
-//        // City and state
-//        boolean FLAG2 = false;
-//        while(!FLAG2) {
-//
-//            city = Helper.getInput("\n>> City: ");
-//            state = Helper.getInput(">> State/Province: ");
-//
-//            if (city.matches("[a-zA-Z]+") && state.matches("[a-zA-Z]+")) {
-//                FLAG2 = true;
-//
-//            } else { // Invalid entry
-//                Helper.println("\nInvalid city and/or state - try again.");
-//
-//            }
-//
-//        }
+    private void selectCityState() {
+        boolean FLAG2 = false;
+        while(!FLAG2) {
 
-        // Price range
+            city = Helper.getInput("\n>> City: ");
+            state = Helper.getInput(">> State/Province: ");
+
+            if (city.matches("[a-zA-Z]+") && state.matches("[a-zA-Z]+")) {
+                FLAG2 = true;
+
+            } else { // Invalid entry
+                Helper.println("\nInvalid city and/or state - try again.");
+
+            }
+
+        }
+    }
+
+    private void selectPriceRange() {
         Helper.println("\nPlease enter the price range.");
 
         boolean FLAG3 = false;
@@ -120,8 +253,9 @@ public class RoomSearchMenu extends Menu {
             }
 
         }
+    }
 
-        // View options (sea or mountain)
+    private void selectView() {
         boolean FLAG4 = false;
         while (!FLAG4) {
 
@@ -141,8 +275,9 @@ public class RoomSearchMenu extends Menu {
 
             }
         }
+    }
 
-        // Room capacity (single, double)
+    private void selectRoomCapacity() {
         boolean FLAG5 = false;
         while (!FLAG5) {
 
@@ -162,8 +297,9 @@ public class RoomSearchMenu extends Menu {
 
             }
         }
+    }
 
-        // Extendable room
+    private void selectIsExtendable() {
         boolean FLAG6 = false;
         while (!FLAG6) {
 
@@ -187,8 +323,9 @@ public class RoomSearchMenu extends Menu {
 
             }
         }
+    }
 
-        // Amenities
+    private void selectAmenities() {
         boolean FLAG7 = false;
         while (!FLAG7) {
             String res = Helper.getInput("\nWhich hotel room amenity would you like?" +
@@ -209,8 +346,9 @@ public class RoomSearchMenu extends Menu {
             }
 
         }
+    }
 
-        // Print search results
+    private void printSearchResults() {
         Helper.println("\n" + Vars.DIVIDER_EQUALS +
                 "\n" + StringUtils.center("Room Search >> Results", Vars.DIVIDER_EQUALS.length()) +
                 "\n" + Vars.DIVIDER_EQUALS);
@@ -218,35 +356,17 @@ public class RoomSearchMenu extends Menu {
         Employee e = (Employee) cliManager.getUser();
 
         boolean result = e.getRooms(roomResults, startDate, endDate, minPrice, maxPrice, view, roomCapacity, Boolean.toString(isExtendable), amenity);
+    }
 
-        boolean FLAG8 = false;
-        while (!FLAG8) {
+    public ArrayList<Pair<Integer, Integer>> getRoomResults() {
+        return roomResults;
+    }
 
-            String res = Helper.getInput("\nWould you like to:" +
-                    "\n(1) Run another search" +
-                    "\n(2) Return to main menu" +
-                    "\n>> ");
+    public String getStartDate() {
+        return startDate;
+    }
 
-            if (Helper.isValid(res, 2)) {
-                FLAG8 = true;
-
-                if (res.equalsIgnoreCase("1")) { // Run another search
-                    cliManager.popAndLoadMenu(new RoomSearchMenu());
-
-                } else if (res.equalsIgnoreCase("2")) { // Go back to main menu
-                    cliManager.prevMenu();
-                }
-
-            } else { // Invalid entry
-                Helper.println("\nInvalid entry - try again.");
-
-            }
-
-        }
-
-
-
-
-
+    public String getEndDate() {
+        return endDate;
     }
 }

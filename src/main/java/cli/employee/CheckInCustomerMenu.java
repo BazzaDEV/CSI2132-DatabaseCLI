@@ -2,7 +2,9 @@ package cli.employee;
 
 import cli.Menu;
 import org.apache.commons.lang3.StringUtils;
+import structs.Pair;
 import structs.booking.Booking;
+import structs.hotel.HotelRoom;
 import users.Customer;
 import users.Employee;
 import users.User;
@@ -129,28 +131,29 @@ public class CheckInCustomerMenu extends Menu {
 
         } else { // Customer has no bookings for today
 
-            Helper.println("The customer does not have a booking for today." +
-                    "\nWould you like to:" +
-                    "(1) Directly find and rent them a room" +
-                    "(2) Return to main menu");
+            Helper.println("\nThe customer does not have a booking for today." +
+                    "\n\nWould you like to:" +
+                    "\n(1) Directly find and rent them a room" +
+                    "\n(2) Return to main menu");
 
             boolean FLAG4 = false;
             while (!FLAG4) {
 
-                String res = Helper.getInput("\n>> ");
+                String res = Helper.getInput(">> ");
 
                 if (Helper.isValid(res, 2)) {
 
                     if (res.equalsIgnoreCase("1")) { // Directly find and rent a room
+                        findRoom();
 
                     } else if (res.equalsIgnoreCase("2")) { // Go back to main menu
-                        cliManager.popMenu();
+                        cliManager.prevMenu();
 
                     }
 
 
                 } else { // Invalid entry
-                    Helper.println("\nInvalid entry - try again.");
+                    Helper.println("\nInvalid entry - try again.\n");
 
                 }
 
@@ -175,5 +178,59 @@ public class CheckInCustomerMenu extends Menu {
         Helper.println("\n" + StringUtils.center("Booking Details", Vars.DIVIDER_DASH.length()) +
                 "\n" + Vars.DIVIDER_DASH);
         Helper.println(booking.toString());
+    }
+
+    private void findRoom() {
+
+        RoomSearchMenu roomSearchMenu = new RoomSearchMenu("C");
+        cliManager.loadMenu(roomSearchMenu);
+
+        List<Pair<Integer, Integer>> roomResults = roomSearchMenu.getRoomResults();
+
+        Helper.println("Please enter the hotel ID and room number for the hotel room to book.");
+
+        boolean FLAG11 = false;
+        while (!FLAG11) {
+            String hID = Helper.getInput(">> Hotel ID: ");
+            String rNum = Helper.getInput(">> Room Number: ");
+
+            if (Helper.isDigitsOnly(hID) && Helper.isDigitsOnly(rNum)) {
+
+                int hotelID, roomNum;
+
+                hotelID = Integer.parseInt(hID);
+                roomNum = Integer.parseInt(rNum);
+
+                boolean exists = roomResults.stream().anyMatch(p -> (p.getX() == hotelID) && (p.getY() == roomNum));
+
+                if (exists) { // Valid hotelID & room number entered
+                    HotelRoom hotelRoom = new HotelRoom(hotelID, roomNum);
+
+                    String sDate = roomSearchMenu.getStartDate();
+                    String eDate = roomSearchMenu.getEndDate();
+
+                    boolean success = c.bookRoom(hotelRoom, sDate, eDate);
+
+                    if (success) {
+
+                    } else {
+
+                    }
+
+                } else { // Invalid entry
+                    Helper.println("Invalid entry - choose a hotel ID and room number from the search results & try again.");
+
+                }
+
+            } else { // Invalid entry
+                Helper.println("Invalid entry - try again.");
+            }
+
+
+        }
+
+
+
+
     }
 }

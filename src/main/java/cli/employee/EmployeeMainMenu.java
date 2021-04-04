@@ -44,7 +44,7 @@ public class EmployeeMainMenu extends Menu {
                 FLAG = true;
 
                 if (res.equalsIgnoreCase("1")) { // View room availability
-                    cliManager.loadMenu(new RoomSearchMenu());
+                    cliManager.loadMenu(new RoomSearchMenu("E"));
 
 
                 } else if (res.equalsIgnoreCase("2")) { // Check in a customer
