@@ -1,0 +1,4 @@
+username
+password
+
+-- Change the filename from "dbCLIlogin_TEMP.txt" to "dbCLIlogin.txt"
