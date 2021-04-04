@@ -10,7 +10,6 @@ Admin SIN: 11111125
 
 #### Sample input for Customer:
 - Customer SIN: 11111111 -> 11111115, 11111201 -> 11111203
-- SIN Number: 11111111
 - What day would you like to check in: 2021-04-01
 - What day would you like to check out: 2021-04-02
 - City: Philadelphia 
