@@ -6,10 +6,11 @@ Thanks!
 
 ## How to Install (*UPDATED!*):
 
-[macOS Install Instructions](docs/macOSInstall.md)
-[Windows Install Instructions](docs/WindowsInstall.md)
+* [macOS Install Instructions](docs/macOSInstall.md)   
+* [Windows Install Instructions](docs/WindowsInstall.md)
 
-### Method 2 _(outdated, do not use)_
+### Alternative Install Method (_Outdated - do not use!_)
+_Kept here for archiving purposes, please use the instructions above._
 1. Go to the file dbCLIlogin-TEMP.txt and input your sql database username and password and rename the file to remove -TEMP
 2. Please enter today's date in YYYY-MM-DD format as a command line argument when running the Main class to start the application.
       - In Eclipse this is done but modifying the run configurations (run as, run configurations, arguments, program arguments, apply, run)
