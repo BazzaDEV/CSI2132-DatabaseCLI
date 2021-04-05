@@ -34,8 +34,10 @@
    
 ![CleanShot 2021-04-05 at 19 29 16](https://user-images.githubusercontent.com/28697372/113638635-4cc7bb80-9645-11eb-93b2-fbf8e053fd15.gif)
 
-8. To run the CLI, enter the following into Terminal:
-`java -jar CSI2132-DatabaseCLI.jar YYYY-MM-DD`
+8. To run the CLI, enter the following into Terminal:  
+```
+java -jar CSI2132-DatabaseCLI.jar YYYY-MM-DD
+```
 Replace `YYYY-MM-DD` with a date of your choosing - this will be interpreted as today's date.
 
 9. Enter your PostgreSQL credentials to start the application.
