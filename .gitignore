@@ -2,7 +2,4 @@ CSI2132-DatabaseCLI.iml
 target/*
 .idea/*
 dbCLIlogin.txt
-.settings/*
 .DS_Store
-/target/
-/bin/
