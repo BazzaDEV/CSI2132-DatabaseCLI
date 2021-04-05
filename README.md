@@ -5,8 +5,9 @@ Please **ignore** the install instructions in our report, and instead follow the
 Thanks!
 
 ## How to Install (*UPDATED!*):
-### Method 1
-1. In progress...
+
+[macOS Install Instructions](docs/macOSInstall.md)
+[Windows Install Instructions](docs/WindowsInstall.md)
 
 ### Method 2 _(outdated, do not use)_
 1. Go to the file dbCLIlogin-TEMP.txt and input your sql database username and password and rename the file to remove -TEMP
@@ -20,8 +21,6 @@ Admin SIN: 11111125
 - Insert into Customer values(11111400,'John','Middle','Smith',27,'Streethere',5,'Paris','France','123456','2021-10-05','6131111125');
 - Update customer Set first_name=Matt’ Where sin_number=11111400;
 - Delete from Customer Where sin_number=11111400;
-
-
 
 ### Sample input for Customer:
 Customer SIN: 11111111 -> 11111115, 11111201 -> 11111203
