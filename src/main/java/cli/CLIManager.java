@@ -3,7 +3,7 @@ package cli;
 import cli.admin.AdminMainMenu;
 import cli.customer.CustomerMainMenu;
 import cli.employee.EmployeeMainMenu;
-import cli.login.LoginMenu;
+import cli.misc.LoginMenu;
 import database.SQLDatabaseConnection;
 import users.Admin;
 import users.Customer;
@@ -13,7 +13,6 @@ import utils.Helper;
 import utils.Vars;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Stack;
 
@@ -23,6 +22,7 @@ public class CLIManager {
 
     private CLIManager() {
         menuStack = new Stack<>();
+        db = SQLDatabaseConnection.getInstance();
     }
 
     public static CLIManager getInstance() {
@@ -33,6 +33,9 @@ public class CLIManager {
 
     private User user;
     private Date currentDate;
+
+    // The customer being serviced by the employee.
+    private Customer customer;
 
     private SQLDatabaseConnection db;
 
@@ -116,8 +119,18 @@ public class CLIManager {
         user = newUser;
     }
 
+    public void setCustomer(Customer newCustomer) {
+        if (user instanceof Employee) {
+            customer = newCustomer;
+        }
+    }
+
     public User getUser() {
         return user;
+    }
+
+    public Customer getCustomer() {
+        return customer;
     }
 
     public Date getCurrentDate() {

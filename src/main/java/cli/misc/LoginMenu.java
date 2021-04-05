@@ -1,9 +1,10 @@
-package cli.login;
+package cli.misc;
 
 import cli.Menu;
 import cli.admin.AdminMainMenu;
 import cli.customer.CustomerMainMenu;
 import cli.employee.EmployeeMainMenu;
+import org.apache.commons.lang3.StringUtils;
 import users.Admin;
 import users.Customer;
 import users.Employee;
@@ -21,6 +22,10 @@ public class LoginMenu extends Menu {
 
     @Override
     public void start() {
+
+        Helper.println("\n" + Vars.DIVIDER_EQUALS +
+                "\n" + StringUtils.center("Login Menu", Vars.DIVIDER_EQUALS.length()) +
+                "\n" + Vars.DIVIDER_EQUALS);
 
         Helper.println("\nWelcome!");
 
@@ -68,40 +73,13 @@ public class LoginMenu extends Menu {
             String sinNumber = Helper.getInput("SIN number: ");
 
             if (Helper.isDigitsOnly(sinNumber) && sinNumber.trim().length() == 8) { // SIN is valid input
-
-                FLAG = true;
-
                 c = Helper.getCustomerFromSIN(sinNumber);
 
                 if (c == null) { // Customer with this SIN does not exist
                     Helper.println("\nA customer does not exist with this SIN number.");
 
-                    boolean FLAG2 = false;
-                    while (!FLAG2) {
-                        String input = Helper.getInput("\nWould you like to: " +
-                                "\n(1) Create a new customer account" +
-                                "\n(2) Try again" +
-                                "\n>> ");
-
-                        if (Helper.multiCheck(input, new String[]{"1", "2"})) { // result is valid
-
-                            FLAG2 = true;
-
-                            if (input.equalsIgnoreCase("1")) { // Create new customer account
-                                cliManager.loadMenu(new CustomerSignupMenu());
-
-                            } else if (input.equalsIgnoreCase("2")) { // Try again
-                                FLAG = false;
-
-                            }
-                        }
-
-                        else { // Invalid entry
-                            Helper.println("\nInvalid entry - try again.");
-                        }
-                    }
-
                 } else { // Customer with this SIN exists
+                    FLAG = true;
 
                     cliManager.setUser(c);
                     cliManager.loadMenu(new CustomerMainMenu());

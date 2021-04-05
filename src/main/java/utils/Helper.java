@@ -1,14 +1,16 @@
 package utils;
 
+import cli.CLIManager;
 import database.SQLDatabaseConnection;
+import org.apache.commons.lang3.StringUtils;
 import structs.Address;
 import structs.Name;
 import users.Customer;
 import users.Employee;
 
-import java.awt.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -55,7 +57,11 @@ public class Helper {
         Scanner sc = new Scanner(System.in);
         print(prompt);
 
-        return sc.nextLine().trim();
+        String input = sc.nextLine().trim();
+
+        checkForCall(input);
+
+        return input;
 
     }
 
@@ -69,17 +75,37 @@ public class Helper {
      */
     public static boolean ask(String prompt) {
     	Scanner sc = new Scanner(System.in);
-    	print(prompt + "\n");
-    	System.out.println("(yes / no)");
-    	String answer = sc.nextLine().trim();
-    	Helper.multiCheck(answer, new String[] {"yes","no"});
-    	//sc.close();
-    	if(answer.equals("yes")) {
-    		return true;
-    	}
-    	else {
-    		return false;
-    	}
+    	boolean F = false;
+    	while(!F) {
+            print(prompt);
+            System.out.print(" (Yes / No)" +
+                    "\n>> ");
+            String input = sc.nextLine().trim();
+            checkForCall(input);
+            //sc.close();
+            if (Helper.multiCheck(input, new String[] {"yes", "y", "no", "n"})) {
+                F = true;
+                return input.equalsIgnoreCase("yes") || input.equalsIgnoreCase("y");
+
+            }
+        }
+
+    	return false;
+    }
+
+    public static void checkForCall(String input) {
+        if (input.equals(Vars.PREV_MENU_KEYWORD)) {
+            CLIManager.getInstance().prevMenu();
+
+        } else if (input.equals(Vars.EXIT_APP_KEYWORD)) {
+            Helper.println("\n\n" + Vars.DIVIDER_ASTERICK_LONG
+                    + "\n" + StringUtils.center("The application has been terminated.", Vars.DIVIDER_ASTERICK_LONG.length())
+                    + "\n" + Vars.DIVIDER_ASTERICK_LONG
+                    + "\n\n");
+
+            System.exit(1);
+
+        }
     }
 
     /**
@@ -284,49 +310,24 @@ public class Helper {
         return Helper.isDigitsOnly(sinNumber) && sinNumber.trim().length() == 8;
     }
 
-    /**
-     * Taken from:
-     * https://stackoverflow.com/questions/50076296/how-to-use-colors-in-intellij-run-console
-     *
-     * @param text
-     * @param color
-     * @param bold
-     * @param underlined
-     */
-    public static void color(String text, Color color,
-                                      boolean bold, boolean underlined) {
-        StringBuilder cString = new StringBuilder("\033[");
-        if(color == Color.WHITE) {
-            cString.append("30");
+    public static Date stringToDate(String date) {
+
+        try {
+            return Vars.DATE_FORMAT.parse(date);
+        } catch (ParseException e) {
+            return null;
         }
-        else if(color == Color.RED) {
-            cString.append("31");
-        }
-        else if(color == Color.GREEN) {
-            cString.append("32");
-        }
-        else if(color == Color.YELLOW) {
-            cString.append("33");
-        }
-        else if(color == Color.BLUE) {
-            cString.append("34");
-        }
-        else if(color == Color.MAGENTA) {
-            cString.append("35");
-        }
-        else if(color == Color.CYAN) {
-            cString.append("36");
-        }
-        else if(color == Color.GRAY) {
-            cString.append("37");
-        }
-        else {
-            cString.append("30");
-        }
-        if(bold) { cString.append(";1"); }
-        if(underlined) { cString.append(";4"); }
-        cString.append(";0m" + text + "\033[0m");
-        System.out.print(cString.toString());
+    }
+
+    public static String dateToString(Date date) {
+        return Vars.DATE_FORMAT.format(date);
+    }
+
+    public static String toCurrency(double money) {
+        Locale locale = new Locale("en", "US");
+        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
+
+        return currencyFormatter.format(money);
     }
 
 }

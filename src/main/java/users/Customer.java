@@ -1,14 +1,17 @@
 package users;
 
 import database.SQLDatabaseConnection;
+import org.apache.commons.lang3.StringUtils;
 import structs.Address;
 import structs.Name;
+import structs.Pair;
 import structs.booking.Booking;
+import structs.booking.Renting;
+import structs.hotel.HotelRoom;
 import utils.Vars;
 import utils.Helper;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import database.SQLDatabaseConnection;
@@ -39,134 +42,95 @@ public class Customer extends User {
         return strB.toString().trim();
     }
 
-    
-    
-    public static boolean getRooms(String VAR_START_DATE, String VAR_END_DATE, String VAR_CITY, String VAR_STATE, float VAR_MIN_PRICE, float VAR_MAX_PRICE, String VAR_VIEW, String VAR_ROOM_CAPACITY, String VAR_IS_EXTENDABLE, String VAR_AMENITIES, ArrayList<String> rooms, ArrayList<String> hotels) {
+    public List<HotelRoom> getRooms(String VAR_START_DATE, String VAR_END_DATE, String VAR_CITY, String VAR_STATE, double VAR_MIN_PRICE, double VAR_MAX_PRICE, String VAR_VIEW, String VAR_ROOM_CAPACITY, String VAR_IS_EXTENDABLE, String VAR_AMENITIES) {
+        SQLDatabaseConnection db = SQLDatabaseConnection.getInstance();
+        List<HotelRoom> roomResults = new ArrayList<>();
+
+        try {
+            ResultSet rs = db.executeQuery(
+                    "WITH HotelRoom_CUST(room_number, hotel_ID, price, room_capacity, view, is_extendable, room_status) AS" +
+                        " (SELECT HR.*" +
+                        " FROM HotelRoom as HR, Hotel as H" +
+                        " WHERE HR.hotel_ID = H.hotel_ID" +
+                            " AND (H.city, H.state_name) = ('"+ VAR_CITY +"', '" +VAR_STATE+ "'))," +
+
+                    " ExistingBookings(hotel_ID, room_number, booking_ID) AS" +
+                        " (SELECT HR.hotel_ID, HR.room_number, B.booking_ID" +
+                        " FROM Hotel as H, HotelRoom_CUST as HR, BooksFor as BF, Booking as B" +
+                        " WHERE H.hotel_ID = HR.hotel_ID" +
+                            " AND (HR.hotel_ID, HR.room_number) = (BF.hotel_ID, BF.room_number)" +
+                                " AND BF.booking_ID = B.booking_ID)" +
+
+                    " SELECT DISTINCT HR.*, HA.amenity, H.star_category, H.city, H.state_name, H.zip, H.email_address" +
+                    " FROM Hotel as H, HotelRoom_CUST as HR, HotelRoomAmenities as HA" +
+                    " WHERE H.hotel_ID = HR.hotel_ID" +
+                        " AND HR.price >= " + VAR_MIN_PRICE + " AND HR.price <= " + VAR_MAX_PRICE +
+                        " AND (HR.view, HR.room_capacity, HR.is_extendable) = ('" + VAR_VIEW + "', '" + VAR_ROOM_CAPACITY + "', '" + VAR_IS_EXTENDABLE + "')" +
+                        " AND (HR.hotel_ID, HR.room_number) = (HA.hotel_ID, HA.room_number) AND HA.amenity = '" + VAR_AMENITIES + "'" +
+                    " AND ( " +
+                        " NOT EXISTS" +
+                            " (SELECT *" +
+                            " FROM ExistingBookings as EB, Booking as B" +
+                            " WHERE (HR.hotel_ID, HR.room_number) = (EB.hotel_ID, EB.room_number)" +
+                                " AND EB.booking_ID = B.booking_ID" +
+                                    " AND B.status = 'scheduled'" +
+                                    " AND '" + VAR_START_DATE + "' <= B.end_date" +
+                                    " AND '" + VAR_END_DATE + "' >= B.start_date" +
+                            ")" +
+                    ");");
+
+            if (!rs.next()) {
+                System.out.println("There were no available rooms that met that criteria");
+
+            } else {
+                roomResults = extractRoomsFromResultSet(rs);
+
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return roomResults;
+    }
+
+    public void bookRoom(HotelRoom hotelRoom, Booking booking) {
+
         SQLDatabaseConnection db = SQLDatabaseConnection.getInstance();
 
         //execute the sql SELECT statement
         try {
-        	//With clause defines all existing bookings which satisfy the search criteria
-            ResultSet rs = db.executeQuery("WITH existing_bookings(booking_ID, start_date, end_date) AS"
-            		+ " (SELECT B.booking_ID, B.start_date, B.end_date"
-            		+ " FROM Hotel H, HotelRoom HR, BooksFor BF, Booking B"
-            		+ " WHERE (H.city, H.state_name) = ('"+ VAR_CITY +"', '" +VAR_STATE+ "')"
-            		+ " AND H.hotel_ID = HR.hotel_ID"
-            		+ " AND HR.price >= " + VAR_MIN_PRICE + " AND HR.price <= " + VAR_MAX_PRICE
-            		+ " AND (HR.view, HR.room_capacity, HR.is_extendable) = ('"+ VAR_VIEW + "', '" + VAR_ROOM_CAPACITY + "', '" + VAR_IS_EXTENDABLE+"')"
-            		+ " AND (HR.hotel_ID, HR.room_number) = (BF.hotel_ID, BF.room_number)"
-            		+ " AND BF.booking_ID = B.booking_ID)"
-            		//main select statement
-            		+ " SELECT H.hotel_ID, HR.room_number, HR.price, HR.room_capacity, HR.view, HR.is_extendable, HA.amenity, H.star_category, H.city, H.state_name, H.zip, H.email_address"
-            		+ " FROM Hotel as H, HotelRoom as HR, BooksFor as BF, Booking as B, HotelRoomAmenities as HA"
-            		+ " WHERE (H.city, H.state_name) = ('"+ VAR_CITY +"', '" +VAR_STATE+ "')"
-            		+ " AND H.hotel_ID = HR.hotel_ID"
-            		+ " AND HR.price >= " +VAR_MIN_PRICE+ "AND HR.price <= " +VAR_MAX_PRICE
-            		+ " AND (HR.view, HR.room_capacity, HR.is_extendable) = ('"+ VAR_VIEW + "', '" + VAR_ROOM_CAPACITY + "', '" + VAR_IS_EXTENDABLE+"')"
-            		+ " AND (HR.hotel_ID, HR.room_number) = (BF.hotel_ID, BF.room_number)"
-            		+ "	AND (HR.hotel_ID, HR.room_number) = (HA.hotel_ID, HA.room_number) AND HA.amenity= '" +VAR_AMENITIES+ "'"
-            		// case 1: there is no booking for this room. Thus, safe to assume customer's date rangedoes not overlap with existing books
-            		+ " AND ((HR.room_status = 'available')"
-            		//case 2: there are booking(s) for this room. Make sure customer's date range does not overlap with existing bookings
-            		+ " OR (BF.booking_ID = B.booking_ID"
-            		+ " AND '" +VAR_START_DATE+ "' <= ALL(SELECT end_date FROM existing_bookings)"
-            		+ " AND '" +VAR_END_DATE+ "' >= ALL(SELECT start_date FROM existing_bookings)))");
+            //first insert into Booking
+            db.executeUpdate(
+                    "INSERT INTO Booking(booking_ID, status, room_type, num_occupants, start_date, end_date)" +
+                     " VALUES(default, 'scheduled', '" + booking.getRoomType() + "', '"+ booking.getNumOccupants() + "', '" + Helper.dateToString(booking.getStartDate()) + "', '" + Helper.dateToString(booking.getEndDate()) + "');"
+            );
 
+            //need this select statement to get the booking ID we just inserted
+            ResultSet rs = db.executeQuery(
+                    "SELECT max(booking_ID) AS b_ID FROM Booking"
+            );
 
-            if (!rs.next()) {
-            	System.out.println("There were no available rooms that met that criteria");
-            	return false;
-            } else {
-
-                do {
-
-                	//hotel room ID
-                    String hotel_ID = rs.getString("hotel_ID");
-                    System.out.println("Hotel ID: " + hotel_ID);
-
-                    //int h = Integer.parseInt(hotel_ID);
-                    hotels.add(hotel_ID);
-                    
-                    String room_number = rs.getString("room_number");
-                    System.out.println("Room Number: " + room_number +"\n");
-                    //int r = Integer.parseInt(room_number);
-                    rooms.add(room_number);
-                  
-
-                    //user selected info
-                    System.out.println("Selected criteria");
-
-                    String price = rs.getString("price");
-                    System.out.println("Price: " + price);
-
-                    String view = rs.getString("view");
-                    System.out.println("View: " + view);
-
-                    String room_capacity = rs.getString("room_capacity");
-                    System.out.println("Room Capacity: " + room_capacity);
-
-                    String is_extendable = rs.getString("is_extendable");
-                    System.out.println("Room is extendable: " + is_extendable);
-
-                    String amenity = rs.getString("amenity");
-                    System.out.println("Amenity: " + amenity + "\n");
-
-                    //Hotel info
-                    System.out.println("Hotel Information");
-
-                    String star_category = rs.getString("star_category");
-                    System.out.println("Star Category: " + star_category);
-
-                    String city = rs.getString("city");
-                    System.out.println("City: " + city);
-
-                    String state_name = rs.getString("state_name");
-                    System.out.println("State Name: " + state_name);
-
-                    String zip = rs.getString("zip");
-                    System.out.println("Zip: " + zip);
-
-                    String email_address = rs.getString("email_address");
-                    System.out.println("Email if you have any inquires: " + email_address + "\n\n");
-
-
-
-                } while (rs.next());
-                return true;
-            }
-
-
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-
-        return false;
-    }
-
-    public static void bookRooms(Integer hotel_ID, Integer room_number, String VAR_ROOM_CAPACITY, Integer VAR_NUM_OCCUPANTS, String VAR_START_DATE, String VAR_END_DATE) {
-
-    	SQLDatabaseConnection db = SQLDatabaseConnection.getInstance();
-
-        //execute the sql SELECT statement
-        try {
-        	//first insert into Booking
-        	db.executeUpdate("INSERT into Booking(booking_ID, status, room_type, num_occupants, start_date, end_date)"
-            		+ " VALUES(default, 'scheduled', '" +VAR_ROOM_CAPACITY+ "', '"+ VAR_NUM_OCCUPANTS+ "', '" +VAR_START_DATE+ "', '" +VAR_END_DATE+ "');");
-
-        	//need this select statement to get the booking ID we just inserted
-        	ResultSet rs = db.executeQuery("SELECT max(booking_ID) as b_ID FROM Booking");
-        	rs.next();
-            String b_ID = rs.getString(1);
+            rs.next();
+            int b_ID = rs.getInt(1);
             //System.out.println("Hotel ID: " + hotel_ID);
 
-        	//Now insert into BooksFor
-            db.executeUpdate(" Insert into BooksFor(booking_ID, room_number, hotel_ID)"
-            		+ " values(" +b_ID+ ", "+ room_number+ ", " +hotel_ID+ ")");
+            // Update booking Id for booking object
+            booking.setBookingID(b_ID);
 
+            //Now insert into BooksFor
+            db.executeUpdate(
+                    "INSERT INTO BooksFor(booking_ID, room_number, hotel_ID)" +
+                            " VALUES(" + booking.getBookingID() + ", "+ hotelRoom.getRoomNumber() + ", " + hotelRoom.getHotelID() + ");"
+            );
 
+            // Insert CanCreate
+            db.executeUpdate(
+                    "INSERT INTO CanCreate(booking_ID, sin_number)" +
+                            " VALUES(" + booking.getBookingID() + ", " + sinNumber + ");"
+            );
 
-        	Helper.println("The booking has been successfully created!");
+            Helper.println("\n** The booking has been created. **");
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -174,46 +138,131 @@ public class Customer extends User {
 
     }
 
-
-
-    public List<Booking> getBookings(Date todaysDate) {
+    public List<Booking> getBookingsAfter(Date date) {
 
         SQLDatabaseConnection db = SQLDatabaseConnection.getInstance();
         List<Booking> bookingsList = new ArrayList<>();
 
-        String tDate = Vars.DATE_FORMAT.format(todaysDate);
+        String afterDate = Vars.DATE_FORMAT.format(date);
 
         try {
             ResultSet rs = db.executeQuery("SELECT B.*" +
                     " FROM Booking as B, CanCreate as CC" +
                     " WHERE CC.sin_number = " + super.sinNumber +
                     " AND CC.booking_ID = B.booking_ID" +
-                    " AND B.start_date = " + "'" + tDate + "'");
+                    " AND B.start_date >= " + "'" + afterDate + "'" +
+                    " AND NOT EXISTS (SELECT *" +
+                    " FROM TransformsInto as TI" +
+                    " WHERE B.booking_ID = TI.booking_ID)" +
+                    " ORDER BY B.start_date ASC, B.end_date ASC");
 
-            if (!rs.next()) { // Query has no results
-                return bookingsList;
-            } else {
-
-                do {
-                    int bookingID = rs.getInt("booking_ID");
-
-                    String status = rs.getString("status");
-                    String roomType = rs.getString("room_type");
-                    int numOccupants = rs.getInt("num_occupants");
-
-                    Date startDate = rs.getDate("start_date");
-                    Date endDate = rs.getDate("end_date");
-
-                    bookingsList.add(new Booking(bookingID, status, roomType, numOccupants, startDate, endDate));
-
-                } while(rs.next());
-            }
+            bookingsList = extractBookingsFromResultSet(rs);
+            return bookingsList;
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
 
         return bookingsList;
+
+
+    }
+
+    public List<Booking> extractBookingsFromResultSet(ResultSet rs) throws SQLException {
+
+        List<Booking> bookingsList = new ArrayList<>();
+
+        if (!rs.next()) { // Query has no results
+            return bookingsList;
+        } else {
+
+            do {
+                int bookingID = rs.getInt("booking_ID");
+
+                String status = rs.getString("status");
+                String roomType = rs.getString("room_type");
+                int numOccupants = rs.getInt("num_occupants");
+
+                Date startDate = rs.getDate("start_date");
+                Date endDate = rs.getDate("end_date");
+
+                bookingsList.add(new Booking(bookingID, status, roomType, numOccupants, startDate, endDate));
+
+            } while(rs.next());
+        }
+
+        return bookingsList;
+    }
+
+    public List<Booking> getBookingsFor(Date date) {
+
+        SQLDatabaseConnection db = SQLDatabaseConnection.getInstance();
+        List<Booking> bookingsList = new ArrayList<>();
+
+        String tDate = Vars.DATE_FORMAT.format(date);
+
+        try {
+            ResultSet rs = db.executeQuery("SELECT B.*" +
+                    " FROM Booking as B, CanCreate as CC" +
+                    " WHERE CC.sin_number = " + super.sinNumber +
+                    " AND CC.booking_ID = B.booking_ID" +
+                    " AND B.start_date = " + "'" + tDate + "'" +
+                    " AND NOT EXISTS (SELECT *" +
+                                    " FROM TransformsInto as TI" +
+                                    " WHERE B.booking_ID = TI.booking_ID)");
+
+            bookingsList = extractBookingsFromResultSet(rs);
+            return bookingsList;
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return bookingsList;
+    }
+
+    public List<Renting> getUnpaidRentings(Date todaysDate) {
+
+        SQLDatabaseConnection db = SQLDatabaseConnection.getInstance();
+        List<Renting> rentingsList = new ArrayList<>();
+
+        String tDate = Vars.DATE_FORMAT.format(todaysDate);
+
+        try {
+            ResultSet rs = db.executeQuery(
+                    "SELECT BF.hotel_ID, BF.room_number, R.*" +
+                    " FROM CanCreate as CC, TransformsInto as TI, BooksFor as BF, Booking as B, Renting as R" +
+                    " WHERE CC.sin_number = " + sinNumber +
+                    " AND CC.booking_ID = TI.booking_ID" +
+                        " AND TI.booking_ID = B.booking_ID" +
+                            " AND B.start_date >= '" + tDate + "'" +
+                            " AND B.booking_ID = BF.booking_ID" +
+                        " AND TI.renting_ID = R.renting_ID" +
+                            " AND R.balance > 0.0"
+            );
+
+            if (!rs.next()) { // No unpaid rentings
+                return rentingsList;
+
+            } else { // At least 1 unpaid renting
+
+                do {
+
+                    int rentingID = rs.getInt("renting_ID");
+                    String status = rs.getString("status");
+                    double balance = rs.getDouble("balance");
+
+                    rentingsList.add(new Renting(rentingID, status, balance));
+
+                } while(rs.next());
+
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return rentingsList;
     }
 }
 

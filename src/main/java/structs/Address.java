@@ -32,4 +32,28 @@ public class Address {
 
         return strB.toString().trim();
     }
+
+    public int getStreetNumber() {
+        return street_number;
+    }
+
+    public String getStreetName() {
+        return street_name;
+    }
+
+    public Integer getApartmentNumber() {
+        return apartment_number;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public String getZIPCode() {
+        return zip;
+    }
 }

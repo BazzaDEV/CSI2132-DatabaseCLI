@@ -126,7 +126,7 @@ public class Admin extends Employee {
     	SQLDatabaseConnection db = SQLDatabaseConnection.getInstance();
 
     	if(choice.equals("1")) {
-    		System.out.println("UPDATE "+tableName
+    		System.out.println("\nUPDATE "+tableName
     				+ "\n SET condition1"
     				+ "\n WHERE condition2 ;");
     		String condition1="";

@@ -1,6 +1,7 @@
 package cli.employee;
 
 import cli.Menu;
+import cli.misc.RoomSearchMenu;
 import org.apache.commons.lang3.StringUtils;
 import structs.booking.Booking;
 import users.Customer;
@@ -9,7 +10,6 @@ import users.User;
 import utils.Helper;
 import utils.Vars;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CheckInCustomerMenu extends Menu {
@@ -44,6 +44,7 @@ public class CheckInCustomerMenu extends Menu {
 
                 if (c != null) {
                     FLAG = true;
+                    cliManager.setCustomer(c);
 
                 } else { // Customer does not exist
                     Helper.println("\nInvalid entry - make sure the SIN exists and try again.");
@@ -56,107 +57,127 @@ public class CheckInCustomerMenu extends Menu {
         }
 
         // Get Customer's bookings
-        List<Booking> bookingsList = c.getBookings(cliManager.getCurrentDate());
+        boolean FLAG23 = false;
+        while (!FLAG23) {
+            List<Booking> bookingsList = c.getBookingsFor(cliManager.getCurrentDate());
 
-        if (bookingsList.size() >= 1) { // Customer has at least 1 booking for today
+            if (bookingsList.size() >= 1) { // Customer has at least 1 booking for today
 
-            boolean FLAG2 = false;
-            while (!FLAG2) {
-                // Print customer's bookings for today
-                printCustomerBookings(bookingsList);
+                boolean FLAG2 = false;
+                while (!FLAG2) {
+                    // Print customer's bookings for today
+                    printCustomerBookings(bookingsList);
 
-                // Get booking to check in
-                Helper.println("\nWhich booking would you like to check in?");
-                String res = Helper.getInput(">> Booking ID: ");
+                    Helper.println("\nWhich booking would you like to check in?");
 
-                if (Helper.isDigitsOnly(res)) {
+                    boolean FLAG7 = false;
+                    while (!FLAG7) {
+                        // Get booking to check in
+                        String res = Helper.getInput(">> Booking ID: ");
 
-                    int bookingID = Integer.parseInt(res);
+                        if (Helper.isDigitsOnly(res)) {
 
-                    Booking booking = bookingsList.stream()
-                            .filter(b -> b.getBookingID() == bookingID)
-                            .findFirst()
-                            .orElse(null);
+                            int bookingID = Integer.parseInt(res);
 
-                    if (booking != null) {
+                            Booking booking = bookingsList.stream()
+                                    .filter(b -> b.getBookingID() == bookingID)
+                                    .findFirst()
+                                    .orElse(null);
 
-                        // Print selected booking details
-                        printBookingDetails(booking);
+                            if (booking != null) {
+                                FLAG7 = true;
+                                // Print selected booking details
+                                printBookingDetails(booking);
 
-                        // Get confirmation to check in this booking
-                        Helper.println("\nAre you sure you want to check in this booking? (Y/N)");
+                                // Get confirmation to check in this booking
+                                Helper.println("\nAre you sure you want to check in this booking? (Y/N)");
 
-                        boolean FLAG3 = false;
-                        while (!FLAG3) {
-                            String checkIn = Helper.getInput(">> ");
+                                boolean FLAG3 = false;
+                                while (!FLAG3) {
+                                    String checkIn = Helper.getInput(">> ");
 
-                            if (Helper.multiCheck(checkIn, new String[]{"Y", "N"})) {
-                                FLAG3 = true;
+                                    if (Helper.multiCheck(checkIn, new String[]{"Y", "N"})) {
+                                        FLAG3 = true;
 
-                                if (checkIn.equalsIgnoreCase("Y")) { // Transform booking into renting
-//                                    boolean success = e.checkInCustomer(booking);
-                                    boolean success = true;
+                                        if (checkIn.equalsIgnoreCase("Y")) { // Transform booking into renting
+                                            boolean success = e.checkInCustomer(booking);
+                                            // boolean success = true;
 
-                                    if (success) { // Succesfully checked in customer
-                                        Helper.println("\n** The customer has been successfully checked in. **");
+                                            if (success) { // Succesfully checked in customer
+                                                Helper.println("\n** The customer has been successfully checked in. **");
 
-                                    } else { // Unsuccessful check in
-                                        Helper.println("\nAn error occurred while checking in the customer.");
+                                            } else { // Unsuccessful check in
+                                                Helper.println("\nAn error occurred while checking in the customer.");
+                                            }
+
+                                            FLAG23 = false;
+
+                                        } else if (checkIn.equalsIgnoreCase("N")){ // Cancel check in; show bookings again
+                                            FLAG2 = false;
+                                        }
+
+                                    } else { // Invalid entry
+                                        Helper.println("\nInvalid entry - enter (Y)es or (N)o and try again.");
+
                                     }
-
-                                    cliManager.prevMenu();
-
-                                } else if (checkIn.equalsIgnoreCase("N")){ // Cancel check in; show bookings again
-
                                 }
 
-                            } else { // Invalid entry
-                                Helper.println("\nInvalid entry - enter (Y)es or (N)o and try again.\n");
+                            } else { // Booking ID is invalid, not part of the Customer's bookings for today
+                                Helper.println("\nPlease select a booking ID from the customer's bookings.\n");
 
                             }
+
+                        } else { // Invalid entry
+                            Helper.println("\nInvalid entry - make sure the booking ID is only digits and try again.\n");
                         }
 
-                    } else { // Booking ID is invalid, not part of the Customer's bookings for today
-                        Helper.println("\nPlease select a booking ID from the customer's bookings.\n");
-
-                    }
-
-                } else { // Invalid entry
-                    Helper.println("\nInvalid entry - make sure the booking ID is only digits and try again.\n");
-                }
-
-            }
-
-        } else { // Customer has no bookings for today
-
-            Helper.println("The customer does not have a booking for today." +
-                    "\nWould you like to:" +
-                    "(1) Directly find and rent them a room" +
-                    "(2) Return to main menu");
-
-            boolean FLAG4 = false;
-            while (!FLAG4) {
-
-                String res = Helper.getInput("\n>> ");
-
-                if (Helper.isValid(res, 2)) {
-
-                    if (res.equalsIgnoreCase("1")) { // Directly find and rent a room
-
-                    } else if (res.equalsIgnoreCase("2")) { // Go back to main menu
-                        cliManager.popMenu();
-
                     }
 
 
-                } else { // Invalid entry
-                    Helper.println("\nInvalid entry - try again.");
+
+                }
+
+            } else { // Customer has no bookings for today
+
+                Helper.println("\nThe customer does not have a booking for today.");
+
+                boolean FLAG4 = false;
+                while (!FLAG4) {
+
+                    String res = Helper.getInput("\nWould you like to:" +
+                            "\n(1) Directly find and rent them a room" +
+                            "\n(2) Return to main menu" +
+                            "\n>> ");
+
+                    if (Helper.isValid(res, 2)) {
+                        FLAG4 = true;
+
+                        if (res.equalsIgnoreCase("1")) { // Directly find and rent a room
+                            findRoom();
+
+                        } else if (res.equalsIgnoreCase("2")) { // Go back to main menu
+                            cliManager.prevMenu();
+
+                        }
+
+                    } else { // Invalid entry
+                        Helper.println("\nInvalid entry - try again.");
+
+                    }
 
                 }
 
             }
-
         }
+
+    }
+
+    private void findRoom() {
+
+        RoomSearchMenu roomSearchMenu = new RoomSearchMenu(RoomSearchMenu.SearchOption.EMPLOYEE_FOR_CUSTOMER);
+        cliManager.loadMenu(roomSearchMenu);
+
+
 
     }
 
@@ -175,5 +196,9 @@ public class CheckInCustomerMenu extends Menu {
         Helper.println("\n" + StringUtils.center("Booking Details", Vars.DIVIDER_DASH.length()) +
                 "\n" + Vars.DIVIDER_DASH);
         Helper.println(booking.toString());
+    }
+
+    public Customer getCustomer() {
+        return c;
     }
 }

@@ -2,20 +2,26 @@ package cli.admin;
 
 import cli.Menu;
 import org.apache.commons.lang3.StringUtils;
+import structs.Pair;
 import users.Admin;
-import users.User;
 import users.User;
 import utils.Helper;
 import utils.Vars;
-import users.Admin;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AdminMainMenu extends Menu {
 
     private Admin a;
 
+    private ArrayList<Pair<String, String>> relationalSchema;
 
     @Override
 	public void start() {
+
+    	relationalSchema = (ArrayList<Pair<String, String>>) Vars.getSchema();
+
         User u = cliManager.getUser();
 
         if (u instanceof Admin) {
@@ -31,108 +37,182 @@ public class AdminMainMenu extends Menu {
         //ask what query to write
 		boolean FLAG = false;
 		while (!FLAG) {
-			String choice1 = Helper.getInput("\nWhat SQL query would you like to write?" + "\n insert" + "\n delete" + "\n update" + "\n exit \n");
+			String choice1 = Helper.getInput("\nWhat SQL query would you like to write?" +
+					"\n(1) Insert" +
+					"\n(2) Delete" +
+					"\n(3) Update" +
+					"\n(4) Sign Out" +
+					"\n>> ");
 			//exit admin menu
-			if(choice1.equalsIgnoreCase("exit")) {
-				FLAG=true;
+			if (Helper.isValid(choice1, 4)) { // answer is valid input
+
+				if (choice1.equalsIgnoreCase("1")) { // insert query
+					insertQuery();
+
+				} else if (choice1.equalsIgnoreCase("2")) { // delete query
+					deleteQuery();
+
+				} else if (choice1.equalsIgnoreCase("3")) { // update query
+					updateQuery();
+
+				} else if (choice1.equalsIgnoreCase("4")) {
+					FLAG = true;
+					cliManager.prevMenu();
+				}
+
+			} else { // Invalid entry
+				Helper.println("\nInvalid entry - try again.");
+
 			}
 
-			if (Helper.multiCheck(choice1,new String[] {"insert","delete","update"})) { // answer is valid input
+		}
+    }
 
-				//insert query
-				if(choice1.equalsIgnoreCase("insert")) {
-					boolean FLAG2 = true;
-					while(FLAG2) { //yes write
-						String tableName="";
-						boolean flag2=false;
-						while(!flag2) {
-							//get table name
-							tableName = Helper.getInput("\nWhat table do you want to insert data into?\n");
-							if(Helper.multiCheck(tableName, Admin.getTables())) {
-							System.out.println(Helper.getCols(tableName, Admin.getTables(), Admin.getCols()));
-							flag2 = Helper.ask("Is this the correct table? " + tableName);
-							}
-						}
+	private void insertQuery() {
 
-						String data="";
-						boolean flag1=false;
-						while(!flag1) { //no incorrect
-							data = Helper.getInput("What is " +tableName+ " data to insert:\n"); //table
-							System.out.println("Data to insert: "+data); //information
-							flag1 = Helper.ask("Is this the correct data to insert into "+tableName+" ?");
-							if(!flag1) {
-								System.out.println("Data was not inserted.");
-							}
-						}
+    	String tableName = null, data = null;
+    	Pair<String, String> table = null;
 
-						//11111125,'John','Middle','Smith',27,'Streethere',5,'Paris','France','123456','2021-10-05','6131111125'
-						//calls function that insert query to db
-						Admin.adminInsert(tableName, data);
-						FLAG2 = Helper.ask("Do you want to write another insert query?");
-					}
-				}
-				//delete query
-				else if(choice1.equalsIgnoreCase("delete")) {
-					boolean FLAG3 = true;
-					while(FLAG3) {	//yes write
-						String tableName="";
-						boolean flag4=false;
-						while(!flag4) {
-							tableName = Helper.getInput("\nWhat table do you want to delete data from?\n");
-							if(Helper.multiCheck(tableName, Admin.getTables())) {
-							System.out.println(Helper.getCols(tableName, Admin.getTables(), Admin.getCols()));
-							flag4 = Helper.ask("Is this the correct table? " + tableName);
-							}
-						}
+		Helper.println("\n" + Vars.DIVIDER_EQUALS +
+				"\n" + StringUtils.center("Admin >> Insert Query", Vars.DIVIDER_EQUALS.length()) +
+				"\n" + Vars.DIVIDER_EQUALS);
 
-						String condition1="";
-						boolean flag1=false;
-						while(!flag1) { //no incorrect
-							condition1 = Helper.getInput("What is condition: "
-									+ "\n DELETE FROM "+tableName
-									+ "\n WHERE condition ;\n"); //condition
-							System.out.println("DELETE FROM "+tableName+"\n WHERE "+condition1 + ";");
-							flag1 = Helper.ask("Is this the correct delete query ?");
-							if(!flag1) {
-								System.out.println("Data was not deleted.");
-							}
-						}
-						//calls admin function for delete query from db
-						Admin.adminDelete(tableName,condition1);
-						FLAG3 = Helper.ask("Do you want to write another delete query?");
-					}
-				}
-				//update query
-				else if(choice1.equalsIgnoreCase("update")) {
-					boolean FLAG4 = true;
-					while(FLAG4) { //yes write
-						String tableName="";
+		boolean FLAG2 = true;
+		while (FLAG2) { //yes write
 
-						boolean flag3=false;
-						while(!flag3) {
-							tableName = Helper.getInput("\nWhat table do you want to Update data for? \n");
-							if(Helper.multiCheck(tableName, Admin.getTables())) {
-							System.out.println(Helper.getCols(tableName, Admin.getTables(), Admin.getCols()));
-							flag3 = Helper.ask("Is this the correct table? " + tableName);
-							}
-						}
+			Helper.println("\nWhat table do you want to insert data into?");
 
-						String choice="";
-						boolean flag1=false;
-						while(!flag1) { // no incorrect
-							choice = Helper.getInput("\nWhat Update query would you like to execute? (1 or 2)\n "
-									+ "1) UPDATE tableName SET Condition1 WHERE condition2;\n"
-									+ "2) UPDATE tableName SET condition1;\n");
-							if(Helper.multiCheck(choice, new String[] {"1","2"})) {
-								flag1 = Helper.ask("Is this the correct update query to use? \n"+"#"+choice);
-							}
-						}
-							//call admin function execute update query based on choice
-							Admin.adminUpdate(tableName,choice);
-							FLAG4 = Helper.ask("Do you want to write another update query?");
-					}
+			boolean flag2 = false;
+			while (!flag2) {
+				//get table name
+				tableName = Helper.getInput(">> ");
+
+				String finalTableName = tableName;
+				table = relationalSchema.stream()
+						.filter(p -> p.getX().equalsIgnoreCase(finalTableName))
+						.findFirst()
+						.orElse(null);
+
+				if (table != null) {
+					tableName = table.getX();
+					System.out.println("\n" + tableName + "(" + table.getY() + ")");
+					flag2 = Helper.ask("\nIs this the correct table?");
 				}
 			}
+
+			boolean flag1 = false;
+			while (!flag1) { //no incorrect
+				data = Helper.getInput("\nWhat is " + tableName + " data to insert?" +
+						"\n>> "); //table
+				System.out.println("\nData to insert: " + data); //information
+				flag1 = Helper.ask("\nIs this the correct data to insert into "+ tableName +"?");
+				if(!flag1) {
+					System.out.println("\nData was not inserted.");
+				}
+			}
+
+			//11111125,'John','Middle','Smith',27,'Streethere',5,'Paris','France','123456','2021-10-05','6131111125'
+			//calls function that insert query to db
+			Admin.adminInsert(tableName, data);
+			FLAG2 = Helper.ask("\nDo you want to write another insert query?");
+
+
+	}
+}
+
+	private void deleteQuery() {
+
+		Helper.println("\n" + Vars.DIVIDER_EQUALS +
+				"\n" + StringUtils.center("Admin >> Delete Query", Vars.DIVIDER_EQUALS.length()) +
+				"\n" + Vars.DIVIDER_EQUALS);
+
+		String tableName = null, condition = null;
+		Pair<String, String> table = null;
+
+		boolean FLAG3 = true;
+		while (FLAG3) {    //yes write
+
+			Helper.println("\nWhat table do you want to delete data from?");
+
+			boolean flag4 = false;
+			while (!flag4) {
+				tableName = Helper.getInput(">> ");
+
+				String finalTableName = tableName;
+				table = relationalSchema.stream()
+						.filter(p -> p.getX().equalsIgnoreCase(finalTableName))
+						.findFirst()
+						.orElse(null);
+
+				if (table != null) {
+					tableName = table.getX();
+					System.out.println("\n" + tableName + "(" + table.getY() + ")");
+					flag4 = Helper.ask("\nIs this the correct table?");
+				}
+			}
+
+			boolean flag1 = false;
+			while (!flag1) { //no incorrect
+				condition = Helper.getInput("\nWhat is condition for the query?"
+						+ "\n	DELETE FROM " + tableName
+						+ "\n	WHERE condition ;" +
+						"\n>> "); //condition
+				System.out.println("\nDELETE FROM " + tableName + "\n WHERE " + condition + ";");
+				flag1 = Helper.ask("\nIs this the correct delete query?");
+				if (!flag1) {
+					System.out.println("\nData was not deleted.");
+				}
+			}
+			//calls admin function for delete query from db
+			Admin.adminDelete(tableName, condition);
+			FLAG3 = Helper.ask("\nDo you want to write another delete query?");
+		}
+	}
+
+	private void updateQuery() {
+
+		Helper.println("\n" + Vars.DIVIDER_EQUALS +
+				"\n" + StringUtils.center("Admin >> Update Query", Vars.DIVIDER_EQUALS.length()) +
+				"\n" + Vars.DIVIDER_EQUALS);
+
+		String tableName = null, choice = null;
+		Pair<String, String> table = null;
+
+		boolean FLAG4 = true;
+		while (FLAG4) { //yes write
+
+			Helper.println("\nWhat table do you want to update data for?");
+
+			boolean flag3 = false;
+			while (!flag3) {
+				tableName = Helper.getInput(">> ");
+
+				String finalTableName = tableName;
+				table = relationalSchema.stream()
+						.filter(p -> p.getX().equalsIgnoreCase(finalTableName))
+						.findFirst()
+						.orElse(null);
+
+				if (table != null) {
+					tableName = table.getX();
+					System.out.println("\n" + tableName + "(" + table.getY() + ")");
+					flag3 = Helper.ask("\nIs this the correct table?");
+				}
+			}
+
+			boolean flag1 = false;
+			while (!flag1) { // no incorrect
+				choice = Helper.getInput("\nWhich update query would you like to execute?" +
+						"\n(1) UPDATE tableName SET condition1 WHERE condition2;" +
+						"\n(2) UPDATE tableName SET condition1;" +
+						"\n>> ");
+				if (Helper.isValid(choice, 2)) {
+					flag1 = Helper.ask("\nIs #" + choice + " the correct update query to use?");
+				}
+			}
+			//call admin function execute update query based on choice
+			Admin.adminUpdate(tableName, choice);
+			FLAG4 = Helper.ask("\nDo you want to write another update query?");
 		}
 	}
 }

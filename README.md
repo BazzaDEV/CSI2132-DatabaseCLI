@@ -1,5 +1,14 @@
 # CSI2132-DatabaseCLI
-## Instructions:
+
+### Important Note for TA:
+Please **ignore** the install instructions in our report, and instead follow the instructions here.  
+Thanks!
+
+## How to Install (*UPDATED!*):
+### Method 1
+1. In progress...
+
+### Method 2 _(outdated, do not use)_
 1. Go to the file dbCLIlogin-TEMP.txt and input your sql database username and password and rename the file to remove -TEMP
 2. Please enter today's date in YYYY-MM-DD format as a command line argument when running the Main class to start the application.
       - In Eclipse this is done but modifying the run configurations (run as, run configurations, arguments, program arguments, apply, run)
