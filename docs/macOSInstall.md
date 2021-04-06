@@ -36,7 +36,7 @@
 
 8. To run the CLI, enter the following into Terminal:  
 ```
-java -jar CSI2132-DatabaseCLI.jar YYYY-MM-DD
+java -jar DatabaseCLI.jar YYYY-MM-DD
 ```
 Replace `YYYY-MM-DD` with a date of your choosing - this will be interpreted as today's date.
 
