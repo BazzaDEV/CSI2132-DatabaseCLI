@@ -2,4 +2,4 @@
 
 **To be completed at a later date.**
 
-Please consult [macOS install instructions](docs/macOSInstall.md) for a general guide and modify for Windows use at your own discretion.
+Please consult [macOS install instructions](macOSInstall.md) for a general guide and modify for Windows use at your own discretion.
