@@ -19,6 +19,8 @@ public class Vars {
     public static final String DIVIDER_ASTERICK = "*******************************";
     public static final String DIVIDER_ASTERICK_LONG = "********************************************";
 
+    public static final String DIVIDER_RED_SQUARE_LONG = Helper.repeat(Emoji.RED_SQUARE, 30);
+
     public static final String[] YES_NO_OPTIONS = new String[] {"Y", "N"};
 
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");

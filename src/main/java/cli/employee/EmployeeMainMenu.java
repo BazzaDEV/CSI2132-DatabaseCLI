@@ -6,6 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import users.Employee;
 import users.User;
 import utils.Helper;
+import utils.Messages;
 import utils.Vars;
 
 public class EmployeeMainMenu extends Menu {
@@ -62,7 +63,7 @@ public class EmployeeMainMenu extends Menu {
                 Helper.println("\nWelcome back, " + e.getName().getFirstName() + "!");
 
             } else { // Invalid entry
-                Helper.println("\nInvalid entry - try again.");
+                Helper.println(Messages.INVALID_ENTRY);
 
             }
 

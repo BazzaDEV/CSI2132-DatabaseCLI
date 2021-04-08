@@ -9,6 +9,7 @@ import users.Admin;
 import users.Customer;
 import users.Employee;
 import utils.Helper;
+import utils.Messages;
 import utils.Vars;
 
 import java.util.Date;
@@ -56,7 +57,7 @@ public class LoginMenu extends Menu {
             }
 
             else { // Invalid entry
-                Helper.println("Invalid entry - try again.");
+                Helper.println(Messages.INVALID_ENTRY);
 
             }
         }
@@ -70,13 +71,13 @@ public class LoginMenu extends Menu {
 
         boolean FLAG = false;
         while (!FLAG) {
-            String sinNumber = Helper.getInput("SIN number: ");
+            String sinNumber = Helper.getInput(">> SIN number: ");
 
             if (Helper.isDigitsOnly(sinNumber) && sinNumber.trim().length() == 8) { // SIN is valid input
                 c = Helper.getCustomerFromSIN(sinNumber);
 
                 if (c == null) { // Customer with this SIN does not exist
-                    Helper.println("\nA customer does not exist with this SIN number.");
+                    Helper.println("\n⛔ A customer does not exist with this SIN number.");
 
                 } else { // Customer with this SIN exists
                     FLAG = true;
@@ -87,7 +88,7 @@ public class LoginMenu extends Menu {
                 }
             } else { // Invalid entry
 
-                Helper.println("\nInvalid entry - make sure you only enter digits & your SIN number is exactly 8 digits.");
+                Helper.println("\n⛔ Invalid entry - make sure you only enter digits & your SIN number is exactly 8 digits.");
 
             }
 
@@ -104,7 +105,7 @@ public class LoginMenu extends Menu {
 
         while (!FLAG) {
 
-            String sinNumber = Helper.getInput("SIN number: ");
+            String sinNumber = Helper.getInput(">> SIN number: ");
 
             if (Helper.isValidSIN(sinNumber)) { // Input is valid
                 FLAG = true;
@@ -117,14 +118,13 @@ public class LoginMenu extends Menu {
                 } else { // Employee does not exist
                     FLAG = false;
 
-                    Helper.println("\nSorry, there is no employee with this SIN number." +
-                            "\nTry again.\n");
+                    Helper.println("\n⛔ There is no employee with this SIN number.");
 
                     }
 
             } else { // Invalid entry
 
-                Helper.println("\nInvalid entry - make sure you only enter digits & your SIN number is exactly 8 digits.");
+                Helper.println("\n⛔ Invalid entry - make sure you only enter digits & your SIN number is exactly 8 digits.");
             }
 
         }
@@ -142,7 +142,7 @@ public class LoginMenu extends Menu {
 
         while (!FLAG) {
 
-            String sinNumber = Helper.getInput("SIN number: ");
+            String sinNumber = Helper.getInput(">> SIN number: ");
 
             if (Helper.isValidSIN(sinNumber)) { // Input is valid
                 FLAG = true;
@@ -156,14 +156,13 @@ public class LoginMenu extends Menu {
                 } else { // Admin does not exist
                     FLAG = false;
 
-                    Helper.println("\nSorry, there is no admin with this SIN number." +
-                            "\nTry again.\n");
+                    Helper.println("\n⛔ There is no admin with this SIN number - try again.");
 
                 }
 
             } else { // Invalid entry
 
-                Helper.println("\nInvalid entry - make sure you only enter digits & your SIN number is exactly 8 digits.");
+                Helper.println("\n⛔ Invalid entry - make sure you only enter digits & your SIN number is exactly 8 digits.");
             }
 
         }

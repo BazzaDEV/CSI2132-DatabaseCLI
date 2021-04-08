@@ -6,6 +6,7 @@ import structs.Pair;
 import users.Admin;
 import users.User;
 import utils.Helper;
+import utils.Messages;
 import utils.Vars;
 
 import java.util.ArrayList;
@@ -61,7 +62,7 @@ public class AdminMainMenu extends Menu {
 				}
 
 			} else { // Invalid entry
-				Helper.println("\nInvalid entry - try again.");
+				Helper.println(Messages.INVALID_ENTRY);
 
 			}
 

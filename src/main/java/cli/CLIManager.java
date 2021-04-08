@@ -93,6 +93,10 @@ public class CLIManager {
         menuStack.peek().start();
     }
 
+    public Menu peekMenu() {
+        return menuStack.peek();
+    }
+
     public void setCurrentDate(String todaysDate) {
         if (todaysDate.matches(Vars.DATE_REGEX)) {
 

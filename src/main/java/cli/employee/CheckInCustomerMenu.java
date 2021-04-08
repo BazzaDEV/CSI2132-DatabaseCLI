@@ -8,6 +8,7 @@ import users.Customer;
 import users.Employee;
 import users.User;
 import utils.Helper;
+import utils.Messages;
 import utils.Vars;
 
 import java.util.List;
@@ -47,11 +48,11 @@ public class CheckInCustomerMenu extends Menu {
                     cliManager.setCustomer(c);
 
                 } else { // Customer does not exist
-                    Helper.println("\nInvalid entry - make sure the SIN exists and try again.");
+                    Helper.println("\n⛔ Invalid entry - make sure the SIN exists and try again.");
                 }
 
             } else { // Invalid entry
-                Helper.println("\nInvalid entry - Make sure the SIN is an 8-digit number and try again.");
+                Helper.println("\n⛔ Invalid entry - Make sure the SIN is an 8-digit number and try again.");
 
             }
         }
@@ -104,12 +105,12 @@ public class CheckInCustomerMenu extends Menu {
                                             // boolean success = true;
 
                                             if (success) { // Succesfully checked in customer
-                                                Helper.println("\n** The customer has been successfully checked in. **");
+                                                Helper.println("\n✅ The customer has been successfully checked in.");
 
                                             } else { // Unsuccessful check in
-                                                Helper.println("\nAn error occurred while checking in the customer.");
+                                                Helper.println("\n❌ An error occurred while checking in the customer.");
                                             }
-
+                                            FLAG2 = true;
                                             FLAG23 = false;
 
                                         } else if (checkIn.equalsIgnoreCase("N")){ // Cancel check in; show bookings again
@@ -117,18 +118,18 @@ public class CheckInCustomerMenu extends Menu {
                                         }
 
                                     } else { // Invalid entry
-                                        Helper.println("\nInvalid entry - enter (Y)es or (N)o and try again.");
+                                        Helper.println("\n⛔ Invalid entry - enter (Y)es or (N)o and try again.");
 
                                     }
                                 }
 
                             } else { // Booking ID is invalid, not part of the Customer's bookings for today
-                                Helper.println("\nPlease select a booking ID from the customer's bookings.\n");
+                                Helper.println("\n⛔ Please select a booking ID from the customer's bookings.\n");
 
                             }
 
                         } else { // Invalid entry
-                            Helper.println("\nInvalid entry - make sure the booking ID is only digits and try again.\n");
+                            Helper.println("\n⛔ Invalid entry - make sure the booking ID is only digits and try again.\n");
                         }
 
                     }
@@ -161,7 +162,7 @@ public class CheckInCustomerMenu extends Menu {
                         }
 
                     } else { // Invalid entry
-                        Helper.println("\nInvalid entry - try again.");
+                        Helper.println(Messages.INVALID_ENTRY);
 
                     }
 

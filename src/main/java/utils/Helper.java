@@ -33,13 +33,6 @@ public class Helper {
      */
     public static void print(String s) {System.out.print(s);}
 
-    /**
-     * Clears the console.
-     */
-    public static void clear() {
-        System.out.flush();
-    }
-
     public static void newLine(int lines) {
         for (int i=1; i <= lines; i++) {
             print("\n");
@@ -98,9 +91,9 @@ public class Helper {
             CLIManager.getInstance().prevMenu();
 
         } else if (input.equals(Vars.EXIT_APP_KEYWORD)) {
-            Helper.println("\n\n" + Vars.DIVIDER_ASTERICK_LONG
-                    + "\n" + StringUtils.center("The application has been terminated.", Vars.DIVIDER_ASTERICK_LONG.length())
-                    + "\n" + Vars.DIVIDER_ASTERICK_LONG
+            Helper.println("\n\n" + Vars.DIVIDER_RED_SQUARE_LONG
+                    + "\n\n" + StringUtils.center("The application has been terminated.", Vars.DIVIDER_RED_SQUARE_LONG.length())
+                    + "\n\n" + Vars.DIVIDER_RED_SQUARE_LONG
                     + "\n\n");
 
             System.exit(1);
@@ -328,6 +321,24 @@ public class Helper {
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
 
         return currencyFormatter.format(money);
+    }
+
+    public static String toEmoji(boolean flag) {
+        if (flag) {
+            return "✅";
+        } else {
+            return "❌";
+        }
+    }
+
+    public static String repeat(String toRepeat, int times) {
+        StringBuilder strB = new StringBuilder();
+
+        for (int i=0; i < times; i++) {
+            strB.append(toRepeat);
+        }
+
+        return strB.toString().trim();
     }
 
 }

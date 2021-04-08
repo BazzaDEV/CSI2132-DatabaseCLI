@@ -48,7 +48,5 @@ public class ViewBookingsMenu extends Menu {
 
         }
 
-        cliManager.prevMenu();
-
     }
 }

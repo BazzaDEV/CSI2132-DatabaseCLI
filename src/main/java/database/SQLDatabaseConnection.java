@@ -1,6 +1,7 @@
 package database;
 
 import org.apache.commons.lang3.StringUtils;
+import utils.Emoji;
 import utils.Helper;
 import utils.Vars;
 
@@ -49,7 +50,11 @@ public class SQLDatabaseConnection {
         String username = sc.nextLine();
         String password = sc.nextLine();
 
-        login(username, password);
+        boolean success = login(username, password);
+
+        if (!success) {
+            promptLoginDetails();
+        }
     }
 
     private void promptLoginDetails() {
@@ -63,21 +68,20 @@ public class SQLDatabaseConnection {
         boolean F = false;
         while (!F) {
 
-            String username = Helper.getInput("\nUsername: ");
+            String username = Helper.getInput("\n>> Username: ");
             String password;
 
-            Helper.println("Password: ");
+            Helper.println(">> Password: ");
             password = String.valueOf(System.console().readPassword());
 
             F = login(username, password);
         }
 
-        Helper.println("\n** Your database credentials were accepted. **");
-
-
     }
 
     private boolean login(String username, String password) {
+
+        Helper.println("\n⏳ Authenticating credentials...");
 
         try {
             Class.forName("org.postgresql.Driver");
@@ -87,14 +91,15 @@ public class SQLDatabaseConnection {
             username = null;
             password = null;
 
+            Helper.println("\n" + Emoji.UNLOCKED + " Your database credentials were accepted." + Emoji.UNLOCKED);
             return true;
 
         } catch (ClassNotFoundException | SQLException e) {
             if (e instanceof ClassNotFoundException) {
-                Helper.println("The PostgreSQL driver was not found. Exiting now...");
+                Helper.println("❌ The PostgreSQL driver was not found. Exiting now...");
                 System.exit(1);
             } else {
-                Helper.println("\n[ERROR] Login credentials were rejected.");
+                Helper.println("❌ Login credentials were rejected.");
                 return false;
             }
 

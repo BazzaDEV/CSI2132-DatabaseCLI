@@ -1,6 +1,5 @@
 package utils;
 
-import structs.Pair;
 import structs.hotel.HotelRoom;
 import users.Employee;
 
@@ -15,9 +14,9 @@ public class TestMain {
         List<HotelRoom> roomResults;
         roomResults = e.getRooms("2030-07-06", "2030-07-08", 1, 1000, "mountain", "single", "true", "air conditioning");
 
-        for (HotelRoom room : roomResults) {
-             Helper.println(room.toString());
-        }
+//        for (HotelRoom room : roomResults) {
+//             Helper.println(room.toString());
+//        }
 
 
 

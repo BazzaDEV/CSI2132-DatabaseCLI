@@ -7,6 +7,7 @@ import structs.hotel.HotelRoom;
 import users.Customer;
 import users.Employee;
 import utils.Helper;
+import utils.Messages;
 import utils.Vars;
 
 import java.text.ParseException;
@@ -127,7 +128,7 @@ public class RoomSearchMenu extends Menu {
                         }
 
                     } else { // Invalid entry
-                        Helper.println("\nInvalid entry - try again.");
+                        Helper.println(Messages.INVALID_ENTRY);
 
                     }
 
@@ -155,7 +156,7 @@ public class RoomSearchMenu extends Menu {
                         }
 
                     } else { // Invalid entry
-                        Helper.println("\nInvalid entry - try again.");
+                        Helper.println(Messages.INVALID_ENTRY);
 
                     }
 
@@ -286,12 +287,12 @@ public class RoomSearchMenu extends Menu {
                     customer.bookRoom(hotelRoom, booking);
 
                 } else { // Hotel ID and room number combination not in search results
-                    Helper.println("\nThis combination of hotel ID and room number aren't in the search results - try again.");
+                    Helper.println("\n❌ This combination of hotel ID and room number aren't in the search results - try again.");
 
                 }
 
             } else { // Invalid entry
-                Helper.println("\nMake sure both inputs are digits-only and try again.");
+                Helper.println("\n❌ Make sure both inputs are digits-only and try again.");
             }
 
         }
@@ -316,8 +317,8 @@ public class RoomSearchMenu extends Menu {
 
                 } catch (ParseException e) { // Issue parsing dates, try again
                     FLAG = false;
-                    Helper.println("\nSorry, there was an issue with your dates." +
-                            "\nMake sure they're in YYYY-DD-MM format and try again.");
+                    Helper.println("\n❌ Sorry, there was an issue with your dates." +
+                            "\n  Make sure they're in YYYY-DD-MM format and try again.");
                     continue;
 
                 }
@@ -330,7 +331,7 @@ public class RoomSearchMenu extends Menu {
 
                         if (!startDate.equalsIgnoreCase(tDate)) {
                             FLAG = false;
-                            Helper.println("\nThe start date must be today (" + tDate + ") - try again.");
+                            Helper.println("\n❌ The start date must be today (" + tDate + ") - try again.");
 
                         }
 
@@ -338,13 +339,12 @@ public class RoomSearchMenu extends Menu {
 
                 } else { // Start date is AFTER end date, try again
                     FLAG = false;
-                    Helper.println("\nThe start date is after the end date." +
-                            "\nTry again.");
+                    Helper.println("\n⛔ The start date cannot be after the end date - try again.");
 
                 }
 
             } else { // Invalid date format
-                Helper.println("\nInvalid date format - try again.");
+                Helper.println("\n⛔ Invalid date format - try again.");
 
             }
 
@@ -363,7 +363,7 @@ public class RoomSearchMenu extends Menu {
                 F4 = true;
 
             } else { // Invalid entry
-                Helper.println("\nPlease enter a valid city and state & try again.");
+                Helper.println("\n⛔ Please enter a valid city and state & try again.");
 
             }
         }
@@ -386,12 +386,12 @@ public class RoomSearchMenu extends Menu {
                     FLAG3 = true;
 
                 } else { // Invalid entry
-                    Helper.println("\nThe minimum price must be less than the maximum price in your range.");
+                    Helper.println("\n⛔ The minimum price must be less than the maximum price in your range.");
 
                 }
 
             } else { // Invalid entry
-                Helper.println("\nInvalid price range - make sure you are only entering digits and try again.");
+                Helper.println("\n⛔ Invalid entry - make sure you are only entering digits and try again.");
 
             }
 
@@ -414,7 +414,7 @@ public class RoomSearchMenu extends Menu {
                 view = Vars.VIEW_OPTIONS[choice-1];
 
             } else { // Invalid entry
-                Helper.println("\nInvalid entry - try again.");
+                Helper.println(Messages.INVALID_ENTRY);
 
             }
         }
@@ -436,7 +436,7 @@ public class RoomSearchMenu extends Menu {
                 roomCapacity = Vars.ROOM_SIZE_OPTIONS[choice-1];
 
             } else { // Invalid entry
-                Helper.println("\nInvalid entry - try again.");
+                Helper.println(Messages.INVALID_ENTRY);
 
             }
         }
@@ -462,7 +462,7 @@ public class RoomSearchMenu extends Menu {
                 }
 
             } else { // Invalid entry
-                Helper.println("\nInvalid entry - try again.");
+                Helper.println(Messages.INVALID_ENTRY);
 
             }
         }
@@ -484,7 +484,7 @@ public class RoomSearchMenu extends Menu {
                 amenity = Vars.AMENITY_OPTIONS[choice-1];
 
             } else { // Invalid entry
-                Helper.println("\nInvalid entry - try again.");
+                Helper.println(Messages.INVALID_ENTRY);
 
             }
 

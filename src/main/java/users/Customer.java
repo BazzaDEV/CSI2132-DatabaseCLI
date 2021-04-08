@@ -80,7 +80,7 @@ public class Customer extends User {
                     ");");
 
             if (!rs.next()) {
-                System.out.println("There were no available rooms that met that criteria");
+                System.out.println("There were no available rooms that met that criteria. ");
 
             } else {
                 roomResults = extractRoomsFromResultSet(rs);

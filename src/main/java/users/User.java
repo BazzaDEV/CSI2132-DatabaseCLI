@@ -65,7 +65,7 @@ public abstract class User {
             System.out.println("\n* Hotel Room Info *");
 
             double price = rs.getDouble("price");
-            System.out.println("Price: " + price);
+            System.out.println("Price: " + Helper.toCurrency(price));
 
             String view = rs.getString("view");
             System.out.println("View: " + view);
@@ -74,7 +74,7 @@ public abstract class User {
             System.out.println("Room Capacity: " + room_capacity);
 
             boolean is_extendable = rs.getBoolean("is_extendable");
-            System.out.println("Room is extendable: " + is_extendable);
+            System.out.println("Extendable Room? " + Helper.toEmoji(is_extendable));
 
             String room_status = rs.getString("room_status");
 
@@ -84,20 +84,18 @@ public abstract class User {
             //Hotel info
             System.out.println("* Hotel Information *");
 
-            String star_category = rs.getString("star_category");
-            System.out.println("Star Category: " + star_category);
+            int star_category = rs.getInt("star_category");
+            System.out.println("Star Category: " + Helper.repeat("⭐", star_category));
 
             String city = rs.getString("city");
-            System.out.println("City: " + city);
-
             String state_name = rs.getString("state_name");
-            System.out.println("State Name: " + state_name);
+            System.out.println("Location: " + city + ", " + state_name);
 
             String zip = rs.getString("zip");
-            System.out.println("Zip: " + zip);
+            System.out.println("ZIP: " + zip);
 
             String email_address = rs.getString("email_address");
-            System.out.println("Email if you have any inquires: " + email_address + "\n");
+            System.out.println("Email: " + email_address + "\n");
 
             roomResults.add(new HotelRoom(room_number, hotel_ID, price, room_capacity, view, is_extendable, room_status));
 

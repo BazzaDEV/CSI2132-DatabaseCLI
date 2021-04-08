@@ -9,6 +9,7 @@ import users.Customer;
 import users.Employee;
 import users.User;
 import utils.Helper;
+import utils.Messages;
 import utils.Vars;
 
 import java.util.ArrayList;
@@ -50,11 +51,11 @@ public class ProcessPaymentMenu extends Menu {
                     cliManager.setCustomer(c);
 
                 } else { // Customer does not exist
-                    Helper.println("\nInvalid entry - make sure the SIN exists and try again.");
+                    Helper.println("\n⛔ Invalid entry - make sure the SIN exists and try again.");
                 }
 
             } else { // Invalid entry
-                Helper.println("\nInvalid entry - Make sure the SIN is an 8-digit number and try again.");
+                Helper.println("\n⛔ Invalid entry - Make sure the SIN is an 8-digit number and try again.");
 
             }
         }
@@ -110,14 +111,14 @@ public class ProcessPaymentMenu extends Menu {
                                         assert b != null;
                                         Payment payment = new Payment(rentingID, null, b.getEndDate(), renting.getBalance(), todaysDate);
 
-                                        Helper.println("\nProcessing payment...");
+                                        Helper.println("\n⏳ Processing payment...");
                                         boolean success = e.insertCustomerPayment(renting, payment);
 
                                         if (success) {
-                                            Helper.println("** The customer's payment was successfully processed. **");
+                                            Helper.println("✅ The customer's payment was successfully processed.");
 
                                         } else {
-                                            Helper.println("An error occurred; payment processing failed.");
+                                            Helper.println("❌ An error occurred; payment processing failed.");
 
                                         }
 
@@ -128,18 +129,18 @@ public class ProcessPaymentMenu extends Menu {
                                     FLAG43 = false;
 
                                 } else { // Invalid entry
-                                    Helper.println("\nInvalid entry - try again.\n");
+                                    Helper.println(Messages.INVALID_ENTRY + "\n");
 
                                 }
 
                             }
 
                         } else { // Renting ID is not part of Customer's list of unpaid rentings
-                            Helper.println("\nPlease select a renting ID from the customer's unpaid rentings.\n");
+                            Helper.println("\n⛔ Please select a renting ID from the customer's unpaid rentings.\n");
                         }
 
                     } else { // Invalid entry
-                        Helper.println("\nInvalid entry - make sure the renting ID is only digits and try again.\n");
+                        Helper.println("\n⛔ Invalid entry - make sure the renting ID is only digits and try again.\n");
                     }
 
                 }
