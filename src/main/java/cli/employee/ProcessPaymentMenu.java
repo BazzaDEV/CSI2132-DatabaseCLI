@@ -94,7 +94,7 @@ public class ProcessPaymentMenu extends Menu {
                             Helper.println("\nAre you sure you'd like to pay " + Helper.toCurrency(renting.getBalance()) + " to cover, " +
                                     "in full, the outstanding balance on this renting?" +
                                     "\n(Y)es" +
-                                    "\n(N)o, show the unpaid rentings again.\n");
+                                    "\n(N)o, show the unpaid rentings again.");
 
                             boolean FLAG3 = false;
                             while (!FLAG3) {
@@ -112,13 +112,20 @@ public class ProcessPaymentMenu extends Menu {
                                         Payment payment = new Payment(rentingID, null, b.getEndDate(), renting.getBalance(), todaysDate);
 
                                         Helper.println("\n⏳ Processing payment...");
+                                        Helper.sleep(2);
                                         boolean success = e.insertCustomerPayment(renting, payment);
 
                                         if (success) {
-                                            Helper.println("✅ The customer's payment was successfully processed.");
+                                            Helper.println("\n" + Vars.DIVIDER_ASTERICK_LONG);
+                                            Helper.println(StringUtils.center("✅ The customer's payment was successfully processed.", Vars.DIVIDER_ASTERICK_LONG.length()));
+                                            Helper.println(Vars.DIVIDER_ASTERICK_LONG);
+
+                                            Helper.sleep(2);
 
                                         } else {
-                                            Helper.println("❌ An error occurred; payment processing failed.");
+                                            Helper.println("\n" + Vars.DIVIDER_ASTERICK_LONG);
+                                            Helper.println(StringUtils.center("❌ An error occurred while processing the payment.", Vars.DIVIDER_ASTERICK_LONG.length()));
+                                            Helper.println(Vars.DIVIDER_ASTERICK_LONG);
 
                                         }
 
@@ -146,9 +153,9 @@ public class ProcessPaymentMenu extends Menu {
                 }
 
             } else { // No unpaid rentings; return to main menu
-                Helper.println("\nThe customer has no unpaid rentings." +
-                        "\nReturning to main menu...");
+                printRentings(unpaidRentings);
 
+                Helper.getInput("\n[Press any key to return to the main menu...]\n");
                 cliManager.prevMenu();
 
             }
@@ -163,12 +170,18 @@ public class ProcessPaymentMenu extends Menu {
                 "\n" + StringUtils.center("Customer's Unpaid Rentings", Vars.DIVIDER_DASH_LONG.length()) +
                 "\n" + Vars.DIVIDER_DASH_LONG);
 
-        Helper.print("\nYou have " + rentings.size() + " unpaid renting(s):\n");
+        if (rentings.size() >= 1) {
+            Helper.print("\nThe customer has " + rentings.size() + " unpaid renting(s):\n");
 
-        for (Renting r : rentings) {
-            Helper.newLine(1);
-            Helper.println(r.toStringWithTitle());
+            for (Renting r : rentings) {
+                Helper.newLine(1);
+                Helper.println(r.toStringWithTitle());
+            }
+        } else {
+            Helper.println("\nThe customer has no unpaid rentings.");
         }
+
+
     }
 
     private void printRentingDetails(Renting renting) {

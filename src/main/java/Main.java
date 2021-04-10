@@ -1,7 +1,10 @@
 import cli.CLIManager;
+import org.jline.terminal.Terminal;
+import org.jline.terminal.TerminalBuilder;
 import utils.Helper;
 import utils.Vars;
 
+import java.io.IOException;
 import java.nio.file.Paths;
 
 public class Main {

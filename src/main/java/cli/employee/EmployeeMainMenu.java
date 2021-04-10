@@ -3,11 +3,17 @@ package cli.employee;
 import cli.Menu;
 import cli.misc.RoomSearchMenu;
 import org.apache.commons.lang3.StringUtils;
+import org.jline.terminal.Terminal;
+import org.jline.terminal.TerminalBuilder;
+import org.jline.utils.InfoCmp;
 import users.Employee;
 import users.User;
+import utils.Emoji;
 import utils.Helper;
 import utils.Messages;
 import utils.Vars;
+
+import java.io.IOException;
 
 public class EmployeeMainMenu extends Menu {
 
@@ -53,6 +59,8 @@ public class EmployeeMainMenu extends Menu {
 
                 } else if (res.equalsIgnoreCase("4")) { // Sign out
                     FLAG = true;
+
+                    Messages.signOutDialog();
                     cliManager.prevMenu();
 
                 }

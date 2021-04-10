@@ -6,6 +6,7 @@ import cli.misc.RoomSearchMenu;
 import org.apache.commons.lang3.StringUtils;
 import users.Customer;
 import users.User;
+import utils.Emoji;
 import utils.Helper;
 import utils.Messages;
 import utils.Vars;
@@ -49,6 +50,7 @@ public class CustomerMainMenu extends Menu {
                         cliManager.loadMenu(new ViewBookingsMenu());
 
                     } else if (res.equalsIgnoreCase("3")) { // Sign out
+                        Messages.signOutDialog();
                         cliManager.prevMenu();
 
                     }

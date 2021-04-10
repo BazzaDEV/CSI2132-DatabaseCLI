@@ -105,10 +105,16 @@ public class CheckInCustomerMenu extends Menu {
                                             // boolean success = true;
 
                                             if (success) { // Succesfully checked in customer
-                                                Helper.println("\n✅ The customer has been successfully checked in.");
+                                                Helper.println("\n" + Vars.DIVIDER_ASTERICK_LONG);
+                                                Helper.println(StringUtils.center("✅ The customer has been successfully checked in.", Vars.DIVIDER_ASTERICK_LONG.length()));
+                                                Helper.println(Vars.DIVIDER_ASTERICK_LONG);
+
+                                                Helper.sleep(2);
 
                                             } else { // Unsuccessful check in
-                                                Helper.println("\n❌ An error occurred while checking in the customer.");
+                                                Helper.println("\n" + Vars.DIVIDER_ASTERICK_LONG);
+                                                Helper.println(StringUtils.center("❌ An error occurred while checking in the customer.", Vars.DIVIDER_ASTERICK_LONG.length()));
+                                                Helper.println(Vars.DIVIDER_ASTERICK_LONG);
                                             }
                                             FLAG2 = true;
                                             FLAG23 = false;
@@ -140,7 +146,7 @@ public class CheckInCustomerMenu extends Menu {
 
             } else { // Customer has no bookings for today
 
-                Helper.println("\nThe customer does not have a booking for today.");
+                printCustomerBookings(bookingsList);
 
                 boolean FLAG4 = false;
                 while (!FLAG4) {
@@ -187,10 +193,23 @@ public class CheckInCustomerMenu extends Menu {
                 "\n" + StringUtils.center("Customer's Bookings for Today", Vars.DIVIDER_DASH_LONG.length()) +
                 "\n" + Vars.DIVIDER_DASH_LONG);
 
-        for (Booking b : bookingsList) {
-            Helper.newLine(1);
-            Helper.println(b.toString());
+        int numBookings = bookingsList.size();
+
+        if (numBookings >= 1) {
+
+            Helper.println("\nThe customer has " + numBookings + " booking(s) for today:");
+
+            for (Booking b : bookingsList) {
+                Helper.newLine(1);
+                Helper.println(b.toStringAlt2());
+            }
+
+        } else {
+            Helper.println("\nThe customer has no bookings for today.");
+
         }
+
+
     }
 
     private void printBookingDetails(Booking booking) {

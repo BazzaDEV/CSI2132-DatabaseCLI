@@ -80,7 +80,7 @@ public class Customer extends User {
                     ");");
 
             if (!rs.next()) {
-                System.out.println("There were no available rooms that met that criteria. ");
+                System.out.println("\nThere were no available rooms that met that criteria. ");
 
             } else {
                 roomResults = extractRoomsFromResultSet(rs);
@@ -130,7 +130,12 @@ public class Customer extends User {
                             " VALUES(" + booking.getBookingID() + ", " + sinNumber + ");"
             );
 
-            Helper.println("\n** The booking has been created. **");
+
+            Helper.println("\n" + Vars.DIVIDER_ASTERICK_LONG);
+            Helper.println(StringUtils.center("✅ The customer's booking was created successfully.", Vars.DIVIDER_ASTERICK_LONG.length()));
+            Helper.println(Vars.DIVIDER_ASTERICK_LONG);
+
+            Helper.sleep(2);
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -235,10 +240,11 @@ public class Customer extends User {
                     " WHERE CC.sin_number = " + sinNumber +
                     " AND CC.booking_ID = TI.booking_ID" +
                         " AND TI.booking_ID = B.booking_ID" +
-                            " AND B.start_date >= '" + tDate + "'" +
+                            " AND B.start_date <= '" + tDate + "'" +
                             " AND B.booking_ID = BF.booking_ID" +
                         " AND TI.renting_ID = R.renting_ID" +
-                            " AND R.balance > 0.0"
+                            " AND R.balance > 0.0" +
+                    " ORDER BY R.renting_ID"
             );
 
             if (!rs.next()) { // No unpaid rentings

@@ -16,6 +16,7 @@ Using the CLI fairly self-explanatory. Here are some useful features:
 From any input screen in the CLI, you can...
 * Go back to the previous menu by clicking **`**
 * Exit the CLI by clicking **```**
+* Change today's set by clicking **`T**
 
 ![CleanShot 2021-04-05 at 20 50 58](https://user-images.githubusercontent.com/28697372/113643826-3de70600-9651-11eb-8429-c88a3865e943.png)
 

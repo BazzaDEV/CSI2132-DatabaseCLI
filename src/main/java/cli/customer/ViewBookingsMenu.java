@@ -43,10 +43,12 @@ public class ViewBookingsMenu extends Menu {
                 Helper.println(b.toStringAlt());
             }
         } else {
-            Helper.println("\nYou have no upcoming bookings." +
-                    "\nTaking you back to the main menu...");
+            Helper.println("\nYou have no upcoming bookings.");
 
         }
+
+        Helper.getInput("\n[Press any key to return to the main menu...]\n");
+        cliManager.prevMenu();
 
     }
 }

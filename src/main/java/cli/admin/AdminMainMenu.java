@@ -5,6 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 import structs.Pair;
 import users.Admin;
 import users.User;
+import utils.Emoji;
 import utils.Helper;
 import utils.Messages;
 import utils.Vars;
@@ -58,6 +59,8 @@ public class AdminMainMenu extends Menu {
 
 				} else if (choice1.equalsIgnoreCase("4")) {
 					FLAG = true;
+
+					Messages.signOutDialog();
 					cliManager.prevMenu();
 				}
 

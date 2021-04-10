@@ -84,7 +84,7 @@ public class RoomSearchMenu extends Menu {
                     }
 
                 } else { // Invalid entry
-                    Helper.println("\nInvalid entry - try again.");
+                    Helper.println(Messages.INVALID_ENTRY);
 
                 }
 
@@ -285,14 +285,15 @@ public class RoomSearchMenu extends Menu {
 
                     assert customer != null;
                     customer.bookRoom(hotelRoom, booking);
+                    cliManager.prevMenu();
 
                 } else { // Hotel ID and room number combination not in search results
-                    Helper.println("\n❌ This combination of hotel ID and room number aren't in the search results - try again.");
+                    Helper.println("\n⛔ This combination of hotel ID and room number aren't in the search results - try again.");
 
                 }
 
             } else { // Invalid entry
-                Helper.println("\n❌ Make sure both inputs are digits-only and try again.");
+                Helper.println("\n⛔ Make sure both inputs are digits-only and try again.");
             }
 
         }
@@ -317,7 +318,7 @@ public class RoomSearchMenu extends Menu {
 
                 } catch (ParseException e) { // Issue parsing dates, try again
                     FLAG = false;
-                    Helper.println("\n❌ Sorry, there was an issue with your dates." +
+                    Helper.println("\n⛔ Sorry, there was an issue with your dates." +
                             "\n  Make sure they're in YYYY-DD-MM format and try again.");
                     continue;
 
@@ -331,7 +332,7 @@ public class RoomSearchMenu extends Menu {
 
                         if (!startDate.equalsIgnoreCase(tDate)) {
                             FLAG = false;
-                            Helper.println("\n❌ The start date must be today (" + tDate + ") - try again.");
+                            Helper.println("\n⛔ The start date must be today (" + tDate + ") - try again.");
 
                         }
 

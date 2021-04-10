@@ -10,14 +10,15 @@ public class Vars {
 
     public static final String EXIT_APP_KEYWORD = "```";
     public static final String PREV_MENU_KEYWORD = "`";
+    public static final String SET_TODAYS_DATE_KEYWORD = "`T";
 
     public static final String DIVIDER_EQUALS = "=========================================";
 
-    public static final String DIVIDER_DASH = "---------------------------------";
+    public static final String DIVIDER_DASH = "-----------------------------------";
     public static final String DIVIDER_DASH_LONG = "---------------------------------------------";
 
     public static final String DIVIDER_ASTERICK = "*******************************";
-    public static final String DIVIDER_ASTERICK_LONG = "********************************************";
+    public static final String DIVIDER_ASTERICK_LONG = "************************************************************";
 
     public static final String DIVIDER_RED_SQUARE_LONG = Helper.repeat(Emoji.RED_SQUARE, 30);
 

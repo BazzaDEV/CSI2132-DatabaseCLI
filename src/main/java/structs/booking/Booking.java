@@ -114,6 +114,26 @@ public class Booking {
 
     }
 
+    public String toStringAlt2() {
+        StringBuilder strB = new StringBuilder();
+
+        HotelRoom hotelRoom = HotelRoom.fromBooking(this);
+
+        String title = "Booking ID: " + bookingID;
+        String titleCentered = StringUtils.center(title, Vars.DIVIDER_DASH.length());
+
+        assert hotelRoom != null;
+
+        strB.append(titleCentered)
+                .append("\n" + Vars.DIVIDER_DASH)
+                .append("\nRoom Number: ").append(hotelRoom.getRoomNumber())
+                .append("\nRoom Type: ").append(roomType)
+                .append("\nNumber of Occupants: ").append(numOccupants)
+                .append("\nDuration: ").append(Vars.DATE_FORMAT.format(startDate)).append(" -> ").append(Vars.DATE_FORMAT.format(endDate));
+
+        return strB.toString();
+    }
+
     public void setBookingID(int bookingID) {
         this.bookingID = bookingID;
     }

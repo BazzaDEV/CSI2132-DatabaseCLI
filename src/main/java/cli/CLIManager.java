@@ -5,12 +5,14 @@ import cli.customer.CustomerMainMenu;
 import cli.employee.EmployeeMainMenu;
 import cli.misc.LoginMenu;
 import database.SQLDatabaseConnection;
+import org.apache.commons.lang3.StringUtils;
 import users.Admin;
 import users.Customer;
 import users.Employee;
 import users.User;
 import utils.Emoji;
 import utils.Helper;
+import utils.Messages;
 import utils.Vars;
 
 import java.text.ParseException;

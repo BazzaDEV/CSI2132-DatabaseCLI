@@ -1,6 +1,7 @@
 package utils;
 
 import cli.CLIManager;
+import cli.misc.SetTodaysDateMenu;
 import database.SQLDatabaseConnection;
 import org.apache.commons.lang3.StringUtils;
 import structs.Address;
@@ -8,12 +9,14 @@ import structs.Name;
 import users.Customer;
 import users.Employee;
 
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 public class Helper {
     /**
@@ -98,6 +101,8 @@ public class Helper {
 
             System.exit(1);
 
+        } else if (input.equalsIgnoreCase(Vars.SET_TODAYS_DATE_KEYWORD)) {
+            CLIManager.getInstance().loadMenu(new SetTodaysDateMenu());
         }
     }
 
@@ -246,28 +251,6 @@ public class Helper {
     }
 
     /**
-     * DB Administrator
-     * Finds the the string of attribute/column names
-     * for the table with the same index using the two arrays
-     *
-     * @param tablename
-     * @param tables
-     * @param cols
-     * @return
-     */
-    public static String getCols(String tablename, String[]tables, String[]cols) {
-    	int index=0;
-    	for(int i=0; i<tables.length; i++) {
-    		if(tablename.equalsIgnoreCase(tables[i])){
-    			index=i;
-    		}
-    	}
-    	return cols[index];
-    }
-
-
-
-    /**
      * NOTE: This method is from Android's TextUtils class.
      *
      * Returns whether the given CharSequence contains only digits.
@@ -339,6 +322,25 @@ public class Helper {
         }
 
         return strB.toString().trim();
+    }
+
+    public static void sleep(int seconds) {
+        try {
+            TimeUnit.SECONDS.sleep(seconds);
+        } catch (InterruptedException ignored) {
+
+        }
+    }
+
+    public static void cls(){
+        try {
+
+            if (System.getProperty("os.name").contains("Windows"))
+                new ProcessBuilder("cmd", "/c",
+                        "cls").inheritIO().start().waitFor();
+            else
+                Runtime.getRuntime().exec("clear");
+        } catch (IOException | InterruptedException ignored) {}
     }
 
 }
