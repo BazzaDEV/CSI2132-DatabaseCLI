@@ -91,7 +91,7 @@ public class SQLDatabaseConnection {
             username = null;
             password = null;
 
-            Helper.println("\n" + Emoji.UNLOCKED + " Your database credentials were accepted." + Emoji.UNLOCKED);
+            Helper.println(Emoji.UNLOCKED + " Your database credentials were accepted." + Emoji.UNLOCKED);
             return true;
 
         } catch (ClassNotFoundException | SQLException e) {

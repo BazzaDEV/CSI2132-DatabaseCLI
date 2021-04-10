@@ -81,10 +81,11 @@ public class AdminMainMenu extends Menu {
 		boolean FLAG2 = true;
 		while (FLAG2) { //yes write
 
-			Helper.println("\nWhat table do you want to insert data into?");
+
 
 			boolean flag2 = false;
 			while (!flag2) {
+				Helper.println("\nWhat table do you want to insert data into?");
 				//get table name
 				tableName = Helper.getInput(">> ");
 
@@ -133,10 +134,11 @@ public class AdminMainMenu extends Menu {
 		boolean FLAG3 = true;
 		while (FLAG3) {    //yes write
 
-			Helper.println("\nWhat table do you want to delete data from?");
 
 			boolean flag4 = false;
 			while (!flag4) {
+				Helper.println("\nWhat table do you want to delete data from?");
+
 				tableName = Helper.getInput(">> ");
 
 				String finalTableName = tableName;
@@ -182,10 +184,11 @@ public class AdminMainMenu extends Menu {
 		boolean FLAG4 = true;
 		while (FLAG4) { //yes write
 
-			Helper.println("\nWhat table do you want to update data for?");
 
 			boolean flag3 = false;
 			while (!flag3) {
+				Helper.println("\nWhat table do you want to update data for?");
+
 				tableName = Helper.getInput(">> ");
 
 				String finalTableName = tableName;
